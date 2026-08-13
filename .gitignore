@@ -1,0 +1,143 @@
+# VisionLab — local and generated files
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.python-version
+.cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Packaging and build output
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+pip-wheel-metadata/
+
+# Test, coverage, lint, and type-check caches
+.pytest_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.hypothesis/
+.mypy_cache/
+.pyright/
+.ruff_cache/
+.tox/
+.nox/
+
+# Jupyter and notebook state
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+.jupyter/
+
+# Local configuration, credentials, and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+credentials.json
+secrets.json
+kaggle.json
+.kaggle/
+
+# Datasets — keep only documentation and deliberately curated tiny fixtures
+/data/*
+!/data/README.md
+!/data/fixtures/
+!/data/fixtures/**
+/datasets/
+/private_data/
+/restricted_data/
+
+# Training runs, checkpoints, exports, and experiment tracking
+/runs/
+/checkpoints/
+/artifacts/
+/outputs/
+/models/
+/weights/
+/wandb/
+/mlruns/
+/lightning_logs/
+/tensorboard/
+
+# Model and serialized array artifacts
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.onnx
+*.engine
+*.tflite
+*.h5
+*.hdf5
+*.npy
+*.npz
+*.pkl
+*.pickle
+*.joblib
+
+# Generated evaluation, diagnostics, and reports
+/reports/generated/
+/reports/drafts/
+/visualizations/generated/
+/diagnostics/
+/predictions/
+/evaluation_outputs/
+/confusion_matrices/
+/error_galleries/
+/saliency_maps/
+/gradcam_outputs/
+
+# Logs, temporary files, and local downloads
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+/downloads/
+
+# IDE and editor state
+.idea/
+.vscode/
+*.code-workspace
+
+# Operating-system metadata
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+Desktop.ini
+
+# Local AI-agent and workflow state
+.codex/
+.agents/
+.claude/
+.cursor/
+/handoff/
+/handoffs/
+*_handover.md
+*.handover.md
+
+# Local skills 
+/skills/
+
+# Keep project governance and intentionally curated portfolio material tracked.
+# In particular, do not ignore AGENTS.md, README.md,
+# AI_native_builder_journal.md, docs/, demo/, or data/fixtures/.
