@@ -12,15 +12,15 @@ This journal explains how VisionLab is being built by an AI-native builder: a de
 
 ## Current Journal State
 
-Status: **T0 complete / ready for T1 planning**
+Status: **T1 accepted / Phase 1 not started**
 
-The T0 bootstrap closeout has been accepted. No material training runs exist yet.
+The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. No material training runs exist yet.
 
-At this point, the main project artifacts are planning documents, governance records, a minimal package skeleton, and a local smoke path. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
+At this point, the main project artifacts are planning documents, governance records, a minimal package skeleton, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, and a development-dataset candidate comparison. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
 
 The applied domain remains intentionally undecided. It will be selected later through the implementation-stage feasibility gate rather than assumed at project start.
 
-This journal should not imply that planned datasets, models, commands, experiments, checkpoints, results, or application behavior have already been implemented or validated.
+This journal should not imply that planned datasets, models, commands, experiments, checkpoints, results, or application behavior have already been implemented or validated. CIFAR-10 is currently only a provisional Phase 1 development-dataset recommendation, not a registered dataset and not an applied-domain decision.
 
 Update this section as the project advances. Preserve historical detail in dated entries and phase closeouts rather than accumulating an outdated narrative here.
 
@@ -55,6 +55,53 @@ T0 establishes repository wiring and governance, not computer-vision behavior. D
 ### Next Boundary
 
 T0 was accepted by the builder on 2026-08-13. T1 has not started and requires a separate concept briefing and approval boundary.
+
+---
+
+## 2026-08-14 - T1 Foundations and Feasibility Triage Implementation
+
+### Context
+
+The builder approved T1 with a boundary around vision foundations, Python/PyTorch feasibility, tiny tensor/image/convolution exercises, deterministic test invocation clarity, and low-friction development-dataset comparison.
+
+### Concept or Hypothesis
+
+T1 tested whether VisionLab can proceed toward Phase 1 with a practical local CPU development path and a suitable provisional development dataset, without beginning dataset registration or material training.
+
+### AI Contribution
+
+Codex added T1 concept notes, dependency-light convolution and PGM helpers, an environment/device probe, deterministic tests, local scripts, compute feasibility documentation, a dataset candidate comparison, and a T1 closeout draft.
+
+### Evidence
+
+- `scripts/test.ps1` passed 8 unittest checks.
+- Base Python `3.14.5` had no ML dependencies installed.
+- An ignored `.venv` installed `torch 2.13.0+cpu` and `torchvision 0.28.0+cpu`.
+- CPU tensor and tiny PyTorch `conv2d` probes passed.
+- CUDA was not available locally.
+- Synthetic PGM artifacts were generated under ignored `outputs/t1_foundations/`.
+
+### Learning
+
+T1 reduced the Python 3.14/PyTorch risk for local CPU smoke work while keeping material training and GPU workflow approval separate. It also clarified why RGB data is preferable for the first core development dataset despite Fashion-MNIST being simpler.
+
+### Project Impact
+
+Recommended builder-review clarifications are recorded in `docs/requirement_change_log.md`. CIFAR-10 is recommended as the provisional Phase 1 development dataset, but no dataset has been downloaded, registered, split, or trained on.
+
+### Builder Review and Decision
+
+The builder accepted T1 on 2026-08-14, approved the recorded T1 requirement clarifications, and kept Phase 1 explicitly out of scope for this step. Final builder visual review of the generated T1 foundation artifacts remains recorded as the manual review condition.
+
+Approved clarifications:
+
+- Python 3.14.5 with the verified local `.venv` CPU PyTorch stack is the current tested development/smoke path; `requires-python` is not narrowed at this time.
+- `scripts/test.ps1` is the canonical deterministic local test command.
+- CIFAR-10 is the provisional Phase 1 development-dataset candidate only, pending dataset-contract, provenance/license, split-policy, validation, and visual-inspection work.
+
+### Next Boundary
+
+After final builder visual review of the T1 foundation artifacts, Phase 1 may be planned around dataset contract and visual data inspection. Phase 1 should still establish source, license, class mapping, validation split policy, sample grids, and data limitations before material training.
 
 ---
 
@@ -367,7 +414,7 @@ Expected artifacts may include:
 - compute feasibility note;
 - updated risks or requirements.
 
-Status: **Not started**
+Status: **Accepted; final builder visual review condition recorded**
 
 ---
 
@@ -616,7 +663,7 @@ Each closeout should record, at a useful level:
 Expected closeout trail:
 
 - T0 — [Project Bootstrap and Baseline Capture](docs/phase_closeouts/T0_project_bootstrap_and_baseline_capture.md)
-- T1 — to be added
+- T1 — [Vision Foundations and Feasibility Triage](docs/phase_closeouts/T1_vision_foundations_and_feasibility_triage.md)
 - Phase 1 — to be added
 - Phase 2 — to be added
 - Phase 3 — to be added

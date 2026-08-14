@@ -78,7 +78,7 @@ The project should remain narrow enough to finish. Detection, segmentation, vide
 
 ## Current Status
 
-Status: **T0 complete / ready for T1 planning**
+Status: **T1 accepted / Phase 1 not started**
 
 At this point:
 
@@ -89,11 +89,14 @@ At this point:
 - Git has been initialized for local version-control discipline;
 - baseline governance documents now exist under `docs/`;
 - a minimal Python smoke path exists for repository wiring only;
+- T1 concept notes, environment probes, tiny convolution/image exercises, and dataset-candidate notes exist;
+- Python 3.14.5 with an ignored local `.venv` and CPU PyTorch wheels has been verified for tiny tensor/convolution probes;
+- CIFAR-10 is recommended as the provisional core development dataset for Phase 1 planning only;
 - training-run and phase approval boundaries have been established;
 - the applied-domain decision has intentionally been deferred;
 - no application behavior, model training, dataset registration, or result should yet be assumed.
 
-The next implementation stage should review core vision concepts, verify the PyTorch/compute path, and evaluate low-friction development-dataset candidates before material model training begins.
+The next implementation stage should perform Phase 1 planning for dataset contract and visual data inspection after final builder visual review of the T1 foundation artifacts.
 
 This status section should be updated as phases close. Historical detail belongs in the builder journal and phase closeout documents rather than accumulating here.
 
@@ -108,6 +111,9 @@ T0 bootstrap documents now also include:
 - [`docs/risk_register.md`](docs/risk_register.md) - current project risks and controls
 - [`docs/requirement_change_log.md`](docs/requirement_change_log.md) - approved material requirement changes
 - [`docs/phase_catalog.md`](docs/phase_catalog.md) - phase status and closeout trail
+- [`docs/vision_foundations.md`](docs/vision_foundations.md) - T1 image tensor, convolution, pooling, feature-map, and split-role notes
+- [`docs/compute_feasibility.md`](docs/compute_feasibility.md) - T1 Python/PyTorch/device probe evidence
+- [`docs/development_dataset_candidates.md`](docs/development_dataset_candidates.md) - T1 development-dataset comparison and provisional recommendation
 
 Additional documents expected during implementation include:
 
@@ -297,6 +303,10 @@ Planned focus:
 
 Triage should reduce uncertainty before the project commits to its dataset contract or a material training run.
 
+Status: **Accepted.**
+
+T1 verified a local CPU PyTorch path in an ignored `.venv`, added dependency-light foundation helpers and tests, generated tiny synthetic convolution artifacts, and recommended CIFAR-10 as the provisional Phase 1 development dataset candidate. The builder accepted the T1 clarifications on 2026-08-14, with final builder visual review of the generated foundation artifacts recorded as the remaining manual review condition. No dataset has been registered and no material training has begun.
+
 ---
 
 ## Planned Implementation Progression
@@ -422,14 +432,15 @@ Do not infer PyTorch or training commands from the T0 smoke path.
 
 ## Running Tests
 
-The T0 test suite contains a single deterministic smoke test for repository wiring.
+The deterministic local test suite currently covers repository wiring plus T1 foundation and environment-probe helpers.
 
-Verified T0 test command:
+Verified deterministic local test command:
 
 ```powershell
-$env:PYTHONPATH = "src"
-python -m unittest discover -s tests
+powershell -ExecutionPolicy Bypass -File scripts\test.ps1
 ```
+
+`scripts/test.ps1` sets `PYTHONPATH=src` explicitly before invoking `unittest`. Raw `python -m unittest discover -s tests` does not read the `pyproject.toml` pytest configuration and should not be treated as the canonical local command.
 
 The intended default suite should be deterministic, CPU-compatible, and independent of full dataset downloads or GPU access.
 
