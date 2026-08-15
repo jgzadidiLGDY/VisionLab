@@ -12,11 +12,13 @@ This journal explains how VisionLab is being built by an AI-native builder: a de
 
 ## Current Journal State
 
-Status: **T1 accepted / Phase 1 not started**
+Status: **Phase 1A accepted / Phase 1B not started**
 
-The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. No material training runs exist yet.
+The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A has been accepted with no further expansion requested. No material training runs exist yet.
 
-At this point, the main project artifacts are planning documents, governance records, a minimal package skeleton, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, and a development-dataset candidate comparison. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
+At this point, the main project artifacts are planning documents, governance records, a minimal package skeleton, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, and Phase 1A dataset-contract scaffolding. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
+
+Phase 1A boundary note: CIFAR-10 remains provisional and unregistered. Phase 1B must still define the CIFAR-10 source/version record, split policy, stable sample-ID strategy, deterministic preprocessing profile, class-count report, visual-inspection outputs, and group/leakage limitations before any development dataset is treated as registered.
 
 The applied domain remains intentionally undecided. It will be selected later through the implementation-stage feasibility gate rather than assumed at project start.
 

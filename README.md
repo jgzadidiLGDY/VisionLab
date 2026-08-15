@@ -78,7 +78,7 @@ The project should remain narrow enough to finish. Detection, segmentation, vide
 
 ## Current Status
 
-Status: **T1 accepted / Phase 1 not started**
+Status: **Phase 1A accepted / Phase 1B not started**
 
 At this point:
 
@@ -91,12 +91,14 @@ At this point:
 - a minimal Python smoke path exists for repository wiring only;
 - T1 concept notes, environment probes, tiny convolution/image exercises, and dataset-candidate notes exist;
 - Python 3.14.5 with an ignored local `.venv` and CPU PyTorch wheels has been verified for tiny tensor/convolution probes;
-- CIFAR-10 is recommended as the provisional core development dataset for Phase 1 planning only;
+- CIFAR-10 is recommended as the provisional core development dataset for Phase 1B planning only;
 - training-run and phase approval boundaries have been established;
 - the applied-domain decision has intentionally been deferred;
-- no application behavior, model training, dataset registration, or result should yet be assumed.
+- Phase 1A dataset-contract code and committed tiny-fixture validation have been accepted;
+- no full development dataset has been downloaded or registered;
+- no application behavior, model training, material dataset result, or model result should yet be assumed.
 
-The next implementation stage should perform Phase 1 planning for dataset contract and visual data inspection after final builder visual review of the T1 foundation artifacts.
+The next implementation stage should review and approve a Phase 1B plan for CIFAR-10 registration and visual data inspection. CIFAR-10 remains provisional and unregistered.
 
 This status section should be updated as phases close. Historical detail belongs in the builder journal and phase closeout documents rather than accumulating here.
 
@@ -114,6 +116,7 @@ T0 bootstrap documents now also include:
 - [`docs/vision_foundations.md`](docs/vision_foundations.md) - T1 image tensor, convolution, pooling, feature-map, and split-role notes
 - [`docs/compute_feasibility.md`](docs/compute_feasibility.md) - T1 Python/PyTorch/device probe evidence
 - [`docs/development_dataset_candidates.md`](docs/development_dataset_candidates.md) - T1 development-dataset comparison and provisional recommendation
+- [`docs/dataset_contract.md`](docs/dataset_contract.md) - Phase 1A dataset contract and tiny-fixture validation shape
 
 Additional documents expected during implementation include:
 
