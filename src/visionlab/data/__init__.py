@@ -8,6 +8,7 @@ from visionlab.data.manifests import (
     SampleRecord,
 )
 from visionlab.data.validation import ValidationIssue, ValidationReport, validate_manifest
+from visionlab.data.splits import stratified_validation_indices
 
 __all__ = [
     "ClassMapping",
@@ -17,5 +18,6 @@ __all__ = [
     "SampleRecord",
     "ValidationIssue",
     "ValidationReport",
+    "stratified_validation_indices",
     "validate_manifest",
 ]

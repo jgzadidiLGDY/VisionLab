@@ -1,6 +1,6 @@
 # VisionLab Risk Register
 
-Status: T1 accepted; Phase 1 not started.
+Status: Phase 1 complete; Phase 2 not started.
 
 This register tracks project risks that should be reviewed at phase checks and updated when implementation evidence changes their likelihood, impact, or control plan.
 
@@ -8,7 +8,7 @@ This register tracks project risks that should be reviewed at phase checks and u
 | --- | --- | --- | --- |
 | R-001 | Scope expands into a broad survey of classification, detection, segmentation, simulation, edge deployment, or unrelated domains. | Classification-first core, deferred applied-domain gate, explicit non-goals, approval for major changes. | Open |
 | R-002 | Broad phases hide multiple approvals, training boundaries, or artifact-contract decisions. | Use bounded phase plans, approved subphases when needed, phase checks, and closeouts. | Open |
-| R-003 | Correlated images leak across train, validation, test, OOD, or real-world boundaries. | Future group-aware manifests, source-aware split review, and visual inspection before material training. | Open |
+| R-003 | Correlated images leak across train, validation, test, OOD, or real-world boundaries. | Phase 1B preserves CIFAR-10 upstream partition and source index, keeps official test untouched, and documents that CIFAR-10 does not expose rich group metadata through the standard torchvision interface. Future applied data must use stronger group-aware controls where group identity exists. | Open; limitation documented |
 | R-004 | Models learn shortcuts from backgrounds, compression, source artifacts, or generation metadata. | Future source controls, failure analysis, cross-source evaluation, and cautious interpretation. | Open |
 | R-005 | Training ambitions exceed local or free-tier compute. | Smoke paths before material runs, bounded models, no uncontrolled search, explicit training approval. | Open |
 | R-006 | Experimental integrity is weakened by tuning toward a preferred result. | Preserve null and mixed results; separate engineering success from experimental outcome. | Open |
@@ -23,3 +23,4 @@ This register tracks project risks that should be reviewed at phase checks and u
 
 - 2026-08-13: T0 initialized this register from the specification's initial risks and added the observed Python 3.14.5 compatibility risk.
 - 2026-08-14: T1 reduced R-011 with local CPU PyTorch evidence and added R-012 for the now-documented test invocation behavior.
+- 2026-08-14: Phase 1B documented CIFAR-10 group/leakage limitations. The validation split is stratified from upstream train only, and upstream test remains untouched, but correlated-group leakage cannot be ruled out from standard CIFAR-10 metadata.

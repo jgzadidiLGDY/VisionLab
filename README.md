@@ -6,7 +6,7 @@ The intended project will build and train a custom CNN, compare it with one pret
 
 It is not intended to be a production inspection system, medical or forensic authority, broad computer-vision framework, vision-language-model project, or benchmark-chasing exercise.
 
-This repository has completed **T0 — Project Bootstrap and Baseline Capture**. The detailed specification, Codex working rules, governance documents, and a minimal local smoke path exist, but model, dataset, training, evaluation, and inference behavior should not yet be assumed unless repository inspection confirms otherwise.
+This repository has completed **Phase 1 - Dataset Contract and Visual Data Inspection**. CIFAR-10 is registered as the provisional core development dataset, but model, training, evaluation, and inference behavior should not yet be assumed unless repository inspection confirms otherwise.
 
 ---
 
@@ -78,7 +78,7 @@ The project should remain narrow enough to finish. Detection, segmentation, vide
 
 ## Current Status
 
-Status: **Phase 1A accepted / Phase 1B not started**
+Status: **Phase 1 complete / Phase 2 not started**
 
 At this point:
 
@@ -91,14 +91,14 @@ At this point:
 - a minimal Python smoke path exists for repository wiring only;
 - T1 concept notes, environment probes, tiny convolution/image exercises, and dataset-candidate notes exist;
 - Python 3.14.5 with an ignored local `.venv` and CPU PyTorch wheels has been verified for tiny tensor/convolution probes;
-- CIFAR-10 is recommended as the provisional core development dataset for Phase 1B planning only;
+- CIFAR-10 has been downloaded locally into ignored `data/` and registered as the provisional core development dataset;
 - training-run and phase approval boundaries have been established;
 - the applied-domain decision has intentionally been deferred;
 - Phase 1A dataset-contract code and committed tiny-fixture validation have been accepted;
-- no full development dataset has been downloaded or registered;
-- no application behavior, model training, material dataset result, or model result should yet be assumed.
+- Phase 1B generated ignored CIFAR-10 manifest summaries, class counts, and visual inspection grids that were accepted after builder visual review;
+- no application behavior, model training, material experiment result, or model result should yet be assumed.
 
-The next implementation stage should review and approve a Phase 1B plan for CIFAR-10 registration and visual data inspection. CIFAR-10 remains provisional and unregistered.
+The next implementation stage should begin Phase 2 planning with a separate concept briefing and implementation plan. Phase 2 has not started.
 
 This status section should be updated as phases close. Historical detail belongs in the builder journal and phase closeout documents rather than accumulating here.
 
@@ -117,6 +117,7 @@ T0 bootstrap documents now also include:
 - [`docs/compute_feasibility.md`](docs/compute_feasibility.md) - T1 Python/PyTorch/device probe evidence
 - [`docs/development_dataset_candidates.md`](docs/development_dataset_candidates.md) - T1 development-dataset comparison and provisional recommendation
 - [`docs/dataset_contract.md`](docs/dataset_contract.md) - Phase 1A dataset contract and tiny-fixture validation shape
+- [`docs/cifar10_phase1b_registration.md`](docs/cifar10_phase1b_registration.md) - Phase 1B CIFAR-10 registration, split policy, class counts, and visual-inspection findings
 
 Additional documents expected during implementation include:
 

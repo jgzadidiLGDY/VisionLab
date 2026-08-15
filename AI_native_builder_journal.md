@@ -12,17 +12,17 @@ This journal explains how VisionLab is being built by an AI-native builder: a de
 
 ## Current Journal State
 
-Status: **Phase 1A accepted / Phase 1B not started**
+Status: **Phase 1 complete / Phase 2 not started**
 
-The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A has been accepted with no further expansion requested. No material training runs exist yet.
+The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, and Phase 1 is complete. No material training runs exist yet.
 
-At this point, the main project artifacts are planning documents, governance records, a minimal package skeleton, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, and Phase 1A dataset-contract scaffolding. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
+At this point, the main project artifacts are planning documents, governance records, a minimal package skeleton, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, and accepted Phase 1B CIFAR-10 registration artifacts. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
 
-Phase 1A boundary note: CIFAR-10 remains provisional and unregistered. Phase 1B must still define the CIFAR-10 source/version record, split policy, stable sample-ID strategy, deterministic preprocessing profile, class-count report, visual-inspection outputs, and group/leakage limitations before any development dataset is treated as registered.
+Phase 1 boundary note: CIFAR-10 is now the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 has not started; no model implementation or training has begun.
 
 The applied domain remains intentionally undecided. It will be selected later through the implementation-stage feasibility gate rather than assumed at project start.
 
-This journal should not imply that planned datasets, models, commands, experiments, checkpoints, results, or application behavior have already been implemented or validated. CIFAR-10 is currently only a provisional Phase 1 development-dataset recommendation, not a registered dataset and not an applied-domain decision.
+This journal should not imply that planned models, commands, experiments, checkpoints, results, or application behavior have already been implemented or validated. CIFAR-10 is registered only as the provisional core development dataset, not as an applied-domain decision.
 
 Update this section as the project advances. Preserve historical detail in dated entries and phase closeouts rather than accumulating an outdated narrative here.
 
@@ -666,7 +666,9 @@ Expected closeout trail:
 
 - T0 — [Project Bootstrap and Baseline Capture](docs/phase_closeouts/T0_project_bootstrap_and_baseline_capture.md)
 - T1 — [Vision Foundations and Feasibility Triage](docs/phase_closeouts/T1_vision_foundations_and_feasibility_triage.md)
-- Phase 1 — to be added
+- Phase 1A — [Dataset Contract and Deterministic Tiny-Fixture Validation](docs/phase_closeouts/Phase_1A_dataset_contract_and_tiny_fixture_validation.md)
+- Phase 1B — [CIFAR-10 Registration and Visual Data Inspection](docs/phase_closeouts/Phase_1B_cifar10_registration_and_visual_inspection.md)
+- Phase 1 — [Dataset Contract and Visual Data Inspection](docs/phase_closeouts/Phase_1_dataset_contract_and_visual_data_inspection.md)
 - Phase 2 — to be added
 - Phase 3 — to be added
 - Phase 4 — to be added

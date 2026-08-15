@@ -1,6 +1,6 @@
 # VisionLab Dataset Contract
 
-Status: Phase 1A accepted; CIFAR-10 is not registered yet.
+Status: Phase 1 complete; CIFAR-10 is the registered provisional core development dataset.
 
 The dataset contract records the minimum identity, split, label, validation, and preprocessing information VisionLab needs before model training. It is intentionally not a generic dataset framework.
 
@@ -97,15 +97,15 @@ Samples:
 
 The fixture is deliberately tiny. It validates contract behavior; it is not a training dataset, visual-data finding, or model benchmark.
 
-## CIFAR-10 Readiness
+## CIFAR-10 Phase 1B Use
 
-The contract can represent CIFAR-10 in Phase 1B without embedding CIFAR-10-specific assumptions:
+The contract represents CIFAR-10 in Phase 1B without embedding CIFAR-10-specific assumptions:
 
 - CIFAR-10 source/version/license notes map to dataset identity.
 - The ten CIFAR-10 labels map to ordered class names.
 - The official train/test source partitions can be represented as declared splits.
-- A deterministic validation split can be represented as `val` after Phase 1B approves the split policy.
+- A deterministic validation split is represented as `val` while preserving upstream partition and source index separately.
 - CIFAR-10 image size and RGB preprocessing metadata fit the preprocessing spec.
 - CIFAR-10 sample records can use stable sample IDs and relative or source-local references.
 
-Known limitation for Phase 1B planning: CIFAR-10 does not expose rich correlated-group metadata, so `group_id` may be unavailable and should be recorded as a leakage-limit note.
+Known limitation: CIFAR-10 does not expose rich correlated-group metadata through the standard torchvision interface, so `group_id` remains unavailable and is recorded as a leakage-limit note in the Phase 1B registration document.
