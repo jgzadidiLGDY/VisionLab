@@ -1,6 +1,6 @@
 # VisionLab Risk Register
 
-Status: Phase 1 complete; Phase 2 not started.
+Status: Phase 2 complete; awaiting builder review.
 
 This register tracks project risks that should be reviewed at phase checks and updated when implementation evidence changes their likelihood, impact, or control plan.
 
@@ -16,11 +16,12 @@ This register tracks project risks that should be reviewed at phase checks and u
 | R-008 | Diagnostics such as Grad-CAM are overstated as proof of model reasoning. | Diagnostics limitations must be documented near diagnostic outputs and claims. | Open |
 | R-009 | AI-generated implementation outpaces builder understanding and review. | Concept briefings, approval gates, phase checks, and journaled AI recommendations. | Open |
 | R-010 | Portfolio language overstates evidence before artifacts exist. | README remains status-focused; numerical claims must trace to preserved artifacts. | Open |
-| R-011 | Current Python 3.14.5 environment may not be compatible with the intended PyTorch stack. | T1 verified an ignored local `.venv` with `torch 2.13.0+cpu`, `torchvision 0.28.0+cpu`, CPU tensor ops, and a tiny convolution check. Keep dependency range unchanged until a later dependency-pinning phase. | Reduced; monitor |
-| R-012 | Test commands are ambiguous because raw `unittest` does not read `pyproject.toml` `pythonpath` settings. | Use `scripts/test.ps1` as the deterministic local test command; it sets `PYTHONPATH=src` explicitly before running unittest. | Controlled |
+| R-011 | Current Python 3.14.5 environment may not be compatible with the intended PyTorch stack. | T1 verified an ignored local `.venv` with `torch 2.13.0+cpu`, `torchvision 0.28.0+cpu`, CPU tensor ops, and a tiny convolution check. Phase 2 now declares `torch>=2.13` for model work. Continue to monitor dependency compatibility before broader packaging or training work. | Reduced; monitor |
+| R-012 | Test commands are ambiguous because raw `unittest` does not read `pyproject.toml` `pythonpath` settings and the system Python may not have PyTorch. | Use `scripts/test.ps1` as the deterministic local test command; it sets `PYTHONPATH=src` and uses `.\.venv\Scripts\python.exe` when present, falling back to `python`. | Controlled |
 
 ## Review Notes
 
 - 2026-08-13: T0 initialized this register from the specification's initial risks and added the observed Python 3.14.5 compatibility risk.
 - 2026-08-14: T1 reduced R-011 with local CPU PyTorch evidence and added R-012 for the now-documented test invocation behavior.
 - 2026-08-14: Phase 1B documented CIFAR-10 group/leakage limitations. The validation split is stratified from upstream train only, and upstream test remains untouched, but correlated-group leakage cannot be ruled out from standard CIFAR-10 metadata.
+- 2026-08-15: Phase 2 declared PyTorch as an implementation dependency for custom model work and updated the deterministic test script to prefer the verified local `.venv`.

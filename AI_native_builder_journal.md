@@ -12,13 +12,13 @@ This journal explains how VisionLab is being built by an AI-native builder: a de
 
 ## Current Journal State
 
-Status: **Phase 1 complete / Phase 2 not started**
+Status: **Phase 2 complete / awaiting builder review**
 
 The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, and Phase 1 is complete. No material training runs exist yet.
 
-At this point, the main project artifacts are planning documents, governance records, a minimal package skeleton, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, and accepted Phase 1B CIFAR-10 registration artifacts. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
+At this point, the main project artifacts are planning documents, governance records, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, accepted Phase 1B CIFAR-10 registration artifacts, and the Phase 2 custom CNN forward-contract implementation. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
 
-Phase 1 boundary note: CIFAR-10 is now the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 has not started; no model implementation or training has begun.
+Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. No trainer, checkpoint, material training run, evaluation result, inference surface, or pretrained model exists yet.
 
 The applied domain remains intentionally undecided. It will be selected later through the implementation-stage feasibility gate rather than assumed at project start.
 
@@ -104,6 +104,41 @@ Approved clarifications:
 ### Next Boundary
 
 After final builder visual review of the T1 foundation artifacts, Phase 1 may be planned around dataset contract and visual data inspection. Phase 1 should still establish source, license, class mapping, validation split policy, sample grids, and data limitations before material training.
+
+---
+
+## 2026-08-15 - Phase 2 Custom CNN and Shape-Safe Forward Path
+
+### Context
+
+The builder approved Phase 2 after a concept briefing and implementation plan, with a strict boundary around the custom CNN, forward/loss smoke path, concise intermediate-shape inspection, parameter counting, invalid-input/configuration tests, deterministic verification, and Phase 2 check.
+
+### Concept or Hypothesis
+
+Phase 2 tested whether VisionLab could establish an explainable custom CNN data-to-logits path for CIFAR-10-shaped tensors before introducing a trainer or any material run.
+
+### AI Contribution
+
+Codex implemented `CustomCNNConfig`, `CustomCNN`, and `count_parameters`; added CPU-only unittest coverage; updated the deterministic test script to use the verified local `.venv` when available; declared `torch>=2.13` as a model-work dependency; and created the Phase 2 closeout.
+
+### Builder Review and Decision
+
+Implementation is complete and awaiting builder review. Phase 3 remains unstarted and requires a separate concept briefing and plan.
+
+### Evidence
+
+- `scripts/test.ps1` passed 32 tests.
+- The custom model returns raw logits shaped `N x 10`.
+- `torch.nn.CrossEntropyLoss` accepts the model output and integer class labels in the smoke test.
+- Intermediate shapes and parameter counts are documented in the Phase 2 closeout.
+
+### Project Impact
+
+VisionLab now has its first custom model skeleton and shape-safe forward contract. It still has no training engine, checkpointing, material experiment, model metrics, inference path, transfer learning, or applied-domain behavior.
+
+### Next Boundary
+
+After builder acceptance of Phase 2, the next step is a separate Phase 3 concept briefing and implementation plan for the reproducible training engine.
 
 ---
 
@@ -669,7 +704,7 @@ Expected closeout trail:
 - Phase 1A — [Dataset Contract and Deterministic Tiny-Fixture Validation](docs/phase_closeouts/Phase_1A_dataset_contract_and_tiny_fixture_validation.md)
 - Phase 1B — [CIFAR-10 Registration and Visual Data Inspection](docs/phase_closeouts/Phase_1B_cifar10_registration_and_visual_inspection.md)
 - Phase 1 — [Dataset Contract and Visual Data Inspection](docs/phase_closeouts/Phase_1_dataset_contract_and_visual_data_inspection.md)
-- Phase 2 — to be added
+- Phase 2 — [Custom CNN and Shape-Safe Forward Path](docs/phase_closeouts/Phase_2_custom_cnn_and_shape_safe_forward_path.md)
 - Phase 3 — to be added
 - Phase 4 — to be added
 - Phase 5 — to be added

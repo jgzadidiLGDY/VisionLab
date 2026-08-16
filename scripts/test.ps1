@@ -1,3 +1,7 @@
 $ErrorActionPreference = "Stop"
 $env:PYTHONPATH = "src"
-python -m unittest discover -s tests
+$python = "python"
+if (Test-Path ".\.venv\Scripts\python.exe") {
+    $python = ".\.venv\Scripts\python.exe"
+}
+& $python -m unittest discover -s tests

@@ -78,7 +78,7 @@ The project should remain narrow enough to finish. Detection, segmentation, vide
 
 ## Current Status
 
-Status: **Phase 1 complete / Phase 2 not started**
+Status: **Phase 2 complete / awaiting builder review**
 
 At this point:
 
@@ -96,9 +96,10 @@ At this point:
 - the applied-domain decision has intentionally been deferred;
 - Phase 1A dataset-contract code and committed tiny-fixture validation have been accepted;
 - Phase 1B generated ignored CIFAR-10 manifest summaries, class counts, and visual inspection grids that were accepted after builder visual review;
-- no application behavior, model training, material experiment result, or model result should yet be assumed.
+- Phase 2 added a compact custom PyTorch CNN, shape-safe forward path, concise intermediate-shape inspection, parameter counting, and CPU forward/loss tests;
+- no trainer, checkpoint, material training run, evaluation result, inference surface, or pretrained model should yet be assumed.
 
-The next implementation stage should begin Phase 2 planning with a separate concept briefing and implementation plan. Phase 2 has not started.
+The next implementation stage should begin Phase 3 planning with a separate concept briefing and implementation plan after builder review of Phase 2. Phase 3 has not started.
 
 This status section should be updated as phases close. Historical detail belongs in the builder journal and phase closeout documents rather than accumulating here.
 
@@ -436,7 +437,7 @@ Do not infer PyTorch or training commands from the T0 smoke path.
 
 ## Running Tests
 
-The deterministic local test suite currently covers repository wiring plus T1 foundation and environment-probe helpers.
+The deterministic local test suite currently covers repository wiring, T1 foundation and environment-probe helpers, Phase 1 data contracts and splits, and Phase 2 custom-CNN forward-contract behavior.
 
 Verified deterministic local test command:
 
@@ -444,7 +445,7 @@ Verified deterministic local test command:
 powershell -ExecutionPolicy Bypass -File scripts\test.ps1
 ```
 
-`scripts/test.ps1` sets `PYTHONPATH=src` explicitly before invoking `unittest`. Raw `python -m unittest discover -s tests` does not read the `pyproject.toml` pytest configuration and should not be treated as the canonical local command.
+`scripts/test.ps1` sets `PYTHONPATH=src` explicitly, uses `.\.venv\Scripts\python.exe` when present, and falls back to `python` before invoking `unittest`. Raw `python -m unittest discover -s tests` does not read the `pyproject.toml` pytest configuration and may use an interpreter without PyTorch, so it should not be treated as the canonical local command.
 
 The intended default suite should be deterministic, CPU-compatible, and independent of full dataset downloads or GPU access.
 

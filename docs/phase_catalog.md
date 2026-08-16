@@ -1,6 +1,6 @@
 # VisionLab Phase Catalog
 
-Status: Phase 1 complete; Phase 2 not started.
+Status: Phase 2 complete; awaiting builder review.
 
 This catalog tracks the current phase sequence and phase status. The project specification remains the source for detailed scope, exit criteria, and maturity boundaries.
 
@@ -11,7 +11,7 @@ This catalog tracks the current phase sequence and phase status. The project spe
 | 1A | Dataset Contract and Deterministic Tiny-Fixture Validation | Complete | [Phase 1A closeout](phase_closeouts/Phase_1A_dataset_contract_and_tiny_fixture_validation.md) |
 | 1B | CIFAR-10 Registration and Visual Data Inspection | Complete | [Phase 1B closeout](phase_closeouts/Phase_1B_cifar10_registration_and_visual_inspection.md) |
 | 1 | Dataset Contract and Visual Data Inspection | Complete | [Phase 1 closeout](phase_closeouts/Phase_1_dataset_contract_and_visual_data_inspection.md) |
-| 2 | Custom CNN and Shape-Safe Forward Path | Not started | To be added |
+| 2 | Custom CNN and Shape-Safe Forward Path | Complete; awaiting builder review | [Phase 2 closeout](phase_closeouts/Phase_2_custom_cnn_and_shape_safe_forward_path.md) |
 | 3 | Reproducible Training Engine | Not started | To be added |
 | 4 | Custom CNN Baseline Experiment | Not started | To be added |
 | 5 | Augmentation and Generalization Controls | Not started | To be added |
@@ -32,4 +32,5 @@ This catalog tracks the current phase sequence and phase status. The project spe
 - Material training requires a separate compute and artifact approval boundary.
 - Phases may be split into approved subphases when evidence shows a safer review boundary.
 - CIFAR-10 is the registered provisional core development dataset; this is not an applied-domain selection.
-- Phase 1 registered a deterministic train/validation/test split, stable upstream-based sample IDs, and a deterministic preprocessing profile. No model implementation or training has begun.
+- Phase 1 registered a deterministic train/validation/test split, stable upstream-based sample IDs, and a deterministic preprocessing profile.
+- Phase 2 implemented a compact custom CNN and CPU forward/loss smoke path. No training engine, checkpoint, material run, or model result exists.
