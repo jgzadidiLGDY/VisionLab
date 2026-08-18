@@ -12,13 +12,13 @@ This journal explains how VisionLab is being built by an AI-native builder: a de
 
 ## Current Journal State
 
-Status: **Phase 2 complete / awaiting builder review**
+Status: **Phase 3 complete / accepted**
 
-The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, and Phase 1 is complete. No material training runs exist yet.
+The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, Phase 1 is complete, and Phase 3 is complete and accepted. No material training runs exist yet.
 
-At this point, the main project artifacts are planning documents, governance records, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, accepted Phase 1B CIFAR-10 registration artifacts, and the Phase 2 custom CNN forward-contract implementation. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
+At this point, the main project artifacts are planning documents, governance records, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, accepted Phase 1B CIFAR-10 registration artifacts, the Phase 2 custom CNN forward-contract implementation, and the Phase 3 bounded training-engine implementation. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
 
-Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. No trainer, checkpoint, material training run, evaluation result, inference surface, or pretrained model exists yet.
+Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. Phase 3 implemented and closed CPU-only training loops, validation, optional scheduler stepping and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss handling against synthetic/tiny verification data. No material CIFAR-10 training run, baseline result, test-set evaluation, inference surface, or pretrained model exists yet.
 
 The applied domain remains intentionally undecided. It will be selected later through the implementation-stage feasibility gate rather than assumed at project start.
 
@@ -123,7 +123,7 @@ Codex implemented `CustomCNNConfig`, `CustomCNN`, and `count_parameters`; added 
 
 ### Builder Review and Decision
 
-Implementation is complete and awaiting builder review. Phase 3 remains unstarted and requires a separate concept briefing and plan.
+Implementation is complete and awaiting builder review. Phase 3 remained out of scope for this entry and required a separate concept briefing and plan.
 
 ### Evidence
 
@@ -139,6 +139,39 @@ VisionLab now has its first custom model skeleton and shape-safe forward contrac
 ### Next Boundary
 
 After builder acceptance of Phase 2, the next step is a separate Phase 3 concept briefing and implementation plan for the reproducible training engine.
+
+---
+
+## 2026-08-17 - Phase 3 Reproducible Training Engine Implementation
+
+### Context
+
+The builder approved Phase 3 after concept briefing and plan review, with a strict boundary around CPU synthetic/tiny-data verification, reproducibility-focused metadata, bounded checkpoint compatibility, validation/no-grad behavior, optional minimal scheduler support, and non-finite loss failure status.
+
+### Concept or Hypothesis
+
+Phase 3 tested whether VisionLab can run controlled optimization infrastructure, preserve enough state to restore a compatible checkpoint, and leave failed runs inspectable before any material CIFAR-10 baseline experiment.
+
+### AI Contribution
+
+Codex implemented `visionlab.training` modules for configuration, reproducibility helpers, training/validation loops, fit orchestration, optional scheduler construction, checkpoint save/restore, and run metadata. Codex added CPU-only tests for parameter updates, validation no-grad behavior, deterministic tiny overfit, learning-rate history, checkpoint round trip, incompatible checkpoint rejection, and non-finite loss failure metadata.
+
+### Evidence
+
+- `scripts/test.ps1` passed 38 tests.
+- Tiny synthetic in-memory data reaches an explicit overfit criterion with final training accuracy `1.0` and final training loss below `0.02`.
+- Validation preserves model training mode and does not mutate parameters or gradients in the tested path.
+- Checkpoint restore verifies model, optimizer, scheduler, run, seed, epoch, and metric identity at the bounded Phase 3 level.
+
+### Project Impact
+
+VisionLab now has a reusable training-engine smoke path and checkpoint contract suitable for reviewing a later Phase 4 baseline training plan. It still has no material CIFAR-10 baseline, test-set evaluation, pretrained model, inference surface, or applied-domain behavior.
+
+### Next Boundary
+
+The builder accepted Phase 3 based on the completed phase-check report. Phase 3 is closed at `docs/phase_closeouts/Phase_3_reproducible_training_engine.md`.
+
+Phase 4 should begin only after a separate concept briefing and implementation plan. Entry considerations carried forward from Phase 3 are explicit DataLoader shuffle/worker seed policy, explicit validation-based checkpoint-selection metric, continued test-split isolation from model selection, and approval before material training.
 
 ---
 
@@ -705,7 +738,7 @@ Expected closeout trail:
 - Phase 1B — [CIFAR-10 Registration and Visual Data Inspection](docs/phase_closeouts/Phase_1B_cifar10_registration_and_visual_inspection.md)
 - Phase 1 — [Dataset Contract and Visual Data Inspection](docs/phase_closeouts/Phase_1_dataset_contract_and_visual_data_inspection.md)
 - Phase 2 — [Custom CNN and Shape-Safe Forward Path](docs/phase_closeouts/Phase_2_custom_cnn_and_shape_safe_forward_path.md)
-- Phase 3 — to be added
+- Phase 3 — [Reproducible Training Engine](docs/phase_closeouts/Phase_3_reproducible_training_engine.md)
 - Phase 4 — to be added
 - Phase 5 — to be added
 - Phase 6 — to be added

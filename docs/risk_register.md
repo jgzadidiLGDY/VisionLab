@@ -1,6 +1,6 @@
 # VisionLab Risk Register
 
-Status: Phase 2 complete; awaiting builder review.
+Status: Phase 3 complete; accepted.
 
 This register tracks project risks that should be reviewed at phase checks and updated when implementation evidence changes their likelihood, impact, or control plan.
 
@@ -25,3 +25,4 @@ This register tracks project risks that should be reviewed at phase checks and u
 - 2026-08-14: T1 reduced R-011 with local CPU PyTorch evidence and added R-012 for the now-documented test invocation behavior.
 - 2026-08-14: Phase 1B documented CIFAR-10 group/leakage limitations. The validation split is stratified from upstream train only, and upstream test remains untouched, but correlated-group leakage cannot be ruled out from standard CIFAR-10 metadata.
 - 2026-08-15: Phase 2 declared PyTorch as an implementation dependency for custom model work and updated the deterministic test script to prefer the verified local `.venv`.
+- 2026-08-17: Phase 3 added CPU-only training-engine verification, bounded checkpoint restore checks, and non-finite loss failure status before any material CIFAR-10 training run.

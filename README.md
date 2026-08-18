@@ -6,7 +6,7 @@ The intended project will build and train a custom CNN, compare it with one pret
 
 It is not intended to be a production inspection system, medical or forensic authority, broad computer-vision framework, vision-language-model project, or benchmark-chasing exercise.
 
-This repository has completed **Phase 1 - Dataset Contract and Visual Data Inspection**. CIFAR-10 is registered as the provisional core development dataset, but model, training, evaluation, and inference behavior should not yet be assumed unless repository inspection confirms otherwise.
+This repository has completed **Phase 3 - Reproducible Training Engine**. CIFAR-10 is registered as the provisional core development dataset, but material training, evaluation, and inference behavior should not yet be assumed unless repository inspection confirms otherwise.
 
 ---
 
@@ -78,7 +78,7 @@ The project should remain narrow enough to finish. Detection, segmentation, vide
 
 ## Current Status
 
-Status: **Phase 2 complete / awaiting builder review**
+Status: **Phase 3 complete / accepted**
 
 At this point:
 
@@ -97,9 +97,10 @@ At this point:
 - Phase 1A dataset-contract code and committed tiny-fixture validation have been accepted;
 - Phase 1B generated ignored CIFAR-10 manifest summaries, class counts, and visual inspection grids that were accepted after builder visual review;
 - Phase 2 added a compact custom PyTorch CNN, shape-safe forward path, concise intermediate-shape inspection, parameter counting, and CPU forward/loss tests;
-- no trainer, checkpoint, material training run, evaluation result, inference surface, or pretrained model should yet be assumed.
+- Phase 3 added and closed a bounded CPU training engine with synthetic tiny-data verification, validation loop, optional scheduler support and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss failure status;
+- no material CIFAR-10 training run, baseline result, test-set evaluation, inference surface, or pretrained model should yet be assumed.
 
-The next implementation stage should begin Phase 3 planning with a separate concept briefing and implementation plan after builder review of Phase 2. Phase 3 has not started.
+The next project step should be a separate Phase 4 concept briefing and implementation plan. Phase 4 entry should explicitly define DataLoader shuffle/worker seed policy, validation-based checkpoint-selection metric, continued test-split isolation from model selection, and material training approval conditions.
 
 This status section should be updated as phases close. Historical detail belongs in the builder journal and phase closeout documents rather than accumulating here.
 
@@ -437,7 +438,7 @@ Do not infer PyTorch or training commands from the T0 smoke path.
 
 ## Running Tests
 
-The deterministic local test suite currently covers repository wiring, T1 foundation and environment-probe helpers, Phase 1 data contracts and splits, and Phase 2 custom-CNN forward-contract behavior.
+The deterministic local test suite currently covers repository wiring, T1 foundation and environment-probe helpers, Phase 1 data contracts and splits, Phase 2 custom-CNN forward-contract behavior, and Phase 3 CPU training-engine behavior.
 
 Verified deterministic local test command:
 
