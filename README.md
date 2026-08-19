@@ -6,7 +6,7 @@ The intended project will build and train a custom CNN, compare it with one pret
 
 It is not intended to be a production inspection system, medical or forensic authority, broad computer-vision framework, vision-language-model project, or benchmark-chasing exercise.
 
-This repository has completed **Phase 3 - Reproducible Training Engine**. CIFAR-10 is registered as the provisional core development dataset, but material training, evaluation, and inference behavior should not yet be assumed unless repository inspection confirms otherwise.
+This repository has completed **Phase 4 - Custom CNN Baseline Experiment**. CIFAR-10 is registered as the provisional core development dataset, and the first single-run custom CNN baseline is preserved as a controlled comparison reference; inference, pretrained models, augmentation, calibration, robustness, OOD, diagnostics, and applied-domain behavior should not yet be assumed unless repository inspection confirms otherwise.
 
 ---
 
@@ -78,7 +78,7 @@ The project should remain narrow enough to finish. Detection, segmentation, vide
 
 ## Current Status
 
-Status: **Phase 3 complete / accepted**
+Status: **Phase 4 complete / accepted**
 
 At this point:
 
@@ -98,9 +98,14 @@ At this point:
 - Phase 1B generated ignored CIFAR-10 manifest summaries, class counts, and visual inspection grids that were accepted after builder visual review;
 - Phase 2 added a compact custom PyTorch CNN, shape-safe forward path, concise intermediate-shape inspection, parameter counting, and CPU forward/loss tests;
 - Phase 3 added and closed a bounded CPU training engine with synthetic tiny-data verification, validation loop, optional scheduler support and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss failure status;
-- no material CIFAR-10 training run, baseline result, test-set evaluation, inference surface, or pretrained model should yet be assumed.
+- Phase 4A added baseline experiment plumbing, registered split loader construction, DataLoader reproducibility policy, minimal prediction/evaluation artifacts, machine-readable history/curve artifacts, and a tiny non-material smoke route;
+- Phase 4A smoke metrics are pipeline evidence only and are not official VisionLab baseline performance results;
+- Phase 4B ran the approved single-run custom CNN CPU baseline on registered CIFAR-10, selected the best checkpoint by validation loss, restored that checkpoint, and evaluated the official test split once;
+- Phase 4B produced a single-run baseline result, with restored-best official test loss `1.024515` and test accuracy `0.635900`;
+- the Phase 4 baseline is not a tuned best result, not a variance estimate, and not a calibration, robustness, OOD, or broader generalization claim;
+- no inference surface, pretrained model, augmentation experiment, calibration, robustness, OOD, diagnostics, or applied-domain behavior should yet be assumed.
 
-The next project step should be a separate Phase 4 concept briefing and implementation plan. Phase 4 entry should explicitly define DataLoader shuffle/worker seed policy, validation-based checkpoint-selection metric, continued test-split isolation from model selection, and material training approval conditions.
+The next project step should be a separate Phase 5 concept briefing and implementation plan for Augmentation and Generalization Controls. Phase 5 should not begin until that briefing and plan are reviewed and approved.
 
 This status section should be updated as phases close. Historical detail belongs in the builder journal and phase closeout documents rather than accumulating here.
 
@@ -120,6 +125,8 @@ T0 bootstrap documents now also include:
 - [`docs/development_dataset_candidates.md`](docs/development_dataset_candidates.md) - T1 development-dataset comparison and provisional recommendation
 - [`docs/dataset_contract.md`](docs/dataset_contract.md) - Phase 1A dataset contract and tiny-fixture validation shape
 - [`docs/cifar10_phase1b_registration.md`](docs/cifar10_phase1b_registration.md) - Phase 1B CIFAR-10 registration, split policy, class counts, and visual-inspection findings
+- [`docs/phase_closeouts/Phase_4A_baseline_experiment_plumbing_and_smoke_verification.md`](docs/phase_closeouts/Phase_4A_baseline_experiment_plumbing_and_smoke_verification.md) - Phase 4A plumbing, smoke verification, limitations, and proposed Phase 4B approval plan
+- [`docs/phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md`](docs/phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md) - accepted Phase 4 closeout, material baseline result, artifact inventory, and limitations
 
 Additional documents expected during implementation include:
 

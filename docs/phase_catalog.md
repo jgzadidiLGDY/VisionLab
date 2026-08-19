@@ -1,6 +1,6 @@
 # VisionLab Phase Catalog
 
-Status: Phase 3 complete; accepted.
+Status: Phase 4 complete; accepted.
 
 This catalog tracks the current phase sequence and phase status. The project specification remains the source for detailed scope, exit criteria, and maturity boundaries.
 
@@ -13,7 +13,9 @@ This catalog tracks the current phase sequence and phase status. The project spe
 | 1 | Dataset Contract and Visual Data Inspection | Complete | [Phase 1 closeout](phase_closeouts/Phase_1_dataset_contract_and_visual_data_inspection.md) |
 | 2 | Custom CNN and Shape-Safe Forward Path | Complete; awaiting builder review | [Phase 2 closeout](phase_closeouts/Phase_2_custom_cnn_and_shape_safe_forward_path.md) |
 | 3 | Reproducible Training Engine | Complete; accepted | [Phase 3 closeout](phase_closeouts/Phase_3_reproducible_training_engine.md) |
-| 4 | Custom CNN Baseline Experiment | Not started | To be added |
+| 4 | Custom CNN Baseline Experiment | Complete; accepted | [Phase 4 closeout](phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md) |
+| 4A | Baseline Experiment Plumbing and Smoke Verification | Complete; accepted as Phase 4 subphase | [Phase 4A closeout](phase_closeouts/Phase_4A_baseline_experiment_plumbing_and_smoke_verification.md) |
+| 4B | Custom CNN Material Baseline Run and Report | Complete; accepted as Phase 4 subphase | [Phase 4 closeout](phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md) |
 | 5 | Augmentation and Generalization Controls | Not started | To be added |
 | 6 | Transfer Learning and Fine-Tuning | Not started | To be added |
 | 7 | Evaluation Harness and Calibration | Not started | To be added |
@@ -35,5 +37,7 @@ This catalog tracks the current phase sequence and phase status. The project spe
 - Phase 1 registered a deterministic train/validation/test split, stable upstream-based sample IDs, and a deterministic preprocessing profile.
 - Phase 2 implemented a compact custom CNN and CPU forward/loss smoke path.
 - Phase 3 implemented and closed a bounded CPU training engine with synthetic tiny-data verification, checkpoint save/restore, minimal reproducibility metadata, optional scheduler support, and non-finite loss failure status.
-- No material CIFAR-10 training run, baseline result, test-set evaluation, inference surface, pretrained model, or applied-domain behavior exists.
-- Phase 4 entry should explicitly define DataLoader shuffle/worker seed policy, validation-based checkpoint-selection metric, and continued test-split isolation from model selection.
+- Phase 4A implemented baseline experiment plumbing and a tiny smoke route. Its smoke metrics are pipeline evidence only, not official baseline results.
+- Phase 4B produced the first single-run custom CNN CIFAR-10 baseline result: restored-best official test loss `1.024515` and test accuracy `0.635900`. It is not a tuned best result and not an estimate of run-to-run variance.
+- No inference surface, pretrained model, augmentation experiment, calibration, robustness, OOD, diagnostics, or applied-domain behavior exists.
+- Phase 4 is closed and accepted. The Phase 4 baseline artifacts and configuration are the reference point for later controlled comparisons.

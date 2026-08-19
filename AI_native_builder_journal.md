@@ -12,17 +12,17 @@ This journal explains how VisionLab is being built by an AI-native builder: a de
 
 ## Current Journal State
 
-Status: **Phase 3 complete / accepted**
+Status: **Phase 4 complete / accepted**
 
-The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, Phase 1 is complete, and Phase 3 is complete and accepted. No material training runs exist yet.
+The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, Phase 1 is complete, Phase 3 is complete and accepted, Phase 4A is implemented, the approved Phase 4B material baseline run has completed, and Phase 4 is accepted and closed.
 
-At this point, the main project artifacts are planning documents, governance records, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, accepted Phase 1B CIFAR-10 registration artifacts, the Phase 2 custom CNN forward-contract implementation, and the Phase 3 bounded training-engine implementation. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
+At this point, the main project artifacts are planning documents, governance records, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, accepted Phase 1B CIFAR-10 registration artifacts, the Phase 2 custom CNN forward-contract implementation, the Phase 3 bounded training-engine implementation, Phase 4A baseline experiment plumbing with tiny smoke artifacts, and the Phase 4B single-run custom CNN baseline artifacts. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
 
-Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. Phase 3 implemented and closed CPU-only training loops, validation, optional scheduler stepping and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss handling against synthetic/tiny verification data. No material CIFAR-10 training run, baseline result, test-set evaluation, inference surface, or pretrained model exists yet.
+Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. Phase 3 implemented and closed CPU-only training loops, validation, optional scheduler stepping and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss handling against synthetic/tiny verification data. Phase 4A implemented loader, evaluation-artifact, prediction-record, history, and tiny smoke plumbing. Phase 4B produced a single-run custom CNN CIFAR-10 baseline result: restored-best official test loss `1.024515` and test accuracy `0.635900`. It is not a tuned best result and not a variance, calibration, robustness, OOD, or broader generalization claim. No inference surface, pretrained model, augmentation experiment, calibration, robustness, OOD, diagnostics, or applied-domain behavior exists yet.
 
 The applied domain remains intentionally undecided. It will be selected later through the implementation-stage feasibility gate rather than assumed at project start.
 
-This journal should not imply that planned models, commands, experiments, checkpoints, results, or application behavior have already been implemented or validated. CIFAR-10 is registered only as the provisional core development dataset, not as an applied-domain decision.
+This journal should not imply that planned models, commands, experiments, checkpoints, results, or application behavior have already been implemented or validated unless they are explicitly tied to preserved artifacts. CIFAR-10 is registered only as the provisional core development dataset, not as an applied-domain decision.
 
 Update this section as the project advances. Preserve historical detail in dated entries and phase closeouts rather than accumulating an outdated narrative here.
 
@@ -172,6 +172,97 @@ VisionLab now has a reusable training-engine smoke path and checkpoint contract 
 The builder accepted Phase 3 based on the completed phase-check report. Phase 3 is closed at `docs/phase_closeouts/Phase_3_reproducible_training_engine.md`.
 
 Phase 4 should begin only after a separate concept briefing and implementation plan. Entry considerations carried forward from Phase 3 are explicit DataLoader shuffle/worker seed policy, explicit validation-based checkpoint-selection metric, continued test-split isolation from model selection, and approval before material training.
+
+---
+
+## 2026-08-18 - Phase 4A Baseline Experiment Plumbing and Smoke Verification
+
+### Context
+
+The builder approved Phase 4A as a split from Phase 4, with a strict boundary around baseline experiment plumbing and tiny smoke verification only. Phase 4A proves the experiment route, not the experiment result.
+
+### Concept or Hypothesis
+
+Phase 4A tested whether VisionLab can construct the registered train/validation/test data path, run the custom CNN through the existing training engine, select a best checkpoint by validation loss, and preserve minimal prediction/history artifacts before approving any material CIFAR-10 baseline run.
+
+### AI Contribution
+
+Codex implemented CIFAR-10 split and DataLoader plumbing, explicit loader reproducibility policy, minimal classification evaluation artifacts, prediction records, history/curve artifact writing, and a tiny synthetic CIFAR-shaped end-to-end smoke workflow. Codex added focused tests for split isolation, loader determinism, evaluation records, artifact writing, and smoke execution.
+
+### Evidence
+
+- `scripts/test.ps1` passed 44 tests.
+- `scripts/run_phase4a_smoke.py` completed against tiny non-material data.
+- Ignored smoke artifacts were generated under `outputs/phase4a_smoke/`.
+- The smoke run contract records `official_test_evaluation: false`.
+
+### Project Impact
+
+VisionLab now has the baseline route needed for Phase 4B review, including loader construction, validation-based checkpoint selection mechanics, prediction records, per-class/confusion data, and history/curve artifacts. It still has no material CIFAR-10 baseline result.
+
+### Next Boundary
+
+Phase 4B requires builder approval of one exact material-run configuration, expected runtime/compute path, DataLoader seed policy, validation checkpoint-selection rule, stop conditions, and artifact-preservation plan before training.
+
+---
+
+## 2026-08-18 - Phase 4B Custom CNN Material Baseline Run
+
+### Context
+
+The builder approved the exact Phase 4B material-run configuration after Phase 4A follow-up checks verified the restored-best-checkpoint evaluation route and material CIFAR-10 preflight contract.
+
+### Concept or Hypothesis
+
+Phase 4B established the first official single-run custom CNN CIFAR-10 baseline for VisionLab. The run was intended as a baseline reference, not a tuned best result or an estimate of training variance.
+
+### AI Contribution
+
+Codex added a bounded Phase 4B material-run entry point, wrote `preflight_report.json` before training, ran the approved CPU configuration once, restored the checkpoint selected by minimum validation loss, generated final validation artifacts, evaluated the official test split once, generated test artifacts, and wrote a cautious baseline report.
+
+### Evidence
+
+- `scripts/test.ps1` passed 46 tests before the material run.
+- Run ID: `phase4b-cifar10-custom-cnn-baseline-001`.
+- Preflight passed with 45,000 train, 5,000 validation, and 10,000 test samples.
+- Best checkpoint selected at epoch 10 by validation loss.
+- Official test accuracy from the restored best checkpoint: `0.6359`.
+- Artifacts are preserved under ignored `outputs/phase4b-cifar10-custom-cnn-baseline-001/`.
+
+### Project Impact
+
+VisionLab now has its first official custom CNN baseline result and prediction-level artifacts. The result remains a single run without augmentation, calibration, robustness, OOD evaluation, transfer-learning comparison, diagnostics, inference, or applied-domain claims.
+
+### Next Boundary
+
+Phase 4 was accepted and closed after the separate phase-check review. Phase 5 should begin only after a separate concept briefing and implementation plan.
+
+---
+
+## 2026-08-19 - Phase 4 Closeout
+
+### Context
+
+The builder accepted Phase 4 based on the completed phase-check report and requested final closeout documentation.
+
+### AI Contribution
+
+Codex finalized the Phase 4 closeout, clarified the Phase 4A historical `44 tests` note against the current `46-test` suite, updated README and phase catalog status, recorded the complete Phase 4 artifact inventory, and noted unrelated deleted root `phase_briefing.md` and `phase_check.md` worktree entries as excluded from Phase 4 scope.
+
+### Evidence
+
+- Final Phase 4 closeout: `docs/phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md`.
+- Phase 4B run artifacts: `outputs/phase4b-cifar10-custom-cnn-baseline-001/`.
+- Restored-best official test loss: `1.024515`.
+- Restored-best official test accuracy: `0.635900`.
+
+### Project Impact
+
+VisionLab now has a closed custom-CNN baseline phase and a reference artifact set for later controlled comparisons.
+
+### Next Boundary
+
+Phase 5 - Augmentation and Generalization Controls requires a separate concept briefing and implementation plan before work begins.
 
 ---
 
@@ -739,7 +830,9 @@ Expected closeout trail:
 - Phase 1 — [Dataset Contract and Visual Data Inspection](docs/phase_closeouts/Phase_1_dataset_contract_and_visual_data_inspection.md)
 - Phase 2 — [Custom CNN and Shape-Safe Forward Path](docs/phase_closeouts/Phase_2_custom_cnn_and_shape_safe_forward_path.md)
 - Phase 3 — [Reproducible Training Engine](docs/phase_closeouts/Phase_3_reproducible_training_engine.md)
-- Phase 4 — to be added
+- Phase 4 — [Custom CNN Baseline Experiment](docs/phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md)
+- Phase 4A — [Baseline Experiment Plumbing and Smoke Verification](docs/phase_closeouts/Phase_4A_baseline_experiment_plumbing_and_smoke_verification.md)
+- Phase 4B — summarized in [Custom CNN Baseline Experiment](docs/phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md)
 - Phase 5 — to be added
 - Phase 6 — to be added
 - Phase 7 — to be added
