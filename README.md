@@ -6,7 +6,7 @@ The intended project will build and train a custom CNN, compare it with one pret
 
 It is not intended to be a production inspection system, medical or forensic authority, broad computer-vision framework, vision-language-model project, or benchmark-chasing exercise.
 
-This repository has completed **Phase 4 - Custom CNN Baseline Experiment**. CIFAR-10 is registered as the provisional core development dataset, and the first single-run custom CNN baseline is preserved as a controlled comparison reference; inference, pretrained models, augmentation, calibration, robustness, OOD, diagnostics, and applied-domain behavior should not yet be assumed unless repository inspection confirms otherwise.
+This repository has closed **Phase 5B - Material Augmentation Comparison**. CIFAR-10 is registered as the provisional core development dataset, the Phase 4B single-run custom CNN baseline remains the fixed controlled comparison reference, and Phase 5 now includes one completed single-run augmentation comparison whose observed regression did not justify adopting the candidate augmentation profile as the new baseline; inference, pretrained models, calibration, robustness, OOD, diagnostics, and applied-domain behavior should not yet be assumed unless repository inspection confirms otherwise.
 
 ---
 
@@ -78,7 +78,7 @@ The project should remain narrow enough to finish. Detection, segmentation, vide
 
 ## Current Status
 
-Status: **Phase 4 complete / accepted**
+Status: **Phase 5B complete / accepted**
 
 At this point:
 
@@ -103,9 +103,16 @@ At this point:
 - Phase 4B ran the approved single-run custom CNN CPU baseline on registered CIFAR-10, selected the best checkpoint by validation loss, restored that checkpoint, and evaluated the official test split once;
 - Phase 4B produced a single-run baseline result, with restored-best official test loss `1.024515` and test accuracy `0.635900`;
 - the Phase 4 baseline is not a tuned best result, not a variance estimate, and not a calibration, robustness, OOD, or broader generalization claim;
-- no inference surface, pretrained model, augmentation experiment, calibration, robustness, OOD, diagnostics, or applied-domain behavior should yet be assumed.
+- Phase 5A added versioned augmentation profiles, a train-only candidate horizontal-flip/crop profile, a machine-readable profile registry, reproducible visual inspection artifacts, and augmentation smoke tests;
+- Phase 5B then ran one approved controlled material comparison against the preserved Phase 4B no-augmentation baseline, changing only the train-time augmentation profile to `phase5a-candidate-horizontal-flip-random-crop` version `1.0`;
+- the Phase 5B run restored the best checkpoint selected by minimum validation loss and evaluated the official test split once after selection;
+- Phase 5B observed restored-best validation loss `1.055734`, validation accuracy `0.620600`, official test loss `1.056135`, and official test accuracy `0.630800`;
+- relative to `phase4b-cifar10-custom-cnn-baseline-001`, the single-run augmented result regressed by `+0.031620` test loss and `-0.005100` test accuracy;
+- this observed regression is preserved as single-run comparison evidence only and should not be generalized into a claim that augmentation broadly hurts performance;
+- based on the current single-run evidence, `phase5a-candidate-horizontal-flip-random-crop` version `1.0` is not adopted as the new baseline, and the Phase 4B no-augmentation run remains the reference baseline;
+- no inference surface, pretrained model, calibration, robustness, OOD, diagnostics, or applied-domain behavior should yet be assumed.
 
-The next project step should be a separate Phase 5 concept briefing and implementation plan for Augmentation and Generalization Controls. Phase 5 should not begin until that briefing and plan are reviewed and approved.
+The next project step should be a separate builder review and approval decision for Phase 6 planning. No later-phase work has begun in this closeout.
 
 This status section should be updated as phases close. Historical detail belongs in the builder journal and phase closeout documents rather than accumulating here.
 
@@ -127,6 +134,8 @@ T0 bootstrap documents now also include:
 - [`docs/cifar10_phase1b_registration.md`](docs/cifar10_phase1b_registration.md) - Phase 1B CIFAR-10 registration, split policy, class counts, and visual-inspection findings
 - [`docs/phase_closeouts/Phase_4A_baseline_experiment_plumbing_and_smoke_verification.md`](docs/phase_closeouts/Phase_4A_baseline_experiment_plumbing_and_smoke_verification.md) - Phase 4A plumbing, smoke verification, limitations, and proposed Phase 4B approval plan
 - [`docs/phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md`](docs/phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md) - accepted Phase 4 closeout, material baseline result, artifact inventory, and limitations
+- [`docs/phase_closeouts/Phase_5A_augmentation_profile_and_smoke_verification.md`](docs/phase_closeouts/Phase_5A_augmentation_profile_and_smoke_verification.md) - Phase 5A augmentation profile contract, visual inspection artifacts, smoke verification, and proposed Phase 5B configuration
+- [`docs/phase_closeouts/Phase_5B_material_augmentation_comparison.md`](docs/phase_closeouts/Phase_5B_material_augmentation_comparison.md) - accepted Phase 5B single-run augmentation comparison, artifact inventory, controlled comparison result, and non-adoption decision
 
 Additional documents expected during implementation include:
 

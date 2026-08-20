@@ -11,6 +11,10 @@ import torch
 from torch import Tensor
 from torch.utils.data import DataLoader, Dataset
 
+from visionlab.data.augmentation import (
+    AugmentationProfile,
+    apply_augmentation_profile,
+)
 from visionlab.data.manifests import (
     ClassMapping,
     DatasetIdentity,
@@ -153,15 +157,19 @@ class VisionLabSplitDataset(Dataset):
         indices: list[int],
         class_names: tuple[str, ...] = CIFAR10_CLASSES,
         preprocessing: PreprocessingSpec = CIFAR10_PREPROCESSING,
+        augmentation_profile: AugmentationProfile | None = None,
     ) -> None:
         if split not in {"train", "val", "test"}:
             raise ValueError("split must be train, val, or test")
+        if augmentation_profile is not None and split != "train":
+            raise ValueError("augmentation profiles may only be attached to the train split")
         self.upstream = upstream
         self.split = split
         self.upstream_partition = upstream_partition
         self.indices = list(indices)
         self.class_names = tuple(class_names)
         self.preprocessing = preprocessing
+        self.augmentation_profile = augmentation_profile
 
     def __len__(self) -> int:
         return len(self.indices)
@@ -170,7 +178,10 @@ class VisionLabSplitDataset(Dataset):
         source_index = int(self.indices[index])
         image, label = self.upstream[source_index]
         label_index = int(label)
-        tensor = to_normalized_tensor(image, self.preprocessing)
+        tensor = to_unit_tensor(image, self.preprocessing)
+        if self.augmentation_profile is not None:
+            tensor = apply_augmentation_profile(tensor, self.augmentation_profile)
+        tensor = normalize_tensor(tensor, self.preprocessing)
         sample_id = f"cifar10-{self.upstream_partition}-{source_index:05d}"
         return {
             "input": tensor,
@@ -203,6 +214,7 @@ def build_cifar10_split_datasets(
     split_seed: int = CIFAR10_SPLIT_SEED,
     upstream_train: Dataset | None = None,
     upstream_test: Dataset | None = None,
+    train_augmentation_profile: AugmentationProfile | None = None,
 ) -> SplitDatasetBundle:
     """Build registered train/val/test datasets from CIFAR-10 upstream partitions."""
 
@@ -234,6 +246,7 @@ def build_cifar10_split_datasets(
             upstream_partition="train",
             indices=train_indices,
             class_names=class_names,
+            augmentation_profile=train_augmentation_profile,
         ),
         val=VisionLabSplitDataset(
             upstream_train,
@@ -342,6 +355,10 @@ def build_phase4_dataloaders(
 
 
 def to_normalized_tensor(image: Any, preprocessing: PreprocessingSpec) -> Tensor:
+    return normalize_tensor(to_unit_tensor(image, preprocessing), preprocessing)
+
+
+def to_unit_tensor(image: Any, preprocessing: PreprocessingSpec) -> Tensor:
     if isinstance(image, Tensor):
         tensor = image.detach().clone().float()
         if tensor.ndim == 3 and tensor.shape[0] not in {1, 3} and tensor.shape[-1] in {1, 3}:
@@ -370,7 +387,12 @@ def to_normalized_tensor(image: Any, preprocessing: PreprocessingSpec) -> Tensor
         raise ValueError(
             f"expected image size {(expected_width, expected_height)}, got {(width, height)}"
         )
+    return tensor.contiguous()
 
+
+def normalize_tensor(tensor: Tensor, preprocessing: PreprocessingSpec) -> Tensor:
+    if tensor.ndim != 3:
+        raise ValueError("image tensor must have shape C x H x W")
     mean = torch.tensor(preprocessing.normalization_mean, dtype=tensor.dtype).view(-1, 1, 1)
     std = torch.tensor(preprocessing.normalization_std, dtype=tensor.dtype).view(-1, 1, 1)
     return (tensor - mean) / std

@@ -12,13 +12,13 @@ This journal explains how VisionLab is being built by an AI-native builder: a de
 
 ## Current Journal State
 
-Status: **Phase 4 complete / accepted**
+Status: **Phase 5B complete / accepted**
 
-The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, Phase 1 is complete, Phase 3 is complete and accepted, Phase 4A is implemented, the approved Phase 4B material baseline run has completed, and Phase 4 is accepted and closed.
+The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, Phase 1 is complete, Phase 3 is complete and accepted, Phase 4A is implemented, the approved Phase 4B material baseline run has completed, Phase 4 is accepted and closed, and Phase 5 is now complete through accepted Phase 5A and Phase 5B closeout.
 
-At this point, the main project artifacts are planning documents, governance records, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, accepted Phase 1B CIFAR-10 registration artifacts, the Phase 2 custom CNN forward-contract implementation, the Phase 3 bounded training-engine implementation, Phase 4A baseline experiment plumbing with tiny smoke artifacts, and the Phase 4B single-run custom CNN baseline artifacts. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
+At this point, the main project artifacts are planning documents, governance records, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, accepted Phase 1B CIFAR-10 registration artifacts, the Phase 2 custom CNN forward-contract implementation, the Phase 3 bounded training-engine implementation, Phase 4A baseline experiment plumbing with tiny smoke artifacts, the Phase 4B single-run custom CNN baseline artifacts, accepted Phase 5A augmentation profile/inspection artifacts, and the accepted Phase 5B single-run augmentation comparison artifacts. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
 
-Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. Phase 3 implemented and closed CPU-only training loops, validation, optional scheduler stepping and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss handling against synthetic/tiny verification data. Phase 4A implemented loader, evaluation-artifact, prediction-record, history, and tiny smoke plumbing. Phase 4B produced a single-run custom CNN CIFAR-10 baseline result: restored-best official test loss `1.024515` and test accuracy `0.635900`. It is not a tuned best result and not a variance, calibration, robustness, OOD, or broader generalization claim. No inference surface, pretrained model, augmentation experiment, calibration, robustness, OOD, diagnostics, or applied-domain behavior exists yet.
+Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. Phase 3 implemented and closed CPU-only training loops, validation, optional scheduler stepping and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss handling against synthetic/tiny verification data. Phase 4A implemented loader, evaluation-artifact, prediction-record, history, and tiny smoke plumbing. Phase 4B produced a single-run custom CNN CIFAR-10 baseline result: restored-best official test loss `1.024515` and test accuracy `0.635900`. Phase 5A added explicit train-only augmentation profiles, visual inspection artifacts, smoke tests, and declared the Pillow dependency needed for augmentation-grid rendering. Phase 5B then ran one approved augmentation comparison using `phase5a-candidate-horizontal-flip-random-crop` version `1.0`, yielding restored-best validation loss `1.055734`, validation accuracy `0.620600`, official test loss `1.056135`, and official test accuracy `0.630800`. Relative to the Phase 4B baseline, that single run regressed by `+0.031620` test loss and `-0.005100` test accuracy, so the candidate profile is not adopted as the new baseline. This is single-run comparison evidence only, not proof that augmentation generally hurts performance. The Phase 4 result remains the reference baseline and is not a tuned best result, variance estimate, calibration result, robustness result, OOD result, or broader generalization claim. No inference surface, pretrained model, calibration, robustness, OOD, diagnostics, or applied-domain behavior exists yet.
 
 The applied domain remains intentionally undecided. It will be selected later through the implementation-stage feasibility gate rather than assumed at project start.
 
@@ -262,7 +262,76 @@ VisionLab now has a closed custom-CNN baseline phase and a reference artifact se
 
 ### Next Boundary
 
-Phase 5 - Augmentation and Generalization Controls requires a separate concept briefing and implementation plan before work begins.
+Phase 5A - Augmentation Profile and Smoke Verification has since been implemented for builder review. Phase 5B material training remains unapproved.
+
+---
+
+## 2026-08-19 - Phase 5A Augmentation Profile and Smoke Verification
+
+### Context
+
+The builder approved Phase 5A only, with a strict boundary around augmentation profiles, smoke tests, and visual inspection before any material augmented CIFAR-10 training.
+
+### AI Contribution
+
+Codex implemented a versioned augmentation-profile registry, preserved the Phase 4 no-augmentation control profile, added one candidate train-only horizontal-flip/crop profile, kept validation and test preprocessing deterministic, generated fixed-sample visual inspection artifacts, added smoke tests, and drafted a Phase 5A closeout with a proposed Phase 5B material-run configuration.
+
+### Evidence
+
+- Phase 5A closeout: `docs/phase_closeouts/Phase_5A_augmentation_profile_and_smoke_verification.md`.
+- Profile registry artifact: `outputs/phase5a_augmentation_inspection/augmentation_profile_registry.json`.
+- Visual grid artifact: `outputs/phase5a_augmentation_inspection/phase5a_candidate_augmentation_grid.png`.
+- Inspection note: `outputs/phase5a_augmentation_inspection/phase5a_visual_inspection_note.md`.
+- Targeted tests: `$env:PYTHONPATH='src'; .\.venv\Scripts\python.exe -m unittest tests.test_phase5_augmentation` passed with `6` tests.
+
+### Project Impact
+
+VisionLab now has an explicit augmentation contract and visual inspection path. The candidate augmentation profile is ready for builder review, but no material augmented training result exists.
+
+### Next Boundary
+
+Phase 5A is accepted and closed. The next step is builder review and approval of the exact Phase 5B material-run configuration. Phase 5B must not begin until that approval is given.
+
+---
+
+## 2026-08-20 - Phase 5B Material Augmentation Comparison and Closeout
+
+### Context
+
+The builder approved the exact Phase 5B material-run contract after accepting the separate Phase 5B implementation/plumbing review and the completed Phase 5B phase check.
+
+### Concept or Hypothesis
+
+Phase 5B tested whether one explicit train-time augmentation candidate, `phase5a-candidate-horizontal-flip-random-crop` version `1.0`, would improve or at least hold the Phase 4B custom-CNN baseline under an otherwise fixed CIFAR-10 training configuration.
+
+### AI Contribution
+
+Codex executed the approved Phase 5B material run exactly once, preserved the run contract and artifact set, restored the checkpoint selected by minimum validation loss, evaluated the official test split once after checkpoint selection, produced the comparison report against `phase4b-cifar10-custom-cnn-baseline-001`, completed the phase-check review, and finalized the Phase 5B closeout and project-status documentation.
+
+### Evidence
+
+- Phase 5B closeout: `docs/phase_closeouts/Phase_5B_material_augmentation_comparison.md`.
+- Run ID: `phase5b-cifar10-custom-cnn-augmentation-candidate-001`.
+- Comparison report: `outputs/phase5b-cifar10-custom-cnn-augmentation-candidate-001/phase5b_comparison_report.md`.
+- Run artifacts: `outputs/phase5b-cifar10-custom-cnn-augmentation-candidate-001/`.
+- Restored-best validation loss: `1.055734`.
+- Restored-best validation accuracy: `0.620600`.
+- Official test loss: `1.056135`.
+- Official test accuracy: `0.630800`.
+- Delta versus `phase4b-cifar10-custom-cnn-baseline-001`: `+0.031620` test loss and `-0.005100` test accuracy.
+- Canonical deterministic suite passed after closeout updates via `powershell -ExecutionPolicy Bypass -File scripts\test.ps1`.
+
+### Project Impact
+
+VisionLab now has a closed Phase 5 controlled augmentation comparison with preserved negative single-run evidence. The candidate train-time horizontal-flip/crop profile is not adopted as the new baseline, and the accepted Phase 4B no-augmentation run remains the comparison reference for later work.
+
+### Interpretation Boundary
+
+This result records an observed regression in one controlled run only. It should not be described as proof that augmentation generally hurts CIFAR-10 performance, or that all crop/flip policies would regress under other approved conditions.
+
+### Next Boundary
+
+Phase 5 is closed. Phase 6 has not begun and requires a separate concept briefing, plan, and approval boundary.
 
 ---
 
@@ -833,7 +902,9 @@ Expected closeout trail:
 - Phase 4 — [Custom CNN Baseline Experiment](docs/phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md)
 - Phase 4A — [Baseline Experiment Plumbing and Smoke Verification](docs/phase_closeouts/Phase_4A_baseline_experiment_plumbing_and_smoke_verification.md)
 - Phase 4B — summarized in [Custom CNN Baseline Experiment](docs/phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md)
-- Phase 5 — to be added
+- Phase 5A — [Augmentation Profile and Smoke Verification](docs/phase_closeouts/Phase_5A_augmentation_profile_and_smoke_verification.md)
+- Phase 5B — [Material Augmentation Comparison](docs/phase_closeouts/Phase_5B_material_augmentation_comparison.md)
+- Phase 5 — closed through accepted Phase 5A and Phase 5B subphases
 - Phase 6 — to be added
 - Phase 7 — to be added
 - Phase 8 — to be added

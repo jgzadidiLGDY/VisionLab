@@ -1,6 +1,6 @@
 # VisionLab Phase Catalog
 
-Status: Phase 4 complete; accepted.
+Status: Phase 5B complete; accepted.
 
 This catalog tracks the current phase sequence and phase status. The project specification remains the source for detailed scope, exit criteria, and maturity boundaries.
 
@@ -16,7 +16,9 @@ This catalog tracks the current phase sequence and phase status. The project spe
 | 4 | Custom CNN Baseline Experiment | Complete; accepted | [Phase 4 closeout](phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md) |
 | 4A | Baseline Experiment Plumbing and Smoke Verification | Complete; accepted as Phase 4 subphase | [Phase 4A closeout](phase_closeouts/Phase_4A_baseline_experiment_plumbing_and_smoke_verification.md) |
 | 4B | Custom CNN Material Baseline Run and Report | Complete; accepted as Phase 4 subphase | [Phase 4 closeout](phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md) |
-| 5 | Augmentation and Generalization Controls | Not started | To be added |
+| 5 | Augmentation and Generalization Controls | Complete; accepted | [Phase 5B closeout](phase_closeouts/Phase_5B_material_augmentation_comparison.md) |
+| 5A | Augmentation Profile and Smoke Verification | Complete; accepted | [Phase 5A closeout](phase_closeouts/Phase_5A_augmentation_profile_and_smoke_verification.md) |
+| 5B | Material Augmentation Comparison | Complete; accepted | [Phase 5B closeout](phase_closeouts/Phase_5B_material_augmentation_comparison.md) |
 | 6 | Transfer Learning and Fine-Tuning | Not started | To be added |
 | 7 | Evaluation Harness and Calibration | Not started | To be added |
 | 8 | Robustness and OOD Evaluation | Not started | To be added |
@@ -39,5 +41,10 @@ This catalog tracks the current phase sequence and phase status. The project spe
 - Phase 3 implemented and closed a bounded CPU training engine with synthetic tiny-data verification, checkpoint save/restore, minimal reproducibility metadata, optional scheduler support, and non-finite loss failure status.
 - Phase 4A implemented baseline experiment plumbing and a tiny smoke route. Its smoke metrics are pipeline evidence only, not official baseline results.
 - Phase 4B produced the first single-run custom CNN CIFAR-10 baseline result: restored-best official test loss `1.024515` and test accuracy `0.635900`. It is not a tuned best result and not an estimate of run-to-run variance.
-- No inference surface, pretrained model, augmentation experiment, calibration, robustness, OOD, diagnostics, or applied-domain behavior exists.
-- Phase 4 is closed and accepted. The Phase 4 baseline artifacts and configuration are the reference point for later controlled comparisons.
+- Phase 5A implemented and closed a versioned no-augmentation control profile, one candidate train-only horizontal-flip/crop profile, machine-readable profile registry output, visual inspection artifacts, and smoke tests.
+- Phase 5B executed one approved material comparison against the preserved Phase 4B baseline, changing only the train-time augmentation profile to `phase5a-candidate-horizontal-flip-random-crop` version `1.0`.
+- Phase 5B observed a single-run regression relative to the Phase 4B baseline: official test loss `1.056135` versus `1.024515`, and official test accuracy `0.630800` versus `0.635900`.
+- That observed regression is preserved as single-run comparison evidence only; it is not a broader claim that augmentation generally hurts performance.
+- `phase5a-candidate-horizontal-flip-random-crop` version `1.0` is not adopted as the new baseline, and the Phase 4B no-augmentation run remains the reference baseline.
+- No inference surface, pretrained model, calibration, robustness, OOD, diagnostics, or applied-domain behavior exists.
+- Phase 4 is closed and accepted. The Phase 4 baseline artifacts and configuration remain the reference point for later controlled comparisons.
