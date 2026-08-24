@@ -178,13 +178,15 @@ class VisionLabSplitDataset(Dataset):
         source_index = int(self.indices[index])
         image, label = self.upstream[source_index]
         label_index = int(label)
-        tensor = to_unit_tensor(image, self.preprocessing)
+        raw_tensor = to_unit_tensor(image, self.preprocessing)
+        tensor = raw_tensor
         if self.augmentation_profile is not None:
             tensor = apply_augmentation_profile(tensor, self.augmentation_profile)
         tensor = normalize_tensor(tensor, self.preprocessing)
         sample_id = f"cifar10-{self.upstream_partition}-{source_index:05d}"
         return {
             "input": tensor,
+            "raw_input": raw_tensor,
             "label": label_index,
             "sample_id": sample_id,
             "split": self.split,

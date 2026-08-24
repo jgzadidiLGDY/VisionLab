@@ -6,7 +6,7 @@ The intended project will build and train a custom CNN, compare it with one pret
 
 It is not intended to be a production inspection system, medical or forensic authority, broad computer-vision framework, vision-language-model project, or benchmark-chasing exercise.
 
-This repository has closed **Phase 5B - Material Augmentation Comparison**. CIFAR-10 is registered as the provisional core development dataset, the Phase 4B single-run custom CNN baseline remains the fixed controlled comparison reference, and Phase 5 now includes one completed single-run augmentation comparison whose observed regression did not justify adopting the candidate augmentation profile as the new baseline; inference, pretrained models, calibration, robustness, OOD, diagnostics, and applied-domain behavior should not yet be assumed unless repository inspection confirms otherwise.
+This repository has closed **Phase 6C-2 - Material Layer4 Fine-Tuning Run**. CIFAR-10 is registered as the provisional core development dataset, the Phase 4B single-run custom CNN baseline remains the fixed historical custom-model comparison reference, Phase 6B-2 remains the fixed frozen-feature transfer-learning reference, and Phase 6C-2 produced one accepted layer4 + fc fine-tuning result initialized from the Phase 6B-2 best checkpoint. Inference, calibration, robustness, OOD, diagnostics, applied-domain behavior, and Phase 7 work should not yet be assumed unless repository inspection confirms otherwise.
 
 ---
 
@@ -78,7 +78,7 @@ The project should remain narrow enough to finish. Detection, segmentation, vide
 
 ## Current Status
 
-Status: **Phase 5B complete / accepted**
+Status: **Phase 6C-2 complete / accepted; Phase 7 not started**
 
 At this point:
 
@@ -110,9 +110,38 @@ At this point:
 - relative to `phase4b-cifar10-custom-cnn-baseline-001`, the single-run augmented result regressed by `+0.031620` test loss and `-0.005100` test accuracy;
 - this observed regression is preserved as single-run comparison evidence only and should not be generalized into a claim that augmentation broadly hurts performance;
 - based on the current single-run evidence, `phase5a-candidate-horizontal-flip-random-crop` version `1.0` is not adopted as the new baseline, and the Phase 4B no-augmentation run remains the reference baseline;
-- no inference surface, pretrained model, calibration, robustness, OOD, diagnostics, or applied-domain behavior should yet be assumed.
+- Phase 6A added an explicit `torchvision.models.resnet18` transfer-model contract bound to `ResNet18_Weights.IMAGENET1K_V1`;
+- Phase 6A records the separate ImageNet preprocessing contract required by those weights: resize `256`, crop `224`, bilinear interpolation, mean `[0.485, 0.456, 0.406]`, and std `[0.229, 0.224, 0.225]`;
+- Phase 6A replaces the ResNet-18 classifier with a 10-class head, verifies raw-logit output shape `N x 10`, and records measured parameter counts: total `11,181,642`, trainable `5,130`, frozen `11,176,512`;
+- Phase 6A includes a non-download cache probe for `resnet18-f37072fd.pth`; at implementation time the exact selected weights were not cached locally and were not downloaded;
+- Phase 6A's executed smoke coverage used random initialization with `pretrained_weights_loaded: false`, so it is model-mechanics evidence only and not transfer-learning evidence;
+- the Phase 6A phase check was accepted and Phase 6A is formally closed;
+- Phase 6B-1 downloaded the exact approved checkpoint `resnet18-f37072fd.pth`, verified cache availability, loaded `ResNet18_Weights.IMAGENET1K_V1` with `pretrained_weights_loaded: true`, and applied `ResNet18_Weights.IMAGENET1K_V1.transforms()`;
+- Phase 6B-1 verified tiny pretrained frozen-feature mechanics only: CIFAR-shaped `32 x 32` inputs were transformed to `224 x 224`, frozen gradients were blocked, frozen parameters remained unchanged, and classifier-head parameters updated;
+- the Phase 6B-1 phase check was accepted and Phase 6B-1 is formally closed;
+- Phase 6B-2 ran one approved material frozen-feature transfer-learning experiment: `phase6b2-cifar10-resnet18-frozen-feature-001`;
+- Phase 6B-2 used `torchvision.models.resnet18` with `ResNet18_Weights.IMAGENET1K_V1`, cached checkpoint `resnet18-f37072fd.pth`, `Linear(512, 10)`, frozen backbone/head-only training, `ResNet18_Weights.IMAGENET1K_V1.transforms()`, Adam with learning rate `0.001`, batch size `64`, CPU, seed `20260820`, no augmentation, and a 5-epoch budget;
+- Phase 6B-2 selected epoch `4` as the best checkpoint by minimum validation loss, restored that checkpoint, produced validation loss `0.398302` and validation accuracy `0.864600`, and evaluated the official test split once with test loss `0.413686` and test accuracy `0.856100`;
+- compared with Phase 4B `phase4b-cifar10-custom-cnn-baseline-001`, Phase 6B-2 observed a single-run official test accuracy delta of `+0.220200` and loss delta of `-0.610829`;
+- the Phase 6B-2 comparison is asymmetric because the pretrained route uses ImageNet source data, ResNet-18 parameter scale, `224 x 224` model inputs, ImageNet preprocessing, and frozen-feature training rather than the Phase 4B CustomCNN's from-scratch `32 x 32` end-to-end setup;
+- Phase 6B-2 does not establish fine-tuning performance, calibration, robustness/OOD behavior, seed variance, or architecture-only superiority;
+- Phase 6C-1 implemented and accepted the fine-tuning contract/preflight path for `phase6c-cifar10-resnet18-layer4-finetune-001`;
+- Phase 6C-1 initializes from the accepted Phase 6B-2 best checkpoint at epoch `4`, with checkpoint SHA-256 `5832c71f298ee4d21a18f1e38460a92082a5733af26f108211afcc8a9cdd1af5`;
+- Phase 6C-1 defines the single fine-tuning mode `finetune_layer4_head`, where only ResNet-18 `layer4` and `fc` are trainable;
+- Phase 6C-1 records measured parameter counts: total `11,181,642`, trainable `8,398,858`, frozen `2,782,784`;
+- Phase 6C-1 verifies optimizer membership exactly matches the trainable `layer4 + fc` parameters and includes `0` frozen parameters;
+- Phase 6C-1 mechanics smoke verifies frozen parameters remain unchanged, trainable parameters update, logits remain `N x 10`, and the ImageNet preprocessing contract remains unchanged;
+- Phase 6C-1 preflight preserves the registered CIFAR-10 `45,000 / 5,000 / 10,000` split, batch size `64`, CPU device, Adam learning rate `0.0001`, no scheduler, no augmentation, no differential learning-rate groups, and a 3-epoch future material budget;
+- Phase 6C-1 timing probe estimates the proposed 3-epoch CPU material run at about `4085.54` seconds, or `68.1` minutes;
+- Phase 6C-1 does not include material fine-tuning, official test evaluation, calibration, robustness/OOD behavior, seed variance, architecture-only superiority, inference, diagnostics, or applied-domain behavior.
+- Phase 6C-2 ran the approved material fine-tuning experiment `phase6c-cifar10-resnet18-layer4-finetune-001` initialized from the accepted Phase 6B-2 best checkpoint at epoch `4` with SHA-256 `5832c71f298ee4d21a18f1e38460a92082a5733af26f108211afcc8a9cdd1af5`;
+- Phase 6C-2 used `finetune_layer4_head`, training only ResNet-18 `layer4 + fc` with Adam learning rate `0.0001`, weight decay `0.0`, no scheduler, batch size `64`, CPU, seed `20260820`, no augmentation, and a 3-epoch budget;
+- Phase 6C-2 selected epoch `2` as the best checkpoint by minimum validation loss, restored that checkpoint, produced validation loss `0.246512` and validation accuracy `0.925800`, and evaluated the official test split once with test loss `0.272485` and test accuracy `0.914700`;
+- relative to the fixed Phase 6B-2 frozen-feature reference test accuracy `0.856100`, Phase 6C-2 observed a single-run accuracy delta of `+0.058600`, or `+5.86` percentage points;
+- the Phase 6C-2 phase check identified a stale `run_contract.json` label inherited from Phase 6C-1 preflight metadata; the top-level contract was corrected to Phase 6C-2 without rerunning training, changing configuration, or generating a new experimental result;
+- Phase 6C-2 is a single-run fine-tuning result and does not establish seed/run-to-run variance, optimal unfreezing depth, optimal hyperparameters, architecture-only superiority, calibration, robustness/OOD behavior, or generalization beyond the evaluated CIFAR-10 experiment.
 
-The next project step should be a separate builder review and approval decision for Phase 6 planning. No later-phase work has begun in this closeout.
+The next project step should be separate Phase 7 planning for the evaluation harness and calibration. Phase 7 has not begun and requires its own approval boundary. The Phase 6C-2 result is a fixed single-run reference, not a tuned target for later phases.
 
 This status section should be updated as phases close. Historical detail belongs in the builder journal and phase closeout documents rather than accumulating here.
 
@@ -136,6 +165,11 @@ T0 bootstrap documents now also include:
 - [`docs/phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md`](docs/phase_closeouts/Phase_4_custom_cnn_baseline_experiment.md) - accepted Phase 4 closeout, material baseline result, artifact inventory, and limitations
 - [`docs/phase_closeouts/Phase_5A_augmentation_profile_and_smoke_verification.md`](docs/phase_closeouts/Phase_5A_augmentation_profile_and_smoke_verification.md) - Phase 5A augmentation profile contract, visual inspection artifacts, smoke verification, and proposed Phase 5B configuration
 - [`docs/phase_closeouts/Phase_5B_material_augmentation_comparison.md`](docs/phase_closeouts/Phase_5B_material_augmentation_comparison.md) - accepted Phase 5B single-run augmentation comparison, artifact inventory, controlled comparison result, and non-adoption decision
+- [`docs/phase_closeouts/Phase_6A_transfer_model_contract_and_tiny_frozen_feature_smoke.md`](docs/phase_closeouts/Phase_6A_transfer_model_contract_and_tiny_frozen_feature_smoke.md) - accepted Phase 6A transfer-model contract, preprocessing identity, mechanics smoke evidence, and Phase 6B entry requirements
+- [`docs/phase_closeouts/Phase_6B1_pretrained_frozen_feature_smoke.md`](docs/phase_closeouts/Phase_6B1_pretrained_frozen_feature_smoke.md) - accepted Phase 6B-1 pretrained-weight loading, preprocessing application, frozen-feature smoke evidence, and Phase 6B-2 boundary
+- [`docs/phase_closeouts/Phase_6B2_material_frozen_feature_run.md`](docs/phase_closeouts/Phase_6B2_material_frozen_feature_run.md) - accepted Phase 6B-2 single-run material frozen-feature transfer-learning reference, artifact inventory, comparison result, and limitations
+- [`docs/phase_closeouts/Phase_6C1_fine_tuning_contract_smoke_and_preflight.md`](docs/phase_closeouts/Phase_6C1_fine_tuning_contract_smoke_and_preflight.md) - accepted Phase 6C-1 fine-tuning contract, Phase 6B-2 checkpoint initialization, optimizer-scope verification, mechanics smoke, and preflight/timing evidence
+- [`docs/phase_closeouts/Phase_6C2_material_layer4_fine_tuning_run.md`](docs/phase_closeouts/Phase_6C2_material_layer4_fine_tuning_run.md) - accepted Phase 6C-2 single-run material layer4 + fc fine-tuning result, metadata correction note, artifact inventory, comparison references, and limitations
 
 Additional documents expected during implementation include:
 

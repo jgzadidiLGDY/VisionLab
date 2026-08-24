@@ -28,6 +28,11 @@ def _config_to_dict(config: Any) -> dict[str, Any]:
 
 
 def model_identity(model: nn.Module) -> dict[str, Any]:
+    if hasattr(model, "identity_dict"):
+        identity = model.identity_dict()
+        if not isinstance(identity, dict):
+            raise TypeError("model identity_dict must return a dictionary")
+        return dict(identity)
     return {
         "class_name": model.__class__.__name__,
         "config": _config_to_dict(getattr(model, "config", None)),

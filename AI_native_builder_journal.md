@@ -12,19 +12,53 @@ This journal explains how VisionLab is being built by an AI-native builder: a de
 
 ## Current Journal State
 
-Status: **Phase 5B complete / accepted**
+Status: **Phase 6C-2 complete / accepted; Phase 7 not started**
 
-The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, Phase 1 is complete, Phase 3 is complete and accepted, Phase 4A is implemented, the approved Phase 4B material baseline run has completed, Phase 4 is accepted and closed, and Phase 5 is now complete through accepted Phase 5A and Phase 5B closeout.
+The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, Phase 1 is complete, Phase 3 is complete and accepted, Phase 4A is implemented, the approved Phase 4B material baseline run has completed, Phase 4 is accepted and closed, Phase 5 is complete through accepted Phase 5A and Phase 5B closeout, Phase 6A is complete and accepted, Phase 6B-1 is complete and accepted, Phase 6B-2 is complete and accepted, Phase 6C-1 is complete and accepted, and Phase 6C-2 is complete and accepted.
 
-At this point, the main project artifacts are planning documents, governance records, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, accepted Phase 1B CIFAR-10 registration artifacts, the Phase 2 custom CNN forward-contract implementation, the Phase 3 bounded training-engine implementation, Phase 4A baseline experiment plumbing with tiny smoke artifacts, the Phase 4B single-run custom CNN baseline artifacts, accepted Phase 5A augmentation profile/inspection artifacts, and the accepted Phase 5B single-run augmentation comparison artifacts. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
+At this point, the main project artifacts are planning documents, governance records, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, accepted Phase 1B CIFAR-10 registration artifacts, the Phase 2 custom CNN forward-contract implementation, the Phase 3 bounded training-engine implementation, Phase 4A baseline experiment plumbing with tiny smoke artifacts, the Phase 4B single-run custom CNN baseline artifacts, accepted Phase 5A augmentation profile/inspection artifacts, the accepted Phase 5B single-run augmentation comparison artifacts, the Phase 6A ResNet-18 transfer-model contract with tiny mechanics smoke coverage, the accepted Phase 6B-1 pretrained frozen-feature smoke artifacts, the accepted Phase 6B-2 material frozen-feature transfer-learning run artifacts, the accepted Phase 6C-1 fine-tuning contract/preflight artifacts, and the accepted Phase 6C-2 material layer4 fine-tuning artifacts. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
 
-Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. Phase 3 implemented and closed CPU-only training loops, validation, optional scheduler stepping and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss handling against synthetic/tiny verification data. Phase 4A implemented loader, evaluation-artifact, prediction-record, history, and tiny smoke plumbing. Phase 4B produced a single-run custom CNN CIFAR-10 baseline result: restored-best official test loss `1.024515` and test accuracy `0.635900`. Phase 5A added explicit train-only augmentation profiles, visual inspection artifacts, smoke tests, and declared the Pillow dependency needed for augmentation-grid rendering. Phase 5B then ran one approved augmentation comparison using `phase5a-candidate-horizontal-flip-random-crop` version `1.0`, yielding restored-best validation loss `1.055734`, validation accuracy `0.620600`, official test loss `1.056135`, and official test accuracy `0.630800`. Relative to the Phase 4B baseline, that single run regressed by `+0.031620` test loss and `-0.005100` test accuracy, so the candidate profile is not adopted as the new baseline. This is single-run comparison evidence only, not proof that augmentation generally hurts performance. The Phase 4 result remains the reference baseline and is not a tuned best result, variance estimate, calibration result, robustness result, OOD result, or broader generalization claim. No inference surface, pretrained model, calibration, robustness, OOD, diagnostics, or applied-domain behavior exists yet.
+Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. Phase 3 implemented and closed CPU-only training loops, validation, optional scheduler stepping and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss handling against synthetic/tiny verification data. Phase 4A implemented loader, evaluation-artifact, prediction-record, history, and tiny smoke plumbing. Phase 4B produced a single-run custom CNN CIFAR-10 baseline result: restored-best official test loss `1.024515` and test accuracy `0.635900`. Phase 5A added explicit train-only augmentation profiles, visual inspection artifacts, smoke tests, and declared the Pillow dependency needed for augmentation-grid rendering. Phase 5B then ran one approved augmentation comparison using `phase5a-candidate-horizontal-flip-random-crop` version `1.0`, yielding restored-best validation loss `1.055734`, validation accuracy `0.620600`, official test loss `1.056135`, and official test accuracy `0.630800`. Relative to the Phase 4B baseline, that single run regressed by `+0.031620` test loss and `-0.005100` test accuracy, so the candidate profile is not adopted as the new baseline. Phase 6A added an explicit `torchvision.models.resnet18` transfer-model contract bound to `ResNet18_Weights.IMAGENET1K_V1`, a separate ImageNet preprocessing contract, frozen-backbone/head-only parameter inspection, a non-download cache probe, and tiny random-initialized mechanics smoke coverage. Phase 6B-1 then downloaded the exact approved checkpoint `resnet18-f37072fd.pth`, verified cache availability, loaded the selected weights with `pretrained_weights_loaded: true`, applied `ResNet18_Weights.IMAGENET1K_V1.transforms()`, and completed tiny pretrained frozen-feature mechanics smoke. Phase 6B-2 ran one approved material frozen-feature transfer-learning experiment, `phase6b2-cifar10-resnet18-frozen-feature-001`, using the same exact pretrained identity, selected epoch `4` by minimum validation loss, and produced restored-best validation loss `0.398302`, validation accuracy `0.864600`, official test loss `0.413686`, and official test accuracy `0.856100`. Relative to Phase 4B, this is a single-run test accuracy delta of `+0.220200` and loss delta of `-0.610829`. Phase 6C-1 then implemented the fine-tuning contract/preflight path initialized from the accepted Phase 6B-2 best checkpoint at epoch `4`, checkpoint SHA-256 `5832c71f298ee4d21a18f1e38460a92082a5733af26f108211afcc8a9cdd1af5`, with `finetune_layer4_head`, trainable `layer4 + fc`, optimizer scope matching only trainable parameters, and a 3-epoch CPU timing estimate of about `68.1` minutes at batch size `64`. The Phase 6B-2 result is a fixed reference point and should not become an automatic target for Phase 6C. Phase 6C-2 then ran the approved material fine-tuning experiment `phase6c-cifar10-resnet18-layer4-finetune-001`, selected epoch `2` by minimum validation loss, and produced restored-best validation loss `0.246512`, validation accuracy `0.925800`, official test loss `0.272485`, and official test accuracy `0.914700`. Relative to Phase 6B-2, this is a single-run test accuracy delta of `+0.058600`, or `+5.86` percentage points. The stale Phase 6C-1/preflight label in the material-run `run_contract.json` was corrected after phase check without rerunning training or changing experimental evidence. No inference surface, calibration, robustness, OOD, diagnostics, applied-domain behavior, or Phase 7 work exists yet.
 
 The applied domain remains intentionally undecided. It will be selected later through the implementation-stage feasibility gate rather than assumed at project start.
 
 This journal should not imply that planned models, commands, experiments, checkpoints, results, or application behavior have already been implemented or validated unless they are explicitly tied to preserved artifacts. CIFAR-10 is registered only as the provisional core development dataset, not as an applied-domain decision.
 
 Update this section as the project advances. Preserve historical detail in dated entries and phase closeouts rather than accumulating an outdated narrative here.
+
+---
+
+## 2026-08-22 - Phase 6C-2 Material Layer4 Fine-Tuning Run Closeout
+
+### Context
+
+The builder approved the Phase 6C-2 material run after Phase 6C-1 established the fine-tuning contract, initialization identity, optimizer scope, and CPU timing preflight.
+
+### Concept or Hypothesis
+
+Phase 6C-2 tested one specific intervention relative to Phase 6B-2: continue from the accepted frozen-feature best checkpoint and train only ResNet-18 `layer4 + fc`, while preserving dataset, preprocessing, seed, batch size, optimizer family, no augmentation, and validation-loss checkpoint selection.
+
+### AI Contribution
+
+Codex resumed the approved CPU material run after runner issues, preserved the fixed configuration, restored the selected best checkpoint before final validation and official test evaluation, inspected artifacts, ran verification, performed the phase-check review, corrected the stale Phase 6C-1/preflight top-level label in `run_contract.json`, and created the formal Phase 6C-2 closeout.
+
+### Evidence
+
+- Run ID: `phase6c-cifar10-resnet18-layer4-finetune-001`.
+- Initialization checkpoint: Phase 6B-2 `best`, epoch `4`, SHA-256 `5832c71f298ee4d21a18f1e38460a92082a5733af26f108211afcc8a9cdd1af5`.
+- Fine-tuning mode: `finetune_layer4_head`, trainable `layer4 + fc`.
+- Best checkpoint: epoch `2`.
+- Restored-best validation loss `0.246512`, validation accuracy `0.925800`.
+- Official test loss `0.272485`, official test accuracy `0.914700`, evaluated once after best-checkpoint restoration.
+- Canonical deterministic suite passed with `81` tests and `1` skipped after closeout updates.
+
+### Project Impact
+
+Phase 6 now has both a frozen-feature transfer reference and a bounded fine-tuning reference. Phase 6C-2 improved over the Phase 6B-2 fixed reference by `+0.058600` test accuracy in this single run, but it does not establish seed variance, optimal unfreezing depth, optimal hyperparameters, architecture-only superiority, calibration, robustness/OOD behavior, or broader generalization.
+
+### Next Boundary
+
+Phase 7 has not started. The next step should be a separate Phase 7 concept briefing and implementation plan for the evaluation harness and calibration.
 
 ---
 
@@ -332,6 +366,182 @@ This result records an observed regression in one controlled run only. It should
 ### Next Boundary
 
 Phase 5 is closed. Phase 6 has not begun and requires a separate concept briefing, plan, and approval boundary.
+
+---
+
+## 2026-08-20 - Phase 6A Transfer Model Contract and Closeout
+
+### Context
+
+The builder approved Phase 6A after the Phase 6 briefing, tightened implementation plan, completed implementation, and Phase 6A phase-check review.
+
+### Concept or Boundary
+
+Phase 6A established a frozen-feature transfer-learning contract without running material transfer training. The selected backbone is exactly `torchvision.models.resnet18`, bound to `ResNet18_Weights.IMAGENET1K_V1`. The executed smoke path used `weights=None` because `resnet18-f37072fd.pth` was not cached and no download was approved.
+
+### AI Contribution
+
+Codex implemented the transfer-model contract, separate ImageNet preprocessing contract, non-download cache probe, frozen-backbone/head-only parameter inspection, tiny synthetic mechanics smoke path, guarded pretrained frozen-feature smoke path, focused tests, phase-check review, and formal Phase 6A closeout documentation.
+
+### Evidence
+
+- Phase 6A closeout: `docs/phase_closeouts/Phase_6A_transfer_model_contract_and_tiny_frozen_feature_smoke.md`.
+- Transfer model identity: `torchvision.models.resnet18` with `ResNet18_Weights.IMAGENET1K_V1`.
+- Preprocessing contract: resize `256`, crop `224`, bilinear interpolation, mean `[0.485, 0.456, 0.406]`, std `[0.229, 0.224, 0.225]`, input `N x 3 x 224 x 224`.
+- Classifier replacement: `Linear(512, 10)`.
+- Measured parameter counts: total `11,181,642`, trainable `5,130`, frozen `11,176,512`.
+- Mechanics smoke verified frozen parameters remained unchanged, frozen parameters did not receive trainable gradients, and classifier-head parameters updated.
+- Focused Phase 6A tests passed at `12` tests.
+- Canonical deterministic suite passed after closeout updates via `powershell -ExecutionPolicy Bypass -File scripts\test.ps1` at `66` tests.
+
+### Project Impact
+
+VisionLab now has an accepted transfer-model contract and mechanics smoke foundation for later frozen-feature material training. This closes Phase 6A but does not complete Phase 6 as a whole.
+
+### Interpretation Boundary
+
+Phase 6A smoke is mechanics evidence only. It is not transfer-learning evidence, not pretrained performance evidence, and not CIFAR-10 generalization evidence. The Phase 4B baseline `phase4b-cifar10-custom-cnn-baseline-001` remains unchanged and remains the comparison reference. Any later custom-CNN versus ResNet-18 comparison is asymmetric because of ImageNet source pretraining, model size, input resolution, preprocessing, and parameter count.
+
+### Next Boundary
+
+Phase 6B has not begun. Before material pretrained training, VisionLab must resolve pretrained-weight availability or download approval for `resnet18-f37072fd.pth` and verify the actual preprocessing application path.
+
+---
+
+## 2026-08-20 - Phase 6B-1 Pretrained Frozen-Feature Smoke and Closeout
+
+### Context
+
+The builder approved downloading the exact pretrained checkpoint required for Phase 6B-1 and accepted the completed Phase 6B-1 phase-check review.
+
+### Concept or Boundary
+
+Phase 6B-1 verified the actual pretrained frozen-feature smoke path before any material CIFAR-10 training. The selected model remained exactly `torchvision.models.resnet18` with `ResNet18_Weights.IMAGENET1K_V1`, using checkpoint `resnet18-f37072fd.pth`.
+
+### AI Contribution
+
+Codex downloaded only the approved checkpoint, verified cache availability, implemented actual Torchvision preprocessing application, ran tiny pretrained frozen-feature smoke with `pretrained_weights_loaded: true`, preserved smoke artifacts, ran focused and canonical tests, completed the phase-check review, and formalized the Phase 6B-1 closeout.
+
+### Evidence
+
+- Phase 6B-1 closeout: `docs/phase_closeouts/Phase_6B1_pretrained_frozen_feature_smoke.md`.
+- Smoke artifacts: `outputs/phase6b1-resnet18-pretrained-frozen-smoke/`.
+- Exact checkpoint: `resnet18-f37072fd.pth`.
+- Preprocessing source: `ResNet18_Weights.IMAGENET1K_V1.transforms()`.
+- Raw smoke input shape: `2 x 3 x 32 x 32`.
+- Preprocessed model input shape: `2 x 3 x 224 x 224`.
+- `pretrained_weights_loaded: true`.
+- Frozen gradients blocked, frozen parameters unchanged, classifier head updated.
+- Measured parameter counts: total `11,181,642`, trainable `5,130`, frozen `11,176,512`.
+- Focused verification passed at `23` tests with `1` skipped.
+- Canonical deterministic suite passed after closeout updates via `powershell -ExecutionPolicy Bypass -File scripts\test.ps1` at `71` tests with `1` skipped.
+
+### Project Impact
+
+VisionLab now has accepted evidence that the exact pretrained ResNet-18 weights are available locally, the actual selected preprocessing path works, and frozen-feature mechanics hold with actual pretrained weights.
+
+### Interpretation Boundary
+
+Phase 6B-1 is pretrained frozen-feature mechanics smoke evidence only. It is not material CIFAR-10 training evidence, validation performance evidence, official test evidence, fine-tuning evidence, or a pretrained-versus-custom comparison. The Phase 4B baseline remains unchanged and remains the comparison reference.
+
+### Next Boundary
+
+Phase 6B-2 has since completed one approved material frozen-feature transfer run. Phase 6C fine-tuning remains separate and unstarted.
+
+---
+
+## 2026-08-21 - Phase 6B-2 Material Frozen-Feature Run and Closeout
+
+### Context
+
+The builder approved one exact material frozen-feature transfer-learning run after Phase 6B-2 implementation, preflight, timing probe, and phase-check review.
+
+### Concept or Boundary
+
+Phase 6B-2 tested one frozen-feature pretrained ResNet-18 reference on the registered CIFAR-10 split. It was designed as a fixed reference point, not a fine-tuning run, hyperparameter search, seed sweep, or architecture-only comparison.
+
+### AI Contribution
+
+Codex ran the approved material preflight, launched the exact CPU material run, monitored the runtime guard, restored the best checkpoint selected by minimum validation loss, evaluated the official test split once after restoration, inspected the preserved artifacts, ran the canonical deterministic suite, completed the phase-check review, and formalized the Phase 6B-2 closeout.
+
+### Evidence
+
+- Phase 6B-2 closeout: `docs/phase_closeouts/Phase_6B2_material_frozen_feature_run.md`.
+- Material artifacts: `outputs/phase6b2-cifar10-resnet18-frozen-feature-001/`.
+- Exact model: `torchvision.models.resnet18`.
+- Exact weights: `ResNet18_Weights.IMAGENET1K_V1`.
+- Exact checkpoint: `resnet18-f37072fd.pth`.
+- Classifier: `Linear(512, 10)`.
+- Preprocessing: `ResNet18_Weights.IMAGENET1K_V1.transforms()`.
+- Configuration: Adam, learning rate `0.001`, weight decay `0.0`, no scheduler, batch size `64`, CPU, seed `20260820`, 5 epochs, no augmentation.
+- Best checkpoint: epoch `4`.
+- Restored-best validation loss: `0.398302`.
+- Restored-best validation accuracy: `0.864600`.
+- Official test loss: `0.413686`.
+- Official test accuracy: `0.856100`.
+- Canonical deterministic suite passed after closeout updates via `powershell -ExecutionPolicy Bypass -File scripts\test.ps1` at `73` tests with `1` skipped.
+
+### Project Impact
+
+VisionLab now has a fixed single-run frozen-feature pretrained comparison reference against the accepted Phase 4B custom-CNN baseline. Relative to Phase 4B, Phase 6B-2 observed a single-run official test loss delta of `-0.610829` and test accuracy delta of `+0.220200`.
+
+### Interpretation Boundary
+
+The Phase 6B-2 result is asymmetric because of ImageNet source pretraining, ResNet-18 parameter scale, `224 x 224` inputs, ImageNet preprocessing, and frozen-feature head-only training. It does not establish fine-tuning performance, calibration, robustness/OOD behavior, seed variance, or architecture-only superiority.
+
+The `0.856100` official test accuracy should remain a fixed Phase 6B-2 reference point. Phase 6C should not automatically inherit it as a target or begin tuning around it.
+
+### Next Boundary
+
+Phase 6C-1 has since completed the fine-tuning contract, smoke, and preflight boundary. Phase 6C-2 material fine-tuning remains separate and unstarted.
+
+---
+
+## 2026-08-21 - Phase 6C-1 Fine-Tuning Contract, Smoke, and Preflight
+
+### Context
+
+The builder approved Phase 6C-1 only after refining the plan to require explicit Phase 6B-2 checkpoint initialization, careful wording of the experimental intervention, and optimizer-scope verification.
+
+### Concept or Boundary
+
+Phase 6C-1 established the mechanics and preflight path for later limited fine-tuning. It did not launch material fine-tuning or evaluate the official CIFAR-10 test split.
+
+The intended intervention for a future material run is changing the training regime from frozen-backbone/head-only training to `layer4 + fc` fine-tuning while preserving the dataset, initialization, preprocessing, augmentation, seed, and evaluation protocol.
+
+### AI Contribution
+
+Codex added the `finetune_layer4_head` transfer-model mode, implemented a Phase 6C-1 preflight module, restored the Phase 6B-2 best checkpoint as the required initialization source, verified `layer4 + fc` trainability, proved optimizer membership exactly matches the trainable parameters, ran tiny mechanics smoke, wrote preflight/timing artifacts, ran focused and canonical tests, completed the phase-check review, and formalized the Phase 6C-1 closeout.
+
+### Evidence
+
+- Phase 6C-1 closeout: `docs/phase_closeouts/Phase_6C1_fine_tuning_contract_smoke_and_preflight.md`.
+- Preflight artifacts: `outputs/phase6c-cifar10-resnet18-layer4-finetune-001-preflight/`.
+- Initialization source run: `phase6b2-cifar10-resnet18-frozen-feature-001`.
+- Initialization checkpoint: `best`, epoch `4`.
+- Initialization checkpoint SHA-256: `5832c71f298ee4d21a18f1e38460a92082a5733af26f108211afcc8a9cdd1af5`.
+- Fine-tuning mode: `finetune_layer4_head`.
+- Trainable scope: ResNet-18 `layer4 + fc`.
+- Parameter counts: total `11,181,642`, trainable `8,398,858`, frozen `2,782,784`.
+- Optimizer scope: exactly trainable parameters; frozen parameters in optimizer groups = `0`.
+- Mechanics smoke verified finite loss, logits shape `2 x 10`, frozen gradients blocked, frozen parameters unchanged, and trainable parameters updated.
+- Timing probe estimated a 3-epoch CPU material run at `4085.54` seconds, about `68.1` minutes, using batch size `64`.
+- Focused verification passed at `16` tests.
+- Canonical deterministic suite passed after closeout updates via `powershell -ExecutionPolicy Bypass -File scripts\test.ps1` at `79` tests with `1` skipped.
+
+### Project Impact
+
+VisionLab now has a verified fine-tuning contract and material-run preflight for the selected ResNet-18 pathway. Phase 6C-1 closes the mechanics/readiness boundary and leaves Phase 6C-2 as a separate compute and experiment approval decision.
+
+### Interpretation Boundary
+
+Phase 6C-1 is mechanics and preflight evidence only. It is not material fine-tuning performance evidence, not an official test result, not calibration, not robustness/OOD, not seed variance, and not architecture-only evidence.
+
+The Phase 6B-2 frozen-feature result remains a fixed reference point and should not be used as a tuning target.
+
+### Next Boundary
+
+Phase 6C-2 may be proposed as a separate material fine-tuning run. It requires explicit builder approval before launch and must preserve validation-loss checkpoint selection plus one official test evaluation after best-checkpoint restoration.
 
 ---
 
@@ -905,7 +1115,12 @@ Expected closeout trail:
 - Phase 5A — [Augmentation Profile and Smoke Verification](docs/phase_closeouts/Phase_5A_augmentation_profile_and_smoke_verification.md)
 - Phase 5B — [Material Augmentation Comparison](docs/phase_closeouts/Phase_5B_material_augmentation_comparison.md)
 - Phase 5 — closed through accepted Phase 5A and Phase 5B subphases
-- Phase 6 — to be added
+- Phase 6A — [Transfer Model Contract and Tiny Frozen-Feature Smoke](docs/phase_closeouts/Phase_6A_transfer_model_contract_and_tiny_frozen_feature_smoke.md)
+- Phase 6B-1 — [Pretrained Frozen-Feature Smoke](docs/phase_closeouts/Phase_6B1_pretrained_frozen_feature_smoke.md)
+- Phase 6B-2 — [Material Frozen-Feature Transfer Run](docs/phase_closeouts/Phase_6B2_material_frozen_feature_run.md)
+- Phase 6C-1 — [Fine-Tuning Contract, Smoke, and Preflight](docs/phase_closeouts/Phase_6C1_fine_tuning_contract_smoke_and_preflight.md)
+- Phase 6C-2 — [Material Layer4 Fine-Tuning Run](docs/phase_closeouts/Phase_6C2_material_layer4_fine_tuning_run.md)
+- Phase 6 — complete through accepted Phase 6C-2 subphase
 - Phase 7 — to be added
 - Phase 8 — to be added
 - Phase 9 — to be added

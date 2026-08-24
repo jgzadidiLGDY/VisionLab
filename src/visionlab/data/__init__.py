@@ -35,6 +35,16 @@ from visionlab.data.manifests import (
 )
 from visionlab.data.validation import ValidationIssue, ValidationReport, validate_manifest
 from visionlab.data.splits import stratified_validation_indices
+from visionlab.data.transfer_preprocessing import (
+    TRANSFER_PREPROCESSING_SOURCE_SPEC,
+    TransferPredictionView,
+    TransferDataLoaders,
+    TransferPreprocessingResult,
+    TransferTrainingView,
+    build_transfer_dataloaders,
+    phase6b_preprocessing_contract_dict,
+    preprocess_resnet18_imagenet_tensor,
+)
 
 __all__ = [
     "CIFAR10_CLASSES",
@@ -57,14 +67,22 @@ __all__ = [
     "SplitDatasetBundle",
     "TrainingView",
     "TransformSpec",
+    "TRANSFER_PREPROCESSING_SOURCE_SPEC",
+    "TransferPredictionView",
+    "TransferDataLoaders",
+    "TransferPreprocessingResult",
+    "TransferTrainingView",
     "ValidationIssue",
     "ValidationReport",
     "VisionLabSplitDataset",
     "apply_augmentation_profile",
     "build_cifar10_split_datasets",
     "build_phase4_dataloaders",
+    "build_transfer_dataloaders",
     "get_augmentation_profile",
     "profile_registry_dict",
+    "phase6b_preprocessing_contract_dict",
+    "preprocess_resnet18_imagenet_tensor",
     "stratified_validation_indices",
     "validate_manifest",
     "verify_material_cifar10_contract",
