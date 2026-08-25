@@ -1,4 +1,4 @@
-"""Minimal classification evaluation artifacts for Phase 4 baselines."""
+"""Classification evaluation artifacts for VisionLab."""
 
 from __future__ import annotations
 
@@ -24,6 +24,10 @@ class PredictionRecord:
     confidence: float
     correct: bool
     source_id: str = ""
+    true_index: int | None = None
+    predicted_index: int | None = None
+    logits: tuple[float, ...] = ()
+    probabilities: tuple[float, ...] = ()
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -34,6 +38,10 @@ class PredictionRecord:
             "confidence": self.confidence,
             "correct": self.correct,
             "source_id": self.source_id,
+            "true_index": self.true_index,
+            "predicted_index": self.predicted_index,
+            "logits": list(self.logits),
+            "probabilities": list(self.probabilities),
         }
 
 
@@ -130,6 +138,12 @@ def evaluate_classification(
                         confidence=float(confidence[row].item()),
                         correct=is_correct,
                         source_id=str(source_ids[row]),
+                        true_index=true_index,
+                        predicted_index=predicted_index,
+                        logits=tuple(float(value) for value in logits[row].detach().cpu().tolist()),
+                        probabilities=tuple(
+                            float(value) for value in probabilities[row].detach().cpu().tolist()
+                        ),
                     )
                 )
 
@@ -182,11 +196,18 @@ def write_evaluation_artifacts(
                 "confidence",
                 "correct",
                 "source_id",
+                "true_index",
+                "predicted_index",
+                "logits",
+                "probabilities",
             ],
         )
         writer.writeheader()
         for record in evaluation.predictions:
-            writer.writerow(record.to_dict())
+            row = record.to_dict()
+            row["logits"] = json.dumps(row["logits"])
+            row["probabilities"] = json.dumps(row["probabilities"])
+            writer.writerow(row)
     return {
         "summary": str(summary_path),
         "predictions": str(predictions_path),

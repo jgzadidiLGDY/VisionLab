@@ -1,6 +1,6 @@
 # VisionLab Phase Catalog
 
-Status: Phase 6C-2 complete; accepted. Phase 7 has not started.
+Status: Phase 7 complete; accepted. Phase 8 has not started.
 
 This catalog tracks the current phase sequence and phase status. The project specification remains the source for detailed scope, exit criteria, and maturity boundaries.
 
@@ -25,7 +25,7 @@ This catalog tracks the current phase sequence and phase status. The project spe
 | 6B-2 | Material Frozen-Feature Transfer Run | Complete; accepted | [Phase 6B-2 closeout](phase_closeouts/Phase_6B2_material_frozen_feature_run.md) |
 | 6C-1 | Fine-Tuning Contract, Smoke, and Preflight | Complete; accepted | [Phase 6C-1 closeout](phase_closeouts/Phase_6C1_fine_tuning_contract_smoke_and_preflight.md) |
 | 6C-2 | Material Fine-Tuning Run | Complete; accepted | [Phase 6C-2 closeout](phase_closeouts/Phase_6C2_material_layer4_fine_tuning_run.md) |
-| 7 | Evaluation Harness and Calibration | Not started | To be added |
+| 7 | Evaluation Harness and Calibration | Complete; accepted | [Phase 7 closeout](phase_closeouts/Phase_7_evaluation_harness_and_calibration.md) |
 | 8 | Robustness and OOD Evaluation | Not started | To be added |
 | 9 | Failure Analysis and Interpretability | Not started | To be added |
 | 10 | Inference Surface and Core Stabilization | Not started | To be added |
@@ -72,5 +72,6 @@ This catalog tracks the current phase sequence and phase status. The project spe
 - Relative to the Phase 6B-2 frozen-feature reference test accuracy `0.856100`, Phase 6C-2 observed a single-run test accuracy delta of `+0.058600`, or `+5.86` percentage points.
 - Phase 6C-2 phase check identified a stale Phase 6C-1/preflight label in the material-run `run_contract.json`; the top-level metadata was corrected to Phase 6C-2 without rerunning training, changing configuration, or generating a new experimental result.
 - Phase 6C-2 is a single-run fine-tuning result. It does not establish seed/run-to-run variance, optimal unfreezing depth, optimal hyperparameters, architecture-only superiority, calibration, robustness/OOD behavior, diagnostics, inference, applied-domain behavior, or generalization beyond the evaluated CIFAR-10 experiment.
-- Phase 7 has not started and requires separate planning and approval.
+- Phase 7 is complete and accepted. It generated fixed-checkpoint metrics/calibration artifacts under ignored `outputs/phase7-evaluation-harness-and-calibration/`, preserved a 10-bin ECE configuration, verified validation/test sample alignment, and closed without training or checkpoint mutation.
+- Phase 8 has not started and requires separate briefing, planning, and approval.
 - Phase 4 is closed and accepted. The Phase 4 baseline artifacts and configuration remain the historical custom-CNN reference point for later controlled comparisons.

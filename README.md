@@ -6,7 +6,7 @@ The intended project will build and train a custom CNN, compare it with one pret
 
 It is not intended to be a production inspection system, medical or forensic authority, broad computer-vision framework, vision-language-model project, or benchmark-chasing exercise.
 
-This repository has closed **Phase 6C-2 - Material Layer4 Fine-Tuning Run**. CIFAR-10 is registered as the provisional core development dataset, the Phase 4B single-run custom CNN baseline remains the fixed historical custom-model comparison reference, Phase 6B-2 remains the fixed frozen-feature transfer-learning reference, and Phase 6C-2 produced one accepted layer4 + fc fine-tuning result initialized from the Phase 6B-2 best checkpoint. Inference, calibration, robustness, OOD, diagnostics, applied-domain behavior, and Phase 7 work should not yet be assumed unless repository inspection confirms otherwise.
+This repository has closed **Phase 7 - Evaluation Harness and Calibration**. CIFAR-10 is registered as the provisional core development dataset, the Phase 4B single-run custom CNN baseline remains the fixed historical custom-model comparison reference, Phase 6B-2 remains the fixed frozen-feature transfer-learning reference, and Phase 6C-2 remains the fixed layer4 + fc fine-tuning reference. Phase 7 added fixed-checkpoint evaluation metrics, calibration artifacts, confidence distributions, reliability diagrams, and sample-aligned comparison outputs. Inference, robustness, OOD, diagnostics, applied-domain behavior, and Phase 8 work should not yet be assumed unless repository inspection confirms otherwise.
 
 ---
 
@@ -78,7 +78,7 @@ The project should remain narrow enough to finish. Detection, segmentation, vide
 
 ## Current Status
 
-Status: **Phase 6C-2 complete / accepted; Phase 7 not started**
+Status: **Phase 7 complete / accepted; Phase 8 not started**
 
 At this point:
 
@@ -140,8 +140,14 @@ At this point:
 - relative to the fixed Phase 6B-2 frozen-feature reference test accuracy `0.856100`, Phase 6C-2 observed a single-run accuracy delta of `+0.058600`, or `+5.86` percentage points;
 - the Phase 6C-2 phase check identified a stale `run_contract.json` label inherited from Phase 6C-1 preflight metadata; the top-level contract was corrected to Phase 6C-2 without rerunning training, changing configuration, or generating a new experimental result;
 - Phase 6C-2 is a single-run fine-tuning result and does not establish seed/run-to-run variance, optimal unfreezing depth, optimal hyperparameters, architecture-only superiority, calibration, robustness/OOD behavior, or generalization beyond the evaluated CIFAR-10 experiment.
+- Phase 7 implemented a fixed-checkpoint evaluation harness for the accepted Phase 4B, Phase 6B-2, and Phase 6C-2 best checkpoints without retraining, tuning, regenerating, or overwriting checkpoints;
+- Phase 7 records checkpoint SHA-256 identities in `outputs/phase7-evaluation-harness-and-calibration/phase7_contract.json`;
+- Phase 7 verifies identical registered sample IDs and labels across all compared runs for validation (`5,000` samples) and official test (`10,000` samples);
+- Phase 7 generated class-wise metrics, balanced accuracy, macro/micro/weighted summaries, one-vs-rest ROC-AUC and PR-AUC, calibration summaries, reliability diagrams, confidence distributions, confusion-matrix SVGs, and a fixed-checkpoint comparison report;
+- Phase 7 official test metrics are retrospective fixed-checkpoint evaluation evidence only, not model-selection evidence;
+- Phase 7 is formally closed and accepted; `docs/phase_closeouts/Phase_7_evaluation_harness_and_calibration.md` preserves the exact results, ECE configuration, limitations, and non-claims;
 
-The next project step should be separate Phase 7 planning for the evaluation harness and calibration. Phase 7 has not begun and requires its own approval boundary. The Phase 6C-2 result is a fixed single-run reference, not a tuned target for later phases.
+The next project step should be separate Phase 8 planning for robustness and OOD evaluation. Phase 8 has not started and requires its own briefing, plan, and approval boundary. The Phase 6C-2 result remains a fixed single-run reference, not a tuned target for later phases.
 
 This status section should be updated as phases close. Historical detail belongs in the builder journal and phase closeout documents rather than accumulating here.
 
@@ -170,6 +176,8 @@ T0 bootstrap documents now also include:
 - [`docs/phase_closeouts/Phase_6B2_material_frozen_feature_run.md`](docs/phase_closeouts/Phase_6B2_material_frozen_feature_run.md) - accepted Phase 6B-2 single-run material frozen-feature transfer-learning reference, artifact inventory, comparison result, and limitations
 - [`docs/phase_closeouts/Phase_6C1_fine_tuning_contract_smoke_and_preflight.md`](docs/phase_closeouts/Phase_6C1_fine_tuning_contract_smoke_and_preflight.md) - accepted Phase 6C-1 fine-tuning contract, Phase 6B-2 checkpoint initialization, optimizer-scope verification, mechanics smoke, and preflight/timing evidence
 - [`docs/phase_closeouts/Phase_6C2_material_layer4_fine_tuning_run.md`](docs/phase_closeouts/Phase_6C2_material_layer4_fine_tuning_run.md) - accepted Phase 6C-2 single-run material layer4 + fc fine-tuning result, metadata correction note, artifact inventory, comparison references, and limitations
+- [`docs/phase_checks/Phase_7_evaluation_harness_and_calibration_check.md`](docs/phase_checks/Phase_7_evaluation_harness_and_calibration_check.md) - formal Phase 7 check
+- [`docs/phase_closeouts/Phase_7_evaluation_harness_and_calibration.md`](docs/phase_closeouts/Phase_7_evaluation_harness_and_calibration.md) - accepted Phase 7 fixed-checkpoint evaluation/calibration closeout, exact results, ECE configuration, limitations, and non-claims
 
 Additional documents expected during implementation include:
 
