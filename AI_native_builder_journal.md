@@ -12,19 +12,240 @@ This journal explains how VisionLab is being built by an AI-native builder: a de
 
 ## Current Journal State
 
-Status: **Phase 7 complete / accepted; Phase 8 not started**
+Status: **Phase 8 complete / accepted; Phase 9 not started**
 
-The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, Phase 1 is complete, Phase 3 is complete and accepted, Phase 4A is implemented, the approved Phase 4B material baseline run has completed, Phase 4 is accepted and closed, Phase 5 is complete through accepted Phase 5A and Phase 5B closeout, Phase 6A is complete and accepted, Phase 6B-1 is complete and accepted, Phase 6B-2 is complete and accepted, Phase 6C-1 is complete and accepted, Phase 6C-2 is complete and accepted, Phase 7 is complete and accepted, and Phase 8 has not started.
+The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, Phase 1 is complete, Phase 3 is complete and accepted, Phase 4A is implemented, the approved Phase 4B material baseline run has completed, Phase 4 is accepted and closed, Phase 5 is complete through accepted Phase 5A and Phase 5B closeout, Phase 6A is complete and accepted, Phase 6B-1 is complete and accepted, Phase 6B-2 is complete and accepted, Phase 6C-1 is complete and accepted, Phase 6C-2 is complete and accepted, Phase 7 is complete and accepted, Phase 8A is complete and accepted, Phase 8B-1 is complete and accepted, Phase 8B-2A is complete and accepted, Phase 8B-2B is complete and accepted, Phase 8B validation robustness is complete through accepted subphases, Phase 8C-1 is complete and accepted, Phase 8C-2B is complete and accepted, Phase 8 is complete and accepted, and Phase 9 has not started.
 
 At this point, the main project artifacts are planning documents, governance records, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, accepted Phase 1B CIFAR-10 registration artifacts, the Phase 2 custom CNN forward-contract implementation, the Phase 3 bounded training-engine implementation, Phase 4A baseline experiment plumbing with tiny smoke artifacts, the Phase 4B single-run custom CNN baseline artifacts, accepted Phase 5A augmentation profile/inspection artifacts, the accepted Phase 5B single-run augmentation comparison artifacts, the Phase 6A ResNet-18 transfer-model contract with tiny mechanics smoke coverage, the accepted Phase 6B-1 pretrained frozen-feature smoke artifacts, the accepted Phase 6B-2 material frozen-feature transfer-learning run artifacts, the accepted Phase 6C-1 fine-tuning contract/preflight artifacts, and the accepted Phase 6C-2 material layer4 fine-tuning artifacts. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
 
-Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. Phase 3 implemented and closed CPU-only training loops, validation, optional scheduler stepping and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss handling against synthetic/tiny verification data. Phase 4A implemented loader, evaluation-artifact, prediction-record, history, and tiny smoke plumbing. Phase 4B produced a single-run custom CNN CIFAR-10 baseline result: restored-best official test loss `1.024515` and test accuracy `0.635900`. Phase 5A added explicit train-only augmentation profiles, visual inspection artifacts, smoke tests, and declared the Pillow dependency needed for augmentation-grid rendering. Phase 5B then ran one approved augmentation comparison using `phase5a-candidate-horizontal-flip-random-crop` version `1.0`, yielding restored-best validation loss `1.055734`, validation accuracy `0.620600`, official test loss `1.056135`, and official test accuracy `0.630800`. Relative to the Phase 4B baseline, that single run regressed by `+0.031620` test loss and `-0.005100` test accuracy, so the candidate profile is not adopted as the new baseline. Phase 6A added an explicit `torchvision.models.resnet18` transfer-model contract bound to `ResNet18_Weights.IMAGENET1K_V1`, a separate ImageNet preprocessing contract, frozen-backbone/head-only parameter inspection, a non-download cache probe, and tiny random-initialized mechanics smoke coverage. Phase 6B-1 then downloaded the exact approved checkpoint `resnet18-f37072fd.pth`, verified cache availability, loaded the selected weights with `pretrained_weights_loaded: true`, applied `ResNet18_Weights.IMAGENET1K_V1.transforms()`, and completed tiny pretrained frozen-feature mechanics smoke. Phase 6B-2 ran one approved material frozen-feature transfer-learning experiment, `phase6b2-cifar10-resnet18-frozen-feature-001`, using the same exact pretrained identity, selected epoch `4` by minimum validation loss, and produced restored-best validation loss `0.398302`, validation accuracy `0.864600`, official test loss `0.413686`, and official test accuracy `0.856100`. Relative to Phase 4B, this is a single-run test accuracy delta of `+0.220200` and loss delta of `-0.610829`. Phase 6C-1 then implemented the fine-tuning contract/preflight path initialized from the accepted Phase 6B-2 best checkpoint at epoch `4`, checkpoint SHA-256 `5832c71f298ee4d21a18f1e38460a92082a5733af26f108211afcc8a9cdd1af5`, with `finetune_layer4_head`, trainable `layer4 + fc`, optimizer scope matching only trainable parameters, and a 3-epoch CPU timing estimate of about `68.1` minutes at batch size `64`. The Phase 6B-2 result is a fixed reference point and should not become an automatic target for Phase 6C. Phase 6C-2 then ran the approved material fine-tuning experiment `phase6c-cifar10-resnet18-layer4-finetune-001`, selected epoch `2` by minimum validation loss, and produced restored-best validation loss `0.246512`, validation accuracy `0.925800`, official test loss `0.272485`, and official test accuracy `0.914700`. Relative to Phase 6B-2, this is a single-run test accuracy delta of `+0.058600`, or `+5.86` percentage points. The stale Phase 6C-1/preflight label in the material-run `run_contract.json` was corrected after phase check without rerunning training or changing experimental evidence. Phase 7 evaluation/calibration work is complete and accepted. Phase 8 has not started. No inference surface, robustness, OOD, diagnostics, or applied-domain behavior exists yet.
+Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. Phase 3 implemented and closed CPU-only training loops, validation, optional scheduler stepping and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss handling against synthetic/tiny verification data. Phase 4A implemented loader, evaluation-artifact, prediction-record, history, and tiny smoke plumbing. Phase 4B produced a single-run custom CNN CIFAR-10 baseline result: restored-best official test loss `1.024515` and test accuracy `0.635900`. Phase 5A added explicit train-only augmentation profiles, visual inspection artifacts, smoke tests, and declared the Pillow dependency needed for augmentation-grid rendering. Phase 5B then ran one approved augmentation comparison using `phase5a-candidate-horizontal-flip-random-crop` version `1.0`, yielding restored-best validation loss `1.055734`, validation accuracy `0.620600`, official test loss `1.056135`, and official test accuracy `0.630800`. Relative to the Phase 4B baseline, that single run regressed by `+0.031620` test loss and `-0.005100` test accuracy, so the candidate profile is not adopted as the new baseline. Phase 6A added an explicit `torchvision.models.resnet18` transfer-model contract bound to `ResNet18_Weights.IMAGENET1K_V1`, a separate ImageNet preprocessing contract, frozen-backbone/head-only parameter inspection, a non-download cache probe, and tiny random-initialized mechanics smoke coverage. Phase 6B-1 then downloaded the exact approved checkpoint `resnet18-f37072fd.pth`, verified cache availability, loaded the selected weights with `pretrained_weights_loaded: true`, applied `ResNet18_Weights.IMAGENET1K_V1.transforms()`, and completed tiny pretrained frozen-feature mechanics smoke. Phase 6B-2 ran one approved material frozen-feature transfer-learning experiment, `phase6b2-cifar10-resnet18-frozen-feature-001`, using the same exact pretrained identity, selected epoch `4` by minimum validation loss, and produced restored-best validation loss `0.398302`, validation accuracy `0.864600`, official test loss `0.413686`, and official test accuracy `0.856100`. Relative to Phase 4B, this is a single-run test accuracy delta of `+0.220200` and loss delta of `-0.610829`. Phase 6C-1 then implemented the fine-tuning contract/preflight path initialized from the accepted Phase 6B-2 best checkpoint at epoch `4`, checkpoint SHA-256 `5832c71f298ee4d21a18f1e38460a92082a5733af26f108211afcc8a9cdd1af5`, with `finetune_layer4_head`, trainable `layer4 + fc`, optimizer scope matching only trainable parameters, and a 3-epoch CPU timing estimate of about `68.1` minutes at batch size `64`. The Phase 6B-2 result is a fixed reference point and should not become an automatic target for Phase 6C. Phase 6C-2 then ran the approved material fine-tuning experiment `phase6c-cifar10-resnet18-layer4-finetune-001`, selected epoch `2` by minimum validation loss, and produced restored-best validation loss `0.246512`, validation accuracy `0.925800`, official test loss `0.272485`, and official test accuracy `0.914700`. Relative to Phase 6B-2, this is a single-run test accuracy delta of `+0.058600`, or `+5.86` percentage points. The stale Phase 6C-1/preflight label in the material-run `run_contract.json` was corrected after phase check without rerunning training or changing experimental evidence. Phase 7 evaluation/calibration work is complete and accepted. Phase 8A degradation-registry, tiny-smoke, and qualitative visual-QA work is complete and accepted. Phase 8B-1 robustness plumbing, condition contracts, tiny validation-subset smoke, artifact validation, and approximate runtime estimation are complete and accepted. Phase 8B-2A validation-only runner/preflight contracts, split enforcement, artifact schemas, condition/checkpoint manifests, validation count verification, sample-alignment preflight digest, and focused tests are complete and accepted. Phase 8B-2A produced no robustness conclusion. Phase 8B-2B executed the accepted validation-only fixed-checkpoint robustness sweep and preserved condition-specific metrics and clean deltas. Phase 8C-1 acquired and registered CIFAR-10.1 v6 as a cross-source/evaluation-only dataset, generated qualitative visual QA artifacts, and preserved the accepted evidence boundary. Phase 8C-2B executed the accepted CIFAR-10.1 v6 material cross-source evaluation for the three fixed checkpoints, preserving exactly `2,000` samples per checkpoint, `3` cross-source metric rows, `3` historical-reference delta rows, dataset/checkpoint SHA-256 identities, preprocessing invariant evidence, and sample/label/source alignment. These results are bounded CIFAR-10.1 v6 cross-source/distribution-shift evidence only, not general OOD detection, deployment reliability, real-world robustness, label-correctness, or model-superiority evidence. No official CIFAR-10 test rerun, training, tuning, model selection, checkpoint mutation, additional OOD dataset evaluation, inference surface, diagnostics, applied-domain behavior, or Phase 9 work exists yet.
 
 The applied domain remains intentionally undecided. It will be selected later through the implementation-stage feasibility gate rather than assumed at project start.
 
 This journal should not imply that planned models, commands, experiments, checkpoints, results, or application behavior have already been implemented or validated unless they are explicitly tied to preserved artifacts. CIFAR-10 is registered only as the provisional core development dataset, not as an applied-domain decision.
 
 Update this section as the project advances. Preserve historical detail in dated entries and phase closeouts rather than accumulating an outdated narrative here.
+
+---
+## 2026-08-27 - Phase 8 Robustness and OOD Evaluation Closeout
+
+### Context
+
+The builder accepted Phase 8A, Phase 8B, and Phase 8C material boundaries and requested the overall Phase 8 closeout. This was a documentation-only consolidation. No additional experiment, evaluation, model inference, training, tuning, dataset acquisition, checkpoint mutation, or Phase 9 work occurred.
+
+### AI Contribution
+
+Codex created the overall Phase 8 closeout and updated README, phase catalog, and this builder journal to consolidate the accepted degradation registry, validation robustness evidence, CIFAR-10.1 v6 cross-source evidence, fixed checkpoint identities, quantitative results, limitations, and non-claims.
+
+### Evidence
+
+- Phase closeout: `docs/phase_closeouts/Phase_8_robustness_and_ood_evaluation.md`.
+- Phase 8A registry: `visionlab-phase8a-degradation-profiles` version `1.0`, with Gaussian noise, Gaussian blur, brightness shift, and contrast reduction severities `S1` through `S5` frozen before model evaluation.
+- Phase 8B material artifacts: `outputs/phase8b2b-fixed-checkpoint-validation-robustness-sweep/`, with `3` checkpoints, `21` conditions, `5,000` CIFAR-10 validation samples per model-condition row, `63` metric rows, `63` clean-delta rows, and `60` severity-curve rows.
+- Phase 8C material artifacts: `outputs/phase8c2b-cifar10-1-v6-fixed-checkpoint-cross-source-evaluation/`, with CIFAR-10.1 v6 `cross_source_test`, `2,000` samples per checkpoint, `3` cross-source metric rows, and `3` historical-reference delta rows.
+- CIFAR-10.1 v6 data SHA-256: `2997188e5816f5bd545dc77771b6227828c28146049fcecf3fa10775474cacc6`.
+- CIFAR-10.1 v6 labels SHA-256: `ae40beda001693674edc94d925ee8268cfe68905f8f9aff800c8dcdfcd6c9448`.
+- CIFAR-10.1 v6 sample-label digest: `2afa813c387e578086d1f0aeeb1b9674e352c73c4690b89d69385aedca3e8b75`.
+- Fixed checkpoint SHA-256 identities were preserved for Phase 4B, Phase 6B-2, and Phase 6C-2.
+- Phase 8C deltas use previously accepted Phase 7 official CIFAR-10 test summaries and are not paired-sample deltas.
+- Phase 8C non-blocking audit note preserved: full raw-input hashes were not stored for every material sample/model pair, and the experiment was not rerun to add them.
+- Canonical deterministic suite after documentation-only closeout: `150` tests passed, `1` skipped.
+
+### Project Impact
+
+VisionLab now has a closed robustness and cross-source evaluation phase. Phase 8 separates clean discrimination, corruption robustness, calibration, and cross-source distribution shift, while keeping the claims bounded to accepted CIFAR-10 validation and CIFAR-10.1 v6 evidence.
+
+### Next Boundary
+
+Phase 9 has not started. The next step is separate Phase 9 planning and approval.
+---
+## 2026-08-27 - Phase 8C-2B CIFAR-10.1 v6 Cross-Source Evaluation Closeout
+
+### Context
+
+The builder accepted the formal Phase 8C-2B phase-check report and requested documentation-only closeout. The material CIFAR-10.1 v6 cross-source evaluation was not rerun, and the official CIFAR-10 test split was not rerun.
+
+### AI Contribution
+
+Codex created the Phase 8C-2B closeout and updated README, phase catalog, and this builder journal to preserve the accepted evidence boundary, metrics, deltas, artifacts, limitations, and non-claims.
+
+### Evidence
+
+- Phase closeout: `docs/phase_closeouts/Phase_8C2B_cifar10_1_cross_source_evaluation.md`.
+- Run artifacts: `outputs/phase8c2b-cifar10-1-v6-fixed-checkpoint-cross-source-evaluation/`.
+- Dataset identity: `cifar10-1` version `v6`, split `cross_source_test`, `2,000` samples.
+- CIFAR-10.1 v6 data SHA-256: `2997188e5816f5bd545dc77771b6227828c28146049fcecf3fa10775474cacc6`.
+- CIFAR-10.1 v6 labels SHA-256: `ae40beda001693674edc94d925ee8268cfe68905f8f9aff800c8dcdfcd6c9448`.
+- Sample-label digest: `2afa813c387e578086d1f0aeeb1b9674e352c73c4690b89d69385aedca3e8b75`.
+- Fixed checkpoints: Phase 4B CustomCNN, Phase 6B-2 frozen-feature ResNet-18, and Phase 6C-2 layer4 + fc fine-tuned ResNet-18 with accepted SHA-256 identities.
+- Metrics: exactly `3` cross-source metric rows, one per fixed checkpoint, each with `2,000` evaluated examples.
+- Deltas: exactly `3` historical-reference delta rows, defined as CIFAR-10.1 v6 cross-source metric minus previously accepted Phase 7 official CIFAR-10 test metric for the same fixed checkpoint. They are not paired-sample deltas.
+- Sample/label/source alignment and artifact validation passed.
+- Phase check non-blocking audit note: full raw-input hashes were not stored for every material sample/model pair, and the experiment was not rerun to add them.
+- Canonical deterministic suite after documentation-only closeout: `150` tests passed, `1` skipped.
+
+### Project Impact
+
+VisionLab now has accepted CIFAR-10.1 v6 cross-source/distribution-shift evidence for the three fixed model references. The interpretation remains bounded to this dataset and run contract; it does not establish general OOD detection, deployment reliability, real-world robustness, label correctness, or general model superiority.
+
+### Next Boundary
+
+The next boundary is a separate overall Phase 8 closeout review. Phase 9 has not started.
+---
+## 2026-08-26 - Phase 8C-1 CIFAR-10.1 v6 Registration, Visual QA, and Tiny Smoke Closeout
+
+### Context
+
+The builder approved CIFAR-10.1 v6 acquisition only after Phase 8C-1 correctly stopped at the external-data boundary. After acquisition, registration, tiny smoke, artifact verification, and manual visual QA review, the builder accepted the Phase 8C-1 evidence and requested formal closeout.
+
+### AI Contribution
+
+Codex acquired only the declared CIFAR-10.1 v6 files from the official GitHub source, implemented the registration/loader contract, preserved evaluation-only dataset identity, generated real visual QA artifacts, and kept the phase boundary separate from any model evaluation.
+
+### Evidence
+
+- Phase closeout: `docs/phase_closeouts/Phase_8C1_cifar10_1_registration_visual_qa_and_tiny_smoke.md`.
+- Run artifacts: `outputs/phase8c1-cifar10-1-registration-visual-qa-tiny-smoke/`.
+- Dataset identity: `cifar10-1` version `v6`, split `cross_source_test`.
+- Acquisition source files: `https://github.com/modestyachts/CIFAR-10.1/raw/master/datasets/cifar10.1_v6_data.npy` and `https://github.com/modestyachts/CIFAR-10.1/raw/master/datasets/cifar10.1_v6_labels.npy`.
+- Dataset shape/count: `2,000` images, `32 x 32 x 3`, exact CIFAR-10 class mapping, `200` examples per class.
+- Data SHA-256: `2997188e5816f5bd545dc77771b6227828c28146049fcecf3fa10775474cacc6`.
+- Labels SHA-256: `ae40beda001693674edc94d925ee8268cfe68905f8f9aff800c8dcdfcd6c9448`.
+- Sample-label digest: `2afa813c387e578086d1f0aeeb1b9674e352c73c4690b89d69385aedca3e8b75`.
+- Builder visual QA review: the generated CIFAR-10.1 v6 grid looks correct.
+- Focused Phase 8C-1 tests passed with `12` tests.
+- Canonical deterministic suite passed after documentation-only closeout with `132` tests and `1` skipped.
+
+### Project Impact
+
+VisionLab now has a registered cross-source/evaluation-only CIFAR-10.1 v6 dataset ready for a separately approved Phase 8C-2 evaluation plan. Phase 8C-1 visual QA is qualitative only and does not establish label correctness, OOD detection capability, robustness, or deployment reliability.
+
+### Next Boundary
+
+The next boundary is separate Phase 8C-2 planning. No model checkpoint was evaluated, no official CIFAR-10 test evaluation occurred, no material cross-source/OOD evaluation occurred, and Phase 9 has not started.
+---
+## 2026-08-26 - Phase 8B-2B Fixed-Checkpoint Validation Robustness Sweep Closeout
+
+### Context
+
+The builder approved the Phase 8B-2B material run exactly as specified, then reviewed and accepted the robustness artifacts and phase-check evidence. The run was validation-only and used the accepted Phase 8A v1.0 degradation contract.
+
+### AI Contribution
+
+Codex ran the approved material validation sweep, verified artifacts and row counts, repaired only the generated Markdown report formatting/content from already-completed CSV artifacts, and preserved the phase boundary without closing Phase 8 as a whole.
+
+### Evidence
+
+- Phase closeout: `docs/phase_closeouts/Phase_8B2B_fixed_checkpoint_validation_robustness_sweep.md`.
+- Run artifacts: `outputs/phase8b2b-fixed-checkpoint-validation-robustness-sweep/`.
+- Conditions: `21` total, preserving the frozen Phase 8A v1.0 degradation registry.
+- Fixed checkpoints: `phase4b-cifar10-custom-cnn-baseline-001`, `phase6b2-cifar10-resnet18-frozen-feature-001`, and `phase6c-cifar10-resnet18-layer4-finetune-001`.
+- Validation-only evidence: `5,000` examples per model-condition row, `63` metric rows, `63` clean-delta rows, and `60` severity-curve rows.
+- Sample-alignment digest: `8182140619d7359ac287d1496b2e75415ffb5b2f26a042636ec075fa68beeb9e`.
+- Post-run canonical deterministic suite passed with `120` tests and `1` skipped.
+
+### Project Impact
+
+VisionLab now has accepted validation-only fixed-checkpoint robustness evidence for the three established CIFAR-10 references. The evidence is condition-specific validation robustness only and does not establish official test robustness, OOD robustness, semantic label preservation, production reliability, or general model superiority.
+
+### Next Boundary
+
+The next boundary is formal Phase 8B review/closeout or separate Phase 8C planning. Phase 8C has not started and requires separate approval.
+
+---
+## 2026-08-26 - Phase 8B-2A Validation Robustness Runner Preflight Closeout
+
+### Context
+
+The builder approved Phase 8B-2A only, accepted the implementation and phase-check evidence, and requested formal closeout. Phase 8B-2A remained validation-only runner/preflight implementation without executing the full `5,000`-sample material sweep. Phase 8B-2B, official test robustness evaluation, OOD/cross-source evaluation, training, tuning, model selection, and checkpoint modification remained excluded.
+
+### AI Contribution
+
+Codex added Phase 8B-2A preflight support to `src/visionlab/experiments/phase8b.py`, including validation-only split enforcement, future material-run contract generation, condition/checkpoint manifests, expected artifact schema, sample-alignment preflight digest, output isolation checks, artifact validation, and a CLI preflight script.
+
+### Evidence
+
+- Phase 8B-2A module additions: `src/visionlab/experiments/phase8b.py`.
+- Preflight runner: `scripts/run_phase8b2a_preflight.py`.
+- Focused tests: `tests/test_phase8b2a_preflight.py`.
+- Phase closeout: `docs/phase_closeouts/Phase_8B2A_validation_robustness_runner_preflight.md`.
+- Generated preflight artifacts: `outputs/phase8b2a-validation-robustness-runner-preflight/`.
+- Preflight contract records target split `val`, target sample count `5,000`, `21` conditions, `3` checkpoint references, and `63` expected model-condition rows.
+- Sample-alignment digest: `8182140619d7359ac287d1496b2e75415ffb5b2f26a042636ec075fa68beeb9e`.
+- Official test split requests are rejected in code.
+- Phase 8B-2B and Phase 8C remain not started.
+- Focused Phase 8B tests passed: `18` tests.
+- Canonical deterministic suite passed after Phase 8B-2A documentation-only closeout: `119` tests, `1` skipped.
+
+### Project Impact
+
+VisionLab now has accepted implementation contracts and preflight artifacts needed for a separately approved Phase 8B-2B validation robustness sweep. Phase 8B-2A produced no robustness conclusion.
+
+### Next Boundary
+
+The next boundary is separate Phase 8B-2B material-run approval. Phase 8B as a whole is not complete; Phase 8B-2B and Phase 8C remain unstarted and require separate approval.
+
+---
+## 2026-08-25 - Phase 8B-1 Robustness Plumbing Validation Smoke Closeout
+
+### Context
+
+The builder approved Phase 8B-1 only, accepted the formal phase-check report, and requested formal closeout. The accepted Phase 8A degradation registry remains frozen exactly for Phase 8B. Phase 8B-2, official test robustness evaluation, OOD/cross-source data, retraining, tuning, checkpoint modification, and model selection remained excluded.
+
+### AI Contribution
+
+Codex implemented the Phase 8B-1 condition contract, raw degraded unit-tensor equivalence checks before model-specific preprocessing, CustomCNN and ResNet-18 preprocessing wrappers, tiny validation-subset smoke runner, clean-vs-degraded delta plumbing, artifact validation, and approximate Phase 8B-2 runtime estimation.
+
+### Evidence
+
+- Phase check: `docs/phase_checks/Phase_8B1_robustness_plumbing_validation_smoke_check.md`.
+- Phase closeout: `docs/phase_closeouts/Phase_8B1_robustness_plumbing_validation_smoke.md`.
+- Phase 8B-1 module: `src/visionlab/experiments/phase8b.py`.
+- Smoke runner: `scripts/run_phase8b1_validation_smoke.py`.
+- Focused tests: `tests/test_phase8b_plumbing.py`.
+- Generated smoke artifacts: `outputs/phase8b1-robustness-plumbing-validation-smoke/`.
+- Smoke contract records `not_robustness_results: true`, official test evaluation as `not performed`, Phase 8B-2 as `not started`, and Phase 8C as `not started`.
+- The tiny smoke used `10` validation samples and produced `63` model-condition rows across the three fixed references and `21` conditions.
+- Runtime estimate for a future 5,000-sample validation sweep: approximately `77.92` minutes, estimate only.
+- Focused tests passed: `8` tests.
+- Canonical deterministic suite passed after closeout documentation updates: `109` tests, `1` skipped.
+
+### Project Impact
+
+VisionLab now has accepted robustness-evaluation plumbing for a future separately approved Phase 8B-2B sweep. The central invariant is verified: for the same CIFAR-10 sample, degradation profile, and severity, the raw degraded unit tensor is identical before CustomCNN and ResNet-18 preprocessing. This is plumbing evidence only, not a robustness conclusion.
+
+### Next Boundary
+
+The next boundary is separate Phase 8B-2B material-run approval. Phase 8B as a whole is not complete; Phase 8B-2B and Phase 8C remain unstarted and require separate approval.
+
+---
+## 2026-08-25 - Phase 8A Degradation Registry, Visual QA, and Tiny Smoke Implementation
+
+### Context
+
+The builder approved Phase 8A only, with explicit exclusions for Phase 8B/8C, checkpoint evaluation, material robustness sweeps, OOD data, retraining, tuning, checkpoint modification, model selection, and robustness conclusions.
+
+### AI Contribution
+
+Codex implemented a versioned Phase 8A degradation registry, deterministic transform application, metadata-preserving degraded sample wrapper, focused smoke tests, and a visual-QA artifact generator for fixed registered CIFAR-10 samples.
+
+### Evidence
+
+- Phase check: `docs/phase_checks/Phase_8A_degradation_registry_visual_qa_and_tiny_smoke_check.md`.
+- Phase closeout: `docs/phase_closeouts/Phase_8A_degradation_registry_visual_qa_and_tiny_smoke.md`.
+- Degradation registry module: `src/visionlab/data/degradations.py`.
+- Visual QA script: `scripts/inspect_phase8a_degradations.py`.
+- Phase 8A tests: `tests/test_phase8a_degradations.py`.
+- Generated artifacts: `outputs/phase8a-degradation-registry-visual-qa-tiny-smoke/`.
+- Canonical deterministic suite passed with `101` tests and `1` skipped.
+
+### Project Impact
+
+Phase 8A establishes the degradation contract needed before any Phase 8B robustness sweep. Visual QA remains qualitative only and is not evidence that degradations are semantically label-preserving or that models are robust. Phase 8A is complete and accepted.
+
+### Next Boundary
+
+The next boundary is separate Phase 8B planning. Phase 8B and Phase 8C remain unstarted and require separate approval.
 
 ---
 ## 2026-08-24 - Phase 7 Evaluation Harness and Calibration Closeout
@@ -1149,7 +1370,13 @@ Expected closeout trail:
 - Phase 6C-2 — [Material Layer4 Fine-Tuning Run](docs/phase_closeouts/Phase_6C2_material_layer4_fine_tuning_run.md)
 - Phase 6 — complete through accepted Phase 6C-2 subphase
 - Phase 7 — [Evaluation Harness and Calibration](docs/phase_closeouts/Phase_7_evaluation_harness_and_calibration.md)
-- Phase 8 — to be added; not started
+- Phase 8A — [Degradation Registry, Visual QA, and Tiny Smoke](docs/phase_closeouts/Phase_8A_degradation_registry_visual_qa_and_tiny_smoke.md)
+- Phase 8B-1 — [Robustness Plumbing Validation Smoke](docs/phase_closeouts/Phase_8B1_robustness_plumbing_validation_smoke.md)
+- Phase 8B-2A — [Validation Robustness Runner Preflight](docs/phase_closeouts/Phase_8B2A_validation_robustness_runner_preflight.md)
+- Phase 8B-2B — [Fixed-Checkpoint Validation Robustness Sweep](docs/phase_closeouts/Phase_8B2B_fixed_checkpoint_validation_robustness_sweep.md)
+- Phase 8C-1 — [CIFAR-10.1 v6 Registration, Visual QA, and Tiny Smoke](docs/phase_closeouts/Phase_8C1_cifar10_1_registration_visual_qa_and_tiny_smoke.md)
+- Phase 8C-2B — [CIFAR-10.1 v6 Cross-Source Evaluation](docs/phase_closeouts/Phase_8C2B_cifar10_1_cross_source_evaluation.md)
+- Phase 8 — [Robustness and OOD Evaluation](docs/phase_closeouts/Phase_8_robustness_and_ood_evaluation.md)
 - Phase 9 — to be added
 - Phase 10 — to be added
 - Phase 11 — to be added

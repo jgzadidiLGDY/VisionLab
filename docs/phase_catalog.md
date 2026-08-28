@@ -1,6 +1,6 @@
 # VisionLab Phase Catalog
 
-Status: Phase 7 complete; accepted. Phase 8 has not started.
+Status: Phase 8 complete; accepted. Phase 9 has not started.
 
 This catalog tracks the current phase sequence and phase status. The project specification remains the source for detailed scope, exit criteria, and maturity boundaries.
 
@@ -26,7 +26,15 @@ This catalog tracks the current phase sequence and phase status. The project spe
 | 6C-1 | Fine-Tuning Contract, Smoke, and Preflight | Complete; accepted | [Phase 6C-1 closeout](phase_closeouts/Phase_6C1_fine_tuning_contract_smoke_and_preflight.md) |
 | 6C-2 | Material Fine-Tuning Run | Complete; accepted | [Phase 6C-2 closeout](phase_closeouts/Phase_6C2_material_layer4_fine_tuning_run.md) |
 | 7 | Evaluation Harness and Calibration | Complete; accepted | [Phase 7 closeout](phase_closeouts/Phase_7_evaluation_harness_and_calibration.md) |
-| 8 | Robustness and OOD Evaluation | Not started | To be added |
+| 8 | Robustness and OOD Evaluation | Complete; accepted | [Phase 8 closeout](phase_closeouts/Phase_8_robustness_and_ood_evaluation.md) |
+| 8A | Degradation Registry, Visual QA, and Tiny Smoke | Complete; accepted | [Phase 8A closeout](phase_closeouts/Phase_8A_degradation_registry_visual_qa_and_tiny_smoke.md) |
+| 8B-1 | Robustness Plumbing Validation Smoke | Complete; accepted | [Phase 8B-1 closeout](phase_closeouts/Phase_8B1_robustness_plumbing_validation_smoke.md) |
+| 8B-2A | Validation Robustness Runner Preflight | Complete; accepted | [Phase 8B-2A closeout](phase_closeouts/Phase_8B2A_validation_robustness_runner_preflight.md) |
+| 8B-2B | Fixed-Checkpoint Validation Robustness Sweep | Complete; accepted | [Phase 8B-2B closeout](phase_closeouts/Phase_8B2B_fixed_checkpoint_validation_robustness_sweep.md) |
+| 8C-1 | CIFAR-10.1 v6 Registration, Visual QA, and Tiny Smoke | Complete; accepted | [Phase 8C-1 closeout](phase_closeouts/Phase_8C1_cifar10_1_registration_visual_qa_and_tiny_smoke.md) |
+| 8C-2A | Cross-Source Evaluation Preflight | Complete; accepted under Phase 8 closeout | [Phase 8 closeout](phase_closeouts/Phase_8_robustness_and_ood_evaluation.md) |
+| 8C-2B | CIFAR-10.1 v6 Cross-Source Evaluation | Complete; accepted | [Phase 8C-2B closeout](phase_closeouts/Phase_8C2B_cifar10_1_cross_source_evaluation.md) |
+| 8C-2 | Cross-Source/OOD Evaluation | Complete through accepted Phase 8C-2B material run | [Phase 8C-2B closeout](phase_closeouts/Phase_8C2B_cifar10_1_cross_source_evaluation.md) |
 | 9 | Failure Analysis and Interpretability | Not started | To be added |
 | 10 | Inference Surface and Core Stabilization | Not started | To be added |
 | 11 | Applied-Domain Feasibility and Selection | Not started | To be added |
@@ -73,5 +81,22 @@ This catalog tracks the current phase sequence and phase status. The project spe
 - Phase 6C-2 phase check identified a stale Phase 6C-1/preflight label in the material-run `run_contract.json`; the top-level metadata was corrected to Phase 6C-2 without rerunning training, changing configuration, or generating a new experimental result.
 - Phase 6C-2 is a single-run fine-tuning result. It does not establish seed/run-to-run variance, optimal unfreezing depth, optimal hyperparameters, architecture-only superiority, calibration, robustness/OOD behavior, diagnostics, inference, applied-domain behavior, or generalization beyond the evaluated CIFAR-10 experiment.
 - Phase 7 is complete and accepted. It generated fixed-checkpoint metrics/calibration artifacts under ignored `outputs/phase7-evaluation-harness-and-calibration/`, preserved a 10-bin ECE configuration, verified validation/test sample alignment, and closed without training or checkpoint mutation.
-- Phase 8 has not started and requires separate briefing, planning, and approval.
+- Phase 8A is complete and accepted. It added versioned degradation profiles, frozen `S1` through `S5` severity parameters, tiny smoke coverage, and qualitative visual QA artifacts only; it did not evaluate checkpoints, run a material robustness sweep, use OOD/cross-source data, retrain, tune, select models, or modify checkpoints.
+- Phase 8B-1 is complete and accepted. It added condition contracts, tiny validation-subset smoke plumbing, raw-degraded-input equivalence checks before model-specific preprocessing, artifact validation, and an approximate Phase 8B-2B runtime estimate under ignored `outputs/phase8b1-robustness-plumbing-validation-smoke/` only. The smoke metrics are explicitly not robustness results, and Phase 8B-1 produced no robustness conclusion.
+- Phase 8B-1 did not run a material robustness sweep, did not evaluate official test robustness, did not use OOD/cross-source data, did not retrain, did not tune, did not select models, did not modify checkpoints, did not implement Phase 8B-2B, and did not implement Phase 8C.
+- Phase 8B-2A is complete and accepted. It added validation-only runner/preflight contracts for the future `phase8b2b-fixed-checkpoint-validation-robustness-sweep`, code-level rejection of official test split requests, artifact schemas, condition/checkpoint manifests, validation split count verification, sample-alignment preflight digest `8182140619d7359ac287d1496b2e75415ffb5b2f26a042636ec075fa68beeb9e`, and artifact validation under ignored `outputs/phase8b2a-validation-robustness-runner-preflight/`.
+- Phase 8B-2A produced no robustness conclusion and did not run the full validation sweep, did not evaluate official test robustness, did not use OOD/cross-source data, did not train, tune, select models, modify checkpoints, implement Phase 8B-2B, or implement Phase 8C.
+- Phase 8B-2B is complete and accepted. It executed the validation-only fixed-checkpoint robustness sweep on CIFAR-10 validation with `5,000` samples, `3` fixed checkpoints, `21` conditions, `63` metric rows, `63` clean-delta rows, `60` severity-curve rows, sample-alignment digest `8182140619d7359ac287d1496b2e75415ffb5b2f26a042636ec075fa68beeb9e`, and preserved checkpoint/degradation identities.
+- Phase 8B-2B did not evaluate official test robustness, did not use OOD/cross-source data, did not train, tune, select models, modify checkpoints, modify degradation parameters, or implement Phase 8C.
+- Phase 8C-1 is complete and accepted. It acquired CIFAR-10.1 v6 only from the declared official source files, registered dataset ID `cifar10-1` version `v6`, verified `2,000` samples, `32 x 32 x 3` image structure, exact CIFAR-10 class-map compatibility, `200` examples per class, data SHA-256 `2997188e5816f5bd545dc77771b6227828c28146049fcecf3fa10775474cacc6`, labels SHA-256 `ae40beda001693674edc94d925ee8268cfe68905f8f9aff800c8dcdfcd6c9448`, sample-label digest `2afa813c387e578086d1f0aeeb1b9674e352c73c4690b89d69385aedca3e8b75`, and preserved evaluation-only usage.
+- Phase 8C-1 visual QA was accepted by builder manual review as looking correct. This visual review is qualitative only and does not establish label correctness, OOD detection capability, robustness, or deployment reliability.
+- Phase 8C-1 did not evaluate model checkpoints, did not evaluate the official CIFAR-10 test split, did not perform material cross-source/OOD evaluation, did not train, tune, select models, modify checkpoints, implement Phase 8C-2, or implement Phase 9.
+- Phase 8C-2B is complete and accepted. It executed the approved single material CIFAR-10.1 v6 cross-source evaluation on `cifar10-1` v`6`, split `cross_source_test`, with exactly `2,000` samples per fixed checkpoint and exactly `3` fixed checkpoint references.
+- Phase 8C-2B preserved CIFAR-10.1 v6 data SHA-256 `2997188e5816f5bd545dc77771b6227828c28146049fcecf3fa10775474cacc6`, labels SHA-256 `ae40beda001693674edc94d925ee8268cfe68905f8f9aff800c8dcdfcd6c9448`, and sample-label digest `2afa813c387e578086d1f0aeeb1b9674e352c73c4690b89d69385aedca3e8b75`.
+- Phase 8C-2B produced exactly `3` cross-source metric rows and `3` historical-reference delta rows. Deltas are CIFAR-10.1 v6 cross-source metrics minus the previously accepted Phase 7 official CIFAR-10 test metrics for the same fixed checkpoint; they are not paired-sample deltas.
+- Phase 8C-2B preserved the raw-unit-tensor before model-specific preprocessing invariant and sample/label/source alignment across all three fixed checkpoints.
+- Phase 8C-2B is bounded CIFAR-10.1 v6 cross-source/distribution-shift evidence only, not a general OOD-detection, deployment-reliability, real-world robustness, label-correctness, or general model-superiority claim.
+- Phase 8C-2B did not rerun official CIFAR-10 test evaluation, did not train, tune, select models, mutate checkpoints, evaluate additional OOD datasets, or begin Phase 9.
+- Phase 8C-2B phase check recorded a non-blocking audit note that full raw-input hashes were not stored for every material sample/model pair; the experiment was not rerun to address it.
+- Overall Phase 8 is complete and accepted. The consolidated closeout preserves the Phase 8A degradation contract, Phase 8B CIFAR-10 validation degradation robustness evidence, and Phase 8C CIFAR-10.1 v6 cross-source/distribution-shift evidence with the relevant non-claims.
 - Phase 4 is closed and accepted. The Phase 4 baseline artifacts and configuration remain the historical custom-CNN reference point for later controlled comparisons.
