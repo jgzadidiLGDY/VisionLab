@@ -6,7 +6,7 @@ The intended project will build and train a custom CNN, compare it with one pret
 
 It is not intended to be a production inspection system, medical or forensic authority, broad computer-vision framework, vision-language-model project, or benchmark-chasing exercise.
 
-This repository has closed **Phase 7 - Evaluation Harness and Calibration** and **Phase 8 - Robustness and OOD Evaluation**. CIFAR-10 is registered as the provisional core development dataset, CIFAR-10.1 v6 is registered as a cross-source/evaluation-only dataset, the Phase 4B single-run custom CNN baseline remains the fixed historical custom-model comparison reference, Phase 6B-2 remains the fixed frozen-feature transfer-learning reference, and Phase 6C-2 remains the fixed layer4 + fc fine-tuning reference. Phase 7 added fixed-checkpoint evaluation metrics, calibration artifacts, confidence distributions, reliability diagrams, and sample-aligned comparison outputs. Phase 8A added degradation contracts and qualitative visual QA artifacts only. Phase 8B-1, Phase 8B-2A, and Phase 8B-2B are complete and accepted, ending Phase 8B validation robustness work. Phase 8C-1 acquired and registered CIFAR-10.1 v6, Phase 8C-2A implemented cross-source preflight only, and Phase 8C-2B executed the accepted CIFAR-10.1 v6 cross-source material evaluation with three fixed checkpoints and 2,000 samples per checkpoint. Phase 8 is formally closed and accepted. Inference, diagnostics, applied-domain behavior, Phase 9 work, official test robustness evaluation, and any additional OOD/cross-source dataset evaluation should not yet be assumed unless repository inspection confirms otherwise.
+This repository has closed **Phase 7 - Evaluation Harness and Calibration**, **Phase 8 - Robustness and OOD Evaluation**, and **Phase 9B - Spatial Diagnostics and Interpretability Artifacts**. CIFAR-10 is registered as the provisional core development dataset, CIFAR-10.1 v6 is registered as a cross-source/evaluation-only dataset, the Phase 4B single-run custom CNN baseline remains the fixed historical custom-model comparison reference, Phase 6B-2 remains the fixed frozen-feature transfer-learning reference, and Phase 6C-2 remains the fixed layer4 + fc fine-tuning reference. Phase 7 added fixed-checkpoint evaluation metrics, calibration artifacts, confidence distributions, reliability diagrams, and sample-aligned comparison outputs. Phase 8 added registered degradation robustness and CIFAR-10.1 v6 cross-source evidence. Phase 9A added deterministic clean-validation failure tables, model-disagreement examples, explicit selection/schema manifests, and a high-confidence-error gallery from existing Phase 7 validation prediction artifacts only. Phase 9B added bounded Grad-CAM-style spatial diagnostics, raw heatmaps, overlays, complete generated-artifact validation, and a repaired HTML gallery over the accepted Phase 9A examples plus deterministic correct controls. Overall Phase 9 remains incomplete. Inference, saliency, embeddings/UMAP/t-SNE, applied-domain behavior, Phase 9C work, official test robustness evaluation, and any additional OOD/cross-source dataset evaluation should not yet be assumed unless repository inspection confirms otherwise.
 
 ---
 
@@ -78,7 +78,7 @@ The project should remain narrow enough to finish. Detection, segmentation, vide
 
 ## Current Status
 
-Status: **Phase 8 complete / accepted; Phase 9 not started**
+Status: **Phase 9 complete / accepted; Phase 10 not started**
 
 At this point:
 
@@ -159,8 +159,17 @@ At this point:
 - Phase 8B-2B is complete and accepted; it executed `phase8b2b-fixed-checkpoint-validation-robustness-sweep` on the CIFAR-10 validation split only with `5,000` samples, `3` fixed checkpoints, `21` conditions, `63` metric rows, `63` clean-delta rows, and `60` severity-curve rows;
 - Phase 8B-2B preserved sample alignment across all fixed checkpoints and conditions, with preflight digest `8182140619d7359ac287d1496b2e75415ffb5b2f26a042636ec075fa68beeb9e`, and produced validation-only condition-specific metrics and clean deltas;
 - Phase 8B-2B did not evaluate official test robustness, did not use OOD/cross-source data, did not train, did not tune, did not select models, did not modify checkpoints, did not modify degradation parameters, and did not implement Phase 8C;
+- Phase 9A implemented and accepted deterministic failure tables and a high-confidence-error gallery from existing Phase 7 clean CIFAR-10 validation prediction artifacts for the fixed Phase 4B, Phase 6B-2, and Phase 6C-2 checkpoints;
+- Phase 9A preserved explicit selection rules, checkpoint identities, dataset/split/condition identity, sample IDs, labels, confidence semantics, schema validation, and an isolated ignored output directory under `outputs/phase9a-failure-analysis-galleries/`;
+- Phase 9A produced `72` high-confidence error rows, `30` per-class summary rows, `180` per-class failure-example rows, `90` confusion-pair example rows, `24` model-disagreement rows, a selection manifest, a passing schema-validation artifact, and a gallery manifest with `72` rows;
+- Phase 9A did not implement spatial diagnostics, Grad-CAM/saliency, embeddings/UMAP, Phase 9C review tags or hypothesis closeout, new evaluation, training, tuning, checkpoint mutation, model selection, inference, or applied-domain behavior;
+- Phase 9B implemented and accepted bounded Grad-CAM-style spatial diagnostics over accepted Phase 9A examples and deterministic correct controls for the fixed Phase 4B, Phase 6B-2, and Phase 6C-2 checkpoints;
+- Phase 9B produced `72` Grad-CAM manifest rows, `72` raw heatmaps, `72` overlay PNGs, a complete generated-artifact validation artifact, and a repaired HTML gallery under `outputs/phase9b-spatial-diagnostics/`;
+- Phase 9B does not prove what the model looked at, prove reasoning, establish causality, explain why an error occurred, prescribe model changes, or implement Phase 9C;
+- Phase 9C generated and accepted review/synthesis artifacts from existing Phase 9A/9B outputs under `outputs/phase9c-review-and-closeout/`, including deterministic machine-derived heatmap/property tags, pending builder-observation fields, pending hypothesis fields, and a data-quality review scaffold;
+- overall Phase 9 is closed and accepted, while builder observations and hypotheses not actually supplied remain `pending_builder_review`, Grad-CAM remains diagnostic evidence only, and no causal claims, model-change recommendations, inference work, Phase 10 progress, or applied-domain intervention were added;
 
-Phase 8 is complete and accepted. Phase 9 has not started. The Phase 6C-2 result remains a fixed single-run reference, not a tuned target for later phases.
+Phase 9 is complete and accepted. Phase 10 has not started. The Phase 6C-2 result remains a fixed single-run reference, not a tuned target for later phases.
 
 This status section should be updated as phases close. Historical detail belongs in the builder journal and phase closeout documents rather than accumulating here.
 
@@ -200,6 +209,11 @@ T0 bootstrap documents now also include:
 - [docs/phase_closeouts/Phase_8C1_cifar10_1_registration_visual_qa_and_tiny_smoke.md](docs/phase_closeouts/Phase_8C1_cifar10_1_registration_visual_qa_and_tiny_smoke.md) - accepted Phase 8C-1 CIFAR-10.1 v6 registration, visual QA, tiny smoke, evidence boundary, and non-claims
 - [docs/phase_closeouts/Phase_8C2B_cifar10_1_cross_source_evaluation.md](docs/phase_closeouts/Phase_8C2B_cifar10_1_cross_source_evaluation.md) - accepted Phase 8C-2B CIFAR-10.1 v6 cross-source evaluation, metrics, historical-reference deltas, artifacts, limitations, and non-claims
 - [docs/phase_closeouts/Phase_8_robustness_and_ood_evaluation.md](docs/phase_closeouts/Phase_8_robustness_and_ood_evaluation.md) - accepted overall Phase 8 closeout consolidating degradation robustness and CIFAR-10.1 v6 cross-source evidence
+- [docs/phase_closeouts/Phase_9A_failure_tables_and_error_galleries.md](docs/phase_closeouts/Phase_9A_failure_tables_and_error_galleries.md) - accepted Phase 9A closeout for deterministic failure tables and high-confidence-error galleries
+- [docs/phase_closeouts/Phase_9B_spatial_diagnostics_and_interpretability_artifacts.md](docs/phase_closeouts/Phase_9B_spatial_diagnostics_and_interpretability_artifacts.md) - accepted Phase 9B closeout for bounded Grad-CAM spatial diagnostics
+- [docs/phase_checks/Phase_9C_review_synthesis_and_phase9_boundary_check.md](docs/phase_checks/Phase_9C_review_synthesis_and_phase9_boundary_check.md) - accepted Phase 9C phase check and Phase 9 boundary review
+- [docs/phase_closeouts/Phase_9C_review_synthesis_and_phase9_boundary_check.md](docs/phase_closeouts/Phase_9C_review_synthesis_and_phase9_boundary_check.md) - accepted Phase 9C closeout
+- [docs/phase_closeouts/Phase_9_failure_analysis_and_interpretability.md](docs/phase_closeouts/Phase_9_failure_analysis_and_interpretability.md) - accepted overall Phase 9 closeout
 
 Additional documents expected during implementation include:
 

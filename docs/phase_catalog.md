@@ -1,6 +1,6 @@
 # VisionLab Phase Catalog
 
-Status: Phase 8 complete; accepted. Phase 9 has not started.
+Status: Phase 9 complete; accepted. Phase 10 has not started.
 
 This catalog tracks the current phase sequence and phase status. The project specification remains the source for detailed scope, exit criteria, and maturity boundaries.
 
@@ -35,7 +35,10 @@ This catalog tracks the current phase sequence and phase status. The project spe
 | 8C-2A | Cross-Source Evaluation Preflight | Complete; accepted under Phase 8 closeout | [Phase 8 closeout](phase_closeouts/Phase_8_robustness_and_ood_evaluation.md) |
 | 8C-2B | CIFAR-10.1 v6 Cross-Source Evaluation | Complete; accepted | [Phase 8C-2B closeout](phase_closeouts/Phase_8C2B_cifar10_1_cross_source_evaluation.md) |
 | 8C-2 | Cross-Source/OOD Evaluation | Complete through accepted Phase 8C-2B material run | [Phase 8C-2B closeout](phase_closeouts/Phase_8C2B_cifar10_1_cross_source_evaluation.md) |
-| 9 | Failure Analysis and Interpretability | Not started | To be added |
+| 9 | Failure Analysis and Interpretability | Complete; accepted | [Phase 9 closeout](phase_closeouts/Phase_9_failure_analysis_and_interpretability.md) |
+| 9A | Failure Tables and Error Galleries | Complete; accepted | [Phase 9A closeout](phase_closeouts/Phase_9A_failure_tables_and_error_galleries.md) |
+| 9B | Spatial Diagnostics and Interpretability Artifacts | Complete; accepted | [Phase 9B closeout](phase_closeouts/Phase_9B_spatial_diagnostics_and_interpretability_artifacts.md) |
+| 9C | Review Synthesis and Phase 9 Boundary Check | Complete; accepted | [Phase 9C closeout](phase_closeouts/Phase_9C_review_synthesis_and_phase9_boundary_check.md) |
 | 10 | Inference Surface and Core Stabilization | Not started | To be added |
 | 11 | Applied-Domain Feasibility and Selection | Not started | To be added |
 | 12 | Applied Data Pipeline and Real Evaluation Set | Not started | To be added |
@@ -99,4 +102,9 @@ This catalog tracks the current phase sequence and phase status. The project spe
 - Phase 8C-2B did not rerun official CIFAR-10 test evaluation, did not train, tune, select models, mutate checkpoints, evaluate additional OOD datasets, or begin Phase 9.
 - Phase 8C-2B phase check recorded a non-blocking audit note that full raw-input hashes were not stored for every material sample/model pair; the experiment was not rerun to address it.
 - Overall Phase 8 is complete and accepted. The consolidated closeout preserves the Phase 8A degradation contract, Phase 8B CIFAR-10 validation degradation robustness evidence, and Phase 8C CIFAR-10.1 v6 cross-source/distribution-shift evidence with the relevant non-claims.
+- Phase 9A is complete and accepted. It implemented deterministic failure tables and a high-confidence-error gallery from existing Phase 7 clean CIFAR-10 validation prediction artifacts only, with explicit selection rules, checkpoint identities, schema validation, and no diagnostics or new evaluation.
+- Phase 9A generated artifacts under ignored `outputs/phase9a-failure-analysis-galleries/`: high-confidence errors (`72` rows), per-class failure summary (`30` rows), per-class failure examples (`180` rows), confusion-pair examples (`90` rows), model-disagreement examples (`24` rows), a selection manifest, schema validation, and a high-confidence-error gallery manifest (`72` rows).
+- Phase 9B is complete and accepted. It implemented bounded Grad-CAM-style spatial diagnostics over accepted Phase 9A examples and deterministic correct controls, with complete generated-artifact validation and no new evaluation.
+- Phase 9C review/synthesis is complete and accepted. Overall Phase 9 is closed and accepted.
+- Phase 9 closeout preserves that builder observations and hypotheses not actually supplied remain `pending_builder_review`, Grad-CAM is diagnostic evidence only, and no new evaluation, training, tuning, checkpoint modification, model selection, inference work, Phase 10 work, or applied-domain intervention was performed.
 - Phase 4 is closed and accepted. The Phase 4 baseline artifacts and configuration remain the historical custom-CNN reference point for later controlled comparisons.

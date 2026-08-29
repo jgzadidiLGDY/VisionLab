@@ -12,13 +12,13 @@ This journal explains how VisionLab is being built by an AI-native builder: a de
 
 ## Current Journal State
 
-Status: **Phase 8 complete / accepted; Phase 9 not started**
+Status: **Phase 9 complete / accepted; Phase 10 not started**
 
-The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, Phase 1 is complete, Phase 3 is complete and accepted, Phase 4A is implemented, the approved Phase 4B material baseline run has completed, Phase 4 is accepted and closed, Phase 5 is complete through accepted Phase 5A and Phase 5B closeout, Phase 6A is complete and accepted, Phase 6B-1 is complete and accepted, Phase 6B-2 is complete and accepted, Phase 6C-1 is complete and accepted, Phase 6C-2 is complete and accepted, Phase 7 is complete and accepted, Phase 8A is complete and accepted, Phase 8B-1 is complete and accepted, Phase 8B-2A is complete and accepted, Phase 8B-2B is complete and accepted, Phase 8B validation robustness is complete through accepted subphases, Phase 8C-1 is complete and accepted, Phase 8C-2B is complete and accepted, Phase 8 is complete and accepted, and Phase 9 has not started.
+The T0 bootstrap closeout has been accepted. T1 has been accepted with final builder visual review of generated foundation artifacts recorded as the remaining manual review condition. Phase 1A and Phase 1B have been accepted, Phase 1 is complete, Phase 3 is complete and accepted, Phase 4A is implemented, the approved Phase 4B material baseline run has completed, Phase 4 is accepted and closed, Phase 5 is complete through accepted Phase 5A and Phase 5B closeout, Phase 6A is complete and accepted, Phase 6B-1 is complete and accepted, Phase 6B-2 is complete and accepted, Phase 6C-1 is complete and accepted, Phase 6C-2 is complete and accepted, Phase 7 is complete and accepted, Phase 8A is complete and accepted, Phase 8B-1 is complete and accepted, Phase 8B-2A is complete and accepted, Phase 8B-2B is complete and accepted, Phase 8B validation robustness is complete through accepted subphases, Phase 8C-1 is complete and accepted, Phase 8C-2B is complete and accepted, Phase 8 is complete and accepted, Phase 9A, Phase 9B, Phase 9C, and overall Phase 9 are complete and accepted. Phase 10 has not started.
 
 At this point, the main project artifacts are planning documents, governance records, a local smoke path, T1 concept notes, environment probes, tiny foundation exercises, a development-dataset candidate comparison, Phase 1A dataset-contract scaffolding, accepted Phase 1B CIFAR-10 registration artifacts, the Phase 2 custom CNN forward-contract implementation, the Phase 3 bounded training-engine implementation, Phase 4A baseline experiment plumbing with tiny smoke artifacts, the Phase 4B single-run custom CNN baseline artifacts, accepted Phase 5A augmentation profile/inspection artifacts, the accepted Phase 5B single-run augmentation comparison artifacts, the Phase 6A ResNet-18 transfer-model contract with tiny mechanics smoke coverage, the accepted Phase 6B-1 pretrained frozen-feature smoke artifacts, the accepted Phase 6B-2 material frozen-feature transfer-learning run artifacts, the accepted Phase 6C-1 fine-tuning contract/preflight artifacts, and the accepted Phase 6C-2 material layer4 fine-tuning artifacts. The project identity, fundamentals-to-applied progression, AI-native workflow, requirements, phase boundaries, evaluation principles, and closure tiers have been drafted.
 
-Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. Phase 3 implemented and closed CPU-only training loops, validation, optional scheduler stepping and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss handling against synthetic/tiny verification data. Phase 4A implemented loader, evaluation-artifact, prediction-record, history, and tiny smoke plumbing. Phase 4B produced a single-run custom CNN CIFAR-10 baseline result: restored-best official test loss `1.024515` and test accuracy `0.635900`. Phase 5A added explicit train-only augmentation profiles, visual inspection artifacts, smoke tests, and declared the Pillow dependency needed for augmentation-grid rendering. Phase 5B then ran one approved augmentation comparison using `phase5a-candidate-horizontal-flip-random-crop` version `1.0`, yielding restored-best validation loss `1.055734`, validation accuracy `0.620600`, official test loss `1.056135`, and official test accuracy `0.630800`. Relative to the Phase 4B baseline, that single run regressed by `+0.031620` test loss and `-0.005100` test accuracy, so the candidate profile is not adopted as the new baseline. Phase 6A added an explicit `torchvision.models.resnet18` transfer-model contract bound to `ResNet18_Weights.IMAGENET1K_V1`, a separate ImageNet preprocessing contract, frozen-backbone/head-only parameter inspection, a non-download cache probe, and tiny random-initialized mechanics smoke coverage. Phase 6B-1 then downloaded the exact approved checkpoint `resnet18-f37072fd.pth`, verified cache availability, loaded the selected weights with `pretrained_weights_loaded: true`, applied `ResNet18_Weights.IMAGENET1K_V1.transforms()`, and completed tiny pretrained frozen-feature mechanics smoke. Phase 6B-2 ran one approved material frozen-feature transfer-learning experiment, `phase6b2-cifar10-resnet18-frozen-feature-001`, using the same exact pretrained identity, selected epoch `4` by minimum validation loss, and produced restored-best validation loss `0.398302`, validation accuracy `0.864600`, official test loss `0.413686`, and official test accuracy `0.856100`. Relative to Phase 4B, this is a single-run test accuracy delta of `+0.220200` and loss delta of `-0.610829`. Phase 6C-1 then implemented the fine-tuning contract/preflight path initialized from the accepted Phase 6B-2 best checkpoint at epoch `4`, checkpoint SHA-256 `5832c71f298ee4d21a18f1e38460a92082a5733af26f108211afcc8a9cdd1af5`, with `finetune_layer4_head`, trainable `layer4 + fc`, optimizer scope matching only trainable parameters, and a 3-epoch CPU timing estimate of about `68.1` minutes at batch size `64`. The Phase 6B-2 result is a fixed reference point and should not become an automatic target for Phase 6C. Phase 6C-2 then ran the approved material fine-tuning experiment `phase6c-cifar10-resnet18-layer4-finetune-001`, selected epoch `2` by minimum validation loss, and produced restored-best validation loss `0.246512`, validation accuracy `0.925800`, official test loss `0.272485`, and official test accuracy `0.914700`. Relative to Phase 6B-2, this is a single-run test accuracy delta of `+0.058600`, or `+5.86` percentage points. The stale Phase 6C-1/preflight label in the material-run `run_contract.json` was corrected after phase check without rerunning training or changing experimental evidence. Phase 7 evaluation/calibration work is complete and accepted. Phase 8A degradation-registry, tiny-smoke, and qualitative visual-QA work is complete and accepted. Phase 8B-1 robustness plumbing, condition contracts, tiny validation-subset smoke, artifact validation, and approximate runtime estimation are complete and accepted. Phase 8B-2A validation-only runner/preflight contracts, split enforcement, artifact schemas, condition/checkpoint manifests, validation count verification, sample-alignment preflight digest, and focused tests are complete and accepted. Phase 8B-2A produced no robustness conclusion. Phase 8B-2B executed the accepted validation-only fixed-checkpoint robustness sweep and preserved condition-specific metrics and clean deltas. Phase 8C-1 acquired and registered CIFAR-10.1 v6 as a cross-source/evaluation-only dataset, generated qualitative visual QA artifacts, and preserved the accepted evidence boundary. Phase 8C-2B executed the accepted CIFAR-10.1 v6 material cross-source evaluation for the three fixed checkpoints, preserving exactly `2,000` samples per checkpoint, `3` cross-source metric rows, `3` historical-reference delta rows, dataset/checkpoint SHA-256 identities, preprocessing invariant evidence, and sample/label/source alignment. These results are bounded CIFAR-10.1 v6 cross-source/distribution-shift evidence only, not general OOD detection, deployment reliability, real-world robustness, label-correctness, or model-superiority evidence. No official CIFAR-10 test rerun, training, tuning, model selection, checkpoint mutation, additional OOD dataset evaluation, inference surface, diagnostics, applied-domain behavior, or Phase 9 work exists yet.
+Current boundary note: CIFAR-10 is the registered provisional core development dataset, with ignored local data under `data/` and ignored inspection outputs under `outputs/`. Phase 2 implemented a compact custom CNN, shape-safe forward path, logits/loss smoke test, parameter counting, and concise intermediate-shape inspection. Phase 3 implemented and closed CPU-only training loops, validation, optional scheduler stepping and learning-rate history, checkpoint save/restore with compatibility checks, minimal reproducibility/environment metadata, and non-finite loss handling against synthetic/tiny verification data. Phase 4A implemented loader, evaluation-artifact, prediction-record, history, and tiny smoke plumbing. Phase 4B produced a single-run custom CNN CIFAR-10 baseline result: restored-best official test loss `1.024515` and test accuracy `0.635900`. Phase 5A added explicit train-only augmentation profiles, visual inspection artifacts, smoke tests, and declared the Pillow dependency needed for augmentation-grid rendering. Phase 5B then ran one approved augmentation comparison using `phase5a-candidate-horizontal-flip-random-crop` version `1.0`, yielding restored-best validation loss `1.055734`, validation accuracy `0.620600`, official test loss `1.056135`, and official test accuracy `0.630800`. Relative to the Phase 4B baseline, that single run regressed by `+0.031620` test loss and `-0.005100` test accuracy, so the candidate profile is not adopted as the new baseline. Phase 6A added an explicit `torchvision.models.resnet18` transfer-model contract bound to `ResNet18_Weights.IMAGENET1K_V1`, a separate ImageNet preprocessing contract, frozen-backbone/head-only parameter inspection, a non-download cache probe, and tiny random-initialized mechanics smoke coverage. Phase 6B-1 then downloaded the exact approved checkpoint `resnet18-f37072fd.pth`, verified cache availability, loaded the selected weights with `pretrained_weights_loaded: true`, applied `ResNet18_Weights.IMAGENET1K_V1.transforms()`, and completed tiny pretrained frozen-feature mechanics smoke. Phase 6B-2 ran one approved material frozen-feature transfer-learning experiment, `phase6b2-cifar10-resnet18-frozen-feature-001`, using the same exact pretrained identity, selected epoch `4` by minimum validation loss, and produced restored-best validation loss `0.398302`, validation accuracy `0.864600`, official test loss `0.413686`, and official test accuracy `0.856100`. Relative to Phase 4B, this is a single-run test accuracy delta of `+0.220200` and loss delta of `-0.610829`. Phase 6C-1 then implemented the fine-tuning contract/preflight path initialized from the accepted Phase 6B-2 best checkpoint at epoch `4`, checkpoint SHA-256 `5832c71f298ee4d21a18f1e38460a92082a5733af26f108211afcc8a9cdd1af5`, with `finetune_layer4_head`, trainable `layer4 + fc`, optimizer scope matching only trainable parameters, and a 3-epoch CPU timing estimate of about `68.1` minutes at batch size `64`. The Phase 6B-2 result is a fixed reference point and should not become an automatic target for Phase 6C. Phase 6C-2 then ran the approved material fine-tuning experiment `phase6c-cifar10-resnet18-layer4-finetune-001`, selected epoch `2` by minimum validation loss, and produced restored-best validation loss `0.246512`, validation accuracy `0.925800`, official test loss `0.272485`, and official test accuracy `0.914700`. Relative to Phase 6B-2, this is a single-run test accuracy delta of `+0.058600`, or `+5.86` percentage points. The stale Phase 6C-1/preflight label in the material-run `run_contract.json` was corrected after phase check without rerunning training or changing experimental evidence. Phase 7 evaluation/calibration work is complete and accepted. Phase 8A degradation-registry, tiny-smoke, and qualitative visual-QA work is complete and accepted. Phase 8B-1 robustness plumbing, condition contracts, tiny validation-subset smoke, artifact validation, and approximate runtime estimation are complete and accepted. Phase 8B-2A validation-only runner/preflight contracts, split enforcement, artifact schemas, condition/checkpoint manifests, validation count verification, sample-alignment preflight digest, and focused tests are complete and accepted. Phase 8B-2A produced no robustness conclusion. Phase 8B-2B executed the accepted validation-only fixed-checkpoint robustness sweep and preserved condition-specific metrics and clean deltas. Phase 8C-1 acquired and registered CIFAR-10.1 v6 as a cross-source/evaluation-only dataset, generated qualitative visual QA artifacts, and preserved the accepted evidence boundary. Phase 8C-2B executed the accepted CIFAR-10.1 v6 material cross-source evaluation for the three fixed checkpoints, preserving exactly `2,000` samples per checkpoint, `3` cross-source metric rows, `3` historical-reference delta rows, dataset/checkpoint SHA-256 identities, preprocessing invariant evidence, and sample/label/source alignment. These results are bounded CIFAR-10.1 v6 cross-source/distribution-shift evidence only, not general OOD detection, deployment reliability, real-world robustness, label-correctness, or model-superiority evidence. Phase 9A then implemented deterministic failure tables and a high-confidence-error gallery from existing Phase 7 clean CIFAR-10 validation prediction artifacts only, preserving explicit selection rules, checkpoint identities, dataset/split/condition identity, sample IDs, labels, confidence semantics, schema validation, and isolated ignored artifacts under `outputs/phase9a-failure-analysis-galleries/`. Phase 9B then implemented bounded Grad-CAM-style spatial diagnostics over accepted Phase 9A examples and deterministic correct controls, preserving fixed checkpoint identity, target-layer contracts, preprocessing contracts, raw heatmaps, overlay images, complete generated-artifact validation, and a repaired HTML gallery under `outputs/phase9b-spatial-diagnostics/`. Phase 9C then generated and accepted review/synthesis artifacts from existing Phase 9A/9B outputs only, preserving deterministic machine-derived review properties, pending builder visual observations, pending cautious hypotheses, and explicit unsupported-causal-claim prohibition under `outputs/phase9c-review-and-closeout/`. Overall Phase 9 is closed and accepted. No official CIFAR-10 test rerun, training, tuning, model selection, checkpoint mutation, additional OOD dataset evaluation, inference surface, saliency, embeddings/UMAP/t-SNE, applied-domain behavior, Phase 10 work, or applied-domain intervention exists yet.
 
 The applied domain remains intentionally undecided. It will be selected later through the implementation-stage feasibility gate rather than assumed at project start.
 
@@ -27,6 +27,99 @@ This journal should not imply that planned models, commands, experiments, checkp
 Update this section as the project advances. Preserve historical detail in dated entries and phase closeouts rather than accumulating an outdated narrative here.
 
 ---
+## 2026-08-29 - Phase 9 Closeout
+
+### Context
+
+The builder accepted the Phase 9C phase-check report and approved formal closure of Phase 9. Phase 9 closes through accepted Phase 9A deterministic failure analysis, accepted Phase 9B bounded Grad-CAM spatial diagnostics, and accepted Phase 9C review synthesis.
+
+### AI Contribution
+
+Codex created the Phase 9C and overall Phase 9 closeout records and updated README, phase catalog, and this journal. Semantic tags such as `possible_label_noise`, `class_similarity`, and `background_context_possible` were not machine-generated as established facts; builder-observation and hypothesis fields that were not supplied remain `pending_builder_review`.
+
+### Evidence
+
+- Phase 9 closeout: `docs/phase_closeouts/Phase_9_failure_analysis_and_interpretability.md`.
+- Phase 9C closeout: `docs/phase_closeouts/Phase_9C_review_synthesis_and_phase9_boundary_check.md`.
+- Phase check: `docs/phase_checks/Phase_9C_review_synthesis_and_phase9_boundary_check.md`.
+- Run artifacts: `outputs/phase9c-review-and-closeout/`.
+- Review records: 72 total, derived from existing Phase 9B diagnostic rows.
+- Data-quality inventory rows: 55, all marked as pending builder review and not machine-established.
+- Generated-artifact validation: outputs/phase9c-review-and-closeout/artifacts/phase9c_artifact_schema_validation.json, status passed.
+- Focused Phase 9C tests: 11 tests passed.
+- Canonical deterministic suite: 190 tests passed, 1 skipped.
+
+### Project Impact
+
+Phase 9 is now closed as a bounded failure-analysis and interpretability phase. It preserves selected examples, prediction/failure context, confidence, diagnostic outputs, visual observations, hypotheses, and causal claims as separate fields, without establishing semantic visual findings, causal explanations, or intervention recommendations.
+
+### Next Boundary
+
+The next boundary is separate Phase 10 planning. Phase 10 has not started.
+
+---
+## 2026-08-28 - Phase 9B Spatial Diagnostics and Interpretability Artifacts Closeout
+
+### Context
+
+After Phase 9B implementation, formal phase check, and a focused repair of generated-artifact validation plus browser-resolvable gallery paths, the builder requested Phase 9B closeout. This closeout accepts Phase 9B while preserving the limitation that automated checks do not prove visual alignment, saturation quality, or interpretive usefulness.
+
+### AI Contribution
+
+Codex implemented bounded Grad-CAM-style diagnostics for the fixed Phase 4B, Phase 6B-2, and Phase 6C-2 checkpoints using accepted Phase 9A examples and deterministic correct controls. Codex then strengthened complete generated-artifact validation, repaired gallery image paths, updated the formal phase check, and recorded this accepted closeout without starting Phase 9C.
+
+### Evidence
+
+- Phase closeout: `docs/phase_closeouts/Phase_9B_spatial_diagnostics_and_interpretability_artifacts.md`.
+- Phase check: `docs/phase_checks/Phase_9B_spatial_diagnostics_and_interpretability_artifacts_check.md`.
+- Run artifacts: `outputs/phase9b-spatial-diagnostics/`.
+- Diagnostic rows: `72` total, consisting of `24` high-confidence error diagnostics, `24` model-disagreement diagnostics, and `24` correct-control diagnostics.
+- Fixed-run coverage: `24` diagnostics each for Phase 4B CustomCNN, Phase 6B-2 frozen-feature ResNet-18, and Phase 6C-2 layer4 + fc fine-tuned ResNet-18.
+- Raw artifacts: `72` heatmap tensors and `72` overlay PNGs.
+- Strengthened validation artifact: `outputs/phase9b-spatial-diagnostics/artifacts/gradcam_schema_validation.json`, status `passed`.
+- Focused Phase 9B tests after repair: `16` tests passed.
+- Canonical deterministic suite after repair: `179` tests passed, `1` skipped.
+
+### Project Impact
+
+VisionLab now has accepted bounded spatial diagnostic artifacts for the fixed model references. The artifacts make Phase 9A failures and controls inspectable, but they do not prove what a model looked at, prove reasoning, establish causality, explain an error, prescribe an intervention, or establish applied-domain readiness.
+
+### Next Boundary
+
+Overall Phase 9 remains incomplete. The next boundary is Phase 9C review/hypothesis closeout planning, which should keep selected examples, visual observations, diagnostic outputs, interpretations, and causal hypotheses separate.
+---
+
+## 2026-08-28 - Phase 9A Failure Tables and Error Galleries Closeout
+
+### Context
+
+The builder accepted the repaired formal Phase 9A phase-check result and requested closeout. This was a closeout/documentation step after the Phase 9A implementation and blocker repair; no new model evaluation, training, tuning, checkpoint mutation, or Phase 9B diagnostic work occurred.
+
+### AI Contribution
+
+Codex closed Phase 9A by creating the accepted closeout document and updating README, phase catalog, and this builder journal to preserve the deterministic selection contract, generated artifact inventory, fixed checkpoint identities, verification evidence, scope exclusions, limitations, and next boundary.
+
+### Evidence
+
+- Phase closeout: `docs/phase_closeouts/Phase_9A_failure_tables_and_error_galleries.md`.
+- Phase check: `docs/phase_checks/Phase_9A_failure_tables_and_error_galleries_check.md`.
+- Run artifacts: `outputs/phase9a-failure-analysis-galleries/`.
+- Source population: existing Phase 7 clean CIFAR-10 validation prediction artifacts only.
+- Fixed checkpoints: Phase 4B CustomCNN, Phase 6B-2 frozen-feature ResNet-18, and Phase 6C-2 layer4 + fc fine-tuned ResNet-18, with accepted SHA-256 identities preserved.
+- Generated tables: `72` high-confidence error rows, `30` per-class summary rows, `180` per-class failure-example rows, `90` confusion-pair example rows, and `24` model-disagreement rows.
+- Generated gallery: high-confidence-error gallery manifest with `72` rows and `66` unique image files.
+- Artifact schema validation status: `passed`.
+- Canonical deterministic suite after closeout: `163` tests passed, `1` skipped.
+
+### Project Impact
+
+VisionLab now has accepted deterministic failure-analysis tables and a machine-selected high-confidence-error gallery. These artifacts are evidence selected by declared rules, not curated anecdotes; confidence does not imply correctness; and visual inspection does not establish causal explanations.
+
+### Next Boundary
+
+Overall Phase 9 remains incomplete. The next boundary is a separate Phase 9B plan for spatial diagnostics or other approved interpretability work. Phase 9B has not started.
+---
+
 ## 2026-08-27 - Phase 8 Robustness and OOD Evaluation Closeout
 
 ### Context
@@ -1377,7 +1470,10 @@ Expected closeout trail:
 - Phase 8C-1 — [CIFAR-10.1 v6 Registration, Visual QA, and Tiny Smoke](docs/phase_closeouts/Phase_8C1_cifar10_1_registration_visual_qa_and_tiny_smoke.md)
 - Phase 8C-2B — [CIFAR-10.1 v6 Cross-Source Evaluation](docs/phase_closeouts/Phase_8C2B_cifar10_1_cross_source_evaluation.md)
 - Phase 8 — [Robustness and OOD Evaluation](docs/phase_closeouts/Phase_8_robustness_and_ood_evaluation.md)
-- Phase 9 — to be added
+- Phase 9A — [Failure Tables and Error Galleries](docs/phase_closeouts/Phase_9A_failure_tables_and_error_galleries.md)
+- Phase 9B - [Spatial Diagnostics and Interpretability Artifacts](docs/phase_closeouts/Phase_9B_spatial_diagnostics_and_interpretability_artifacts.md)
+- Phase 9C - [Review Synthesis and Phase 9 Boundary Check](docs/phase_closeouts/Phase_9C_review_synthesis_and_phase9_boundary_check.md)
+- Phase 9 - [Failure Analysis and Interpretability](docs/phase_closeouts/Phase_9_failure_analysis_and_interpretability.md)
 - Phase 10 — to be added
 - Phase 11 — to be added
 - Phase 12 — to be added
